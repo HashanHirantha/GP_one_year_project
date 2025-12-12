@@ -1,0 +1,48 @@
+/* =========================================
+   Global Reset & Standard CSS
+   (No @tailwind directives needed here)
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  /* We define these variables just in case you want to use them in custom CSS */
+  --primary-color: #6D28D9;
+  --secondary-color: #A855F7;
+  --bg-color: #f9fafb;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   Custom Scrollbar Styling
+   (This makes the scrollbar look like your design)
+   ========================================= */
+
+/* Width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c084fc; 
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a855f7; 
+}
