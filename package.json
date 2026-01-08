@@ -7,14 +7,14 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://ashika-nisansala.github.io/GP_one_year_project",
+ 
 
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
+   
   },
   
   "dependencies": {
