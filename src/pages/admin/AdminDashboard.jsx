@@ -8,7 +8,8 @@ const AdminOverview = () => (
     .map((s, i) => (
       <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
          <span className="text-gray-500 text-xs font-bold uppercase">{s.l}</span>
-         <h3 className="text-2xl font-bold text-primary mt-2">{s.v}</h3>
+         <h3 className="text-2xl font-bold text-darkgreen mt-2">
+{s.v}</h3>
       </div>
     ))}
   </div>
@@ -29,10 +30,12 @@ const UserManagement = () => (
 
 const AdminSettings = () => (
   <div className="bg-white p-6 rounded-lg shadow-sm">
-    <h3 className="font-bold text-purple-900 mb-4">System Settings</h3>
+    <h3 className="font-bold text-darkgreen mb-4">
+    System Settings</h3>
     <div className="space-y-4 max-w-lg">
       <input type="text" defaultValue="Smart Property Finder" className="w-full border rounded p-2 text-sm"/>
-      <button className="bg-primary text-white px-4 py-2 rounded text-xs font-bold">Save</button>
+      <button className="bg-darkgreen text-white px-4 py-2 rounded text-xs font-bold hover:bg-sage">
+Save</button>
     </div>
   </div>
 );
