@@ -6,18 +6,22 @@ import { Filter } from 'lucide-react';
 
 const Properties = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-cream">
+
       <Navbar />
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-6">
-        <aside className="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-sm h-fit">
-          <h3 className="font-bold text-purple-900 border-b pb-2 mb-4 flex items-center gap-2">
+        <aside className="w-full md:w-1/4 bg-white p-6 rounded-xl shadow h-fit">
+
+          <h3 className="font-bold text-darkgreen border-b pb-2 mb-4 flex items-center gap-2">
+
             <Filter size={18}/> Filter Properties
           </h3>
           <div className="space-y-4 text-sm">
             <label className="flex items-center gap-2"><input type="checkbox"/> Apartment</label>
             <label className="flex items-center gap-2"><input type="checkbox"/> House</label>
             <label className="flex items-center gap-2"><input type="checkbox"/> Villa</label>
-            <button className="w-full bg-dark text-white py-2 rounded mt-4">Apply Filters</button>
+            <button className="w-full bg-darkgreen text-white py-2 rounded mt-4 hover:bg-sage transition">
+            Apply Filters</button>
           </div>
         </aside>
 

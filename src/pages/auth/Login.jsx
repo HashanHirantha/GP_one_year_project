@@ -4,16 +4,19 @@ import { Home, Check } from 'lucide-react';
 const LoginPage = () => {
   return (
     // Main container with the purple gradient background
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500 to-purple-900">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-forest to-darkgreen">
+
       {/* Central Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
         
         {/* Header Section with Icon and Title */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="bg-gray-50 p-2 rounded-xl mb-4">
+          <div className="bg-mint p-2 rounded-xl mb-4">
+
             <Home className="w-8 h-8 text-indigo-600" />
           </div>
-          <h1 className="text-3xl font-bold text-purple-900">Welcome Back!</h1>
+         <h1 className="text-3xl font-bold text-darkgreen">
+          Welcome Back!</h1>
           <p className="text-gray-500 mt-1">Login to your account</p>
         </div>
 
@@ -73,14 +76,14 @@ const LoginPage = () => {
           </div>
 
           {/* Login Button */}
-          <button type="submit" className="w-full bg-indigo-800 text-white font-bold py-3 rounded-md hover:bg-indigo-900 transition">
+          <button type="submit" className="w-full bg-darkgreen text-white font-bold py-3 rounded-md hover:bg-sage transition">
             LOGIN
           </button>
         </form>
 
         {/* Sign Up Link */}
         <div className="text-center mt-6 text-sm text-gray-600">
-          Don't have an Account ? <a href="#" className="text-indigo-600 font-bold hover:underline">Sign Up here</a>
+          Don't have an Account ? <a href="signup" className="text-indigo-600 font-bold hover:underline">Sign Up here</a>
         </div>
 
         {/* Security Benefits List */}

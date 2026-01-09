@@ -3,7 +3,8 @@ import { Facebook, Instagram, Twitter, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-10 pb-4 mt-auto">
+    <footer className="bg-forest text-white pt-10 pb-4 mt-auto">
+
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div>
           <h3 className="font-bold text-lg mb-4">Smart Property Finder</h3>
@@ -12,10 +13,10 @@ const Footer = () => {
         <div>
           <h4 className="font-bold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-80">
-            <li>Home</li>
-            <li>About</li>
-            <li>Properties</li>
-            <li>Contact</li>
+            <li><a href="/Home" className="hover:text-secondary transition hover:text-mint">Home</a>  </li>
+            <li><a href="/About" className="hover:text-secondary transition hover:text-mint">About</a></li>
+            <li><a href="/Properties" className="hover:text-secondary transition hover:text-mint">Properties</a></li>
+            <li><a href="/Contact" className="hover:text-secondary transition hover:text-mint">Contact</a></li>
           </ul>
         </div>
         <div>
@@ -34,7 +35,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-center text-xs opacity-60 border-t border-purple-800 pt-4">
+      <div className="text-center text-xs opacity-60 border-t border-darkgreen
+       pt-4">
         © 2025 Smart Property Finder. All rights reserved.
       </div>
     </footer>
