@@ -67,7 +67,7 @@ const Properties = () => {
 
         {/* Property Grid */}
         <main className="w-full md:w-3/4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProperties.length > 0 ? (
               filteredProperties.map((property) => (
                 <PropertyCard key={property.id} {...property} />

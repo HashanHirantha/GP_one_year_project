@@ -118,11 +118,11 @@ export const properties = [
         area: "150 sqft",
         parking: "Bike Only",
         isFeatured: false,
-        image: "https://images.unsplash.com/photo-1555854743-e3c2f6a581ad?q=80&w=2070&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2070&auto=format&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1555854743-e3c2f6a581ad?q=80&w=2070&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
+            "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070&auto=format&fit=crop"
         ],
         description: "Affordable room for students, walking distance to university. Includes basic furniture and bills included.",
         features: [
