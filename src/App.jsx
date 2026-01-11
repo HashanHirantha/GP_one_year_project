@@ -7,6 +7,7 @@ import About from './pages/public/About';
 import Contact from './pages/public/Contact';
 import Properties from './pages/public/Properties';
 import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
@@ -20,10 +21,11 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/login" element={<Login />} />
-        
-        {/* Dashboard Routes - The dashboard components handle their own internal tabs/views */}
-        <Route path="/dashboard/owner" element={<OwnerDashboard />} />
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Dashboard Routes - Nested routing handled within components */}
+        <Route path="/dashboard/owner/*" element={<OwnerDashboard />} />
+        <Route path="/dashboard/admin/*" element={<AdminDashboard />} />
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
