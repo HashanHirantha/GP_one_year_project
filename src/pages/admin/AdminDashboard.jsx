@@ -1,60 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 
-// Sub-components for Admin
-const AdminOverview = () => (
-  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-    {[{l:'Users',v:'10,482'}, {l:'Properties',v:'5,234'}, {l:'Revenue',v:'Rs. 60K'}, {l:'Reviews',v:'882'}]
-    .map((s, i) => (
-      <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-         <span className="text-gray-500 text-xs font-bold uppercase">{s.l}</span>
-         <h3 className="text-2xl font-bold text-darkgreen mt-2">
-{s.v}</h3>
-      </div>
-    ))}
-  </div>
+// Import Admin Components
+import AdminStats from '../../components/admin/AdminStats';
+import RecentActivity from '../../components/admin/RecentActivity';
+import UserManagement from '../../components/admin/UserManagement';
+import PropertyManagement from '../../components/admin/PropertyManagement';
+import Transactions from '../../components/admin/Transactions';
+import AnalyticsReports from '../../components/admin/AnalyticsReports';
+import ContentModeration from '../../components/admin/ContentModeration';
+import SystemSettings from '../../components/admin/SystemSettings';
+
+// Animation Variants
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 }
+};
+
+const PageTransition = ({ children }) => (
+  <motion.div
+    initial="initial"
+    animate="animate"
+    exit="exit"
+    variants={pageVariants}
+    transition={{ duration: 0.4, ease: "easeInOut" }}
+  >
+    {children}
+  </motion.div>
 );
 
-const UserManagement = () => (
-  <div className="bg-white rounded-lg shadow p-6">
-    <h3 className="font-bold text-lg mb-4">User Management</h3>
-    <table className="w-full text-left text-sm text-gray-600">
-      <thead className="bg-gray-50 uppercase text-xs"><tr><th className="p-3">User</th><th className="p-3">Role</th><th className="p-3">Status</th></tr></thead>
-      <tbody>
-         <tr><td className="p-3">Kamal Perera</td><td>Owner</td><td className="text-green-600">Active</td></tr>
-         <tr><td className="p-3">Sunil Mendis</td><td>Agent</td><td className="text-yellow-600">Pending</td></tr>
-      </tbody>
-    </table>
-  </div>
-);
-
-const AdminSettings = () => (
-  <div className="bg-white p-6 rounded-lg shadow-sm">
-    <h3 className="font-bold text-darkgreen mb-4">
-    System Settings</h3>
-    <div className="space-y-4 max-w-lg">
-      <input type="text" defaultValue="Smart Property Finder" className="w-full border rounded p-2 text-sm"/>
-      <button className="bg-darkgreen text-white px-4 py-2 rounded text-xs font-bold hover:bg-sage">
-Save</button>
-    </div>
+const AdminHome = () => (
+  <div className="space-y-6">
+    <AdminStats />
+    <RecentActivity />
+    <UserManagement />
+    <PropertyManagement />
+    <Transactions />
+    <AnalyticsReports />
+    <ContentModeration />
+    <SystemSettings />
   </div>
 );
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
-  const renderContent = () => {
-    switch(activeTab) {
-      case 'dashboard': return <AdminOverview />;
-      case 'users': return <UserManagement />;
-      case 'settings': return <AdminSettings />;
-      default: return <div className="p-4 bg-white rounded">Module under construction</div>;
-    }
-  };
+  const location = useLocation();
 
   return (
-    <DashboardLayout role="admin" activeTab={activeTab} setActiveTab={setActiveTab}>
-      {renderContent()}
+    <DashboardLayout role="admin">
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><AdminHome /></PageTransition>} />
+          <Route path="/users" element={<PageTransition><UserManagement /></PageTransition>} />
+          <Route path="/properties" element={<PageTransition><PropertyManagement /></PageTransition>} />
+          <Route path="/transactions" element={<PageTransition><Transactions /></PageTransition>} />
+          <Route path="/analytics" element={<PageTransition><AnalyticsReports /></PageTransition>} />
+          <Route path="/moderation" element={<PageTransition><ContentModeration /></PageTransition>} />
+          <Route path="/settings" element={<PageTransition><SystemSettings /></PageTransition>} />
+          <Route path="*" element={<PageTransition><div className="p-4">Module not found</div></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
     </DashboardLayout>
   );
 };
