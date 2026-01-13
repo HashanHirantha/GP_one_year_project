@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-forest text-white pt-10 pb-4 mt-auto">
-
+    <footer className="bg-primary text-white pt-10 pb-4 mt-auto">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div>
           <h3 className="font-bold text-lg mb-4">Smart Property Finder</h3>
@@ -37,8 +36,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-center text-xs opacity-60 border-t border-darkgreen
-       pt-4">
+      <div className="text-center text-xs opacity-60 border-t border-purple-800 pt-4">
         © 2025 Smart Property Finder. All rights reserved.
       </div>
     </footer>

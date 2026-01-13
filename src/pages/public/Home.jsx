@@ -15,8 +15,7 @@ const Home = () => {
   const trendingDeals = properties.slice(3, 6);
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
-
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-primary via-purple-700 to-secondary text-white pt-32 pb-16 text-center px-4 overflow-hidden">

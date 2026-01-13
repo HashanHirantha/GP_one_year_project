@@ -13,7 +13,8 @@ import OwnerDashboard from './pages/owner/OwnerDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Signup from './pages/auth/Signup';
 import PropertyDetails from './pages/public/PropertyDetails';
-
+import OwnerDashboard from './pages/owner/OwnerDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/properties" element={<Properties />} />
-        <Route path="/properties/:id" element={<PropertyDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/property/:id" element={<PropertyDetails />} />

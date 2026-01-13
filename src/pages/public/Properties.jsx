@@ -14,7 +14,7 @@ const Properties = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-cream">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-primary via-purple-700 to-secondary text-white pt-32 pb-16 text-center px-4 mb-6">
@@ -193,7 +193,6 @@ const Properties = () => {
           </div>
         </main>
       </div>
-
       <Footer />
     </div>
   );
