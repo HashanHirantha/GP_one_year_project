@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import contactHeader from '../../assets/images/contact/contact_header.png';
 
 const Contact = () => {
   return (
@@ -10,7 +11,8 @@ const Contact = () => {
       <Navbar />
 
       {/* Header Section */}
-      <div className="relative bg-gradient-to-br from-primary via-gray-700 to-secondary text-white pt-32 pb-16 text-center px-4 overflow-hidden">
+      <div className="relative pt-36 pb-24 text-center px-4 overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${contactHeader})` }}>
+        <div className="absolute inset-0 bg-black/60 z-0"></div>
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
