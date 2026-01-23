@@ -5,18 +5,16 @@ import { Home, Check } from 'lucide-react';
 const LoginPage = () => {
   return (
     // Main container with the purple gradient background
-    <div className="min-h-screen flex items-center justify-center p-4 pt-32 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-dark">
+    <div className="min-h-screen flex items-center justify-center p-4 pt-32 bg-gray-100">
       {/* Central Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
 
         {/* Header Section with Icon and Title */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="bg-mint p-2 rounded-xl mb-4">
-
-            <Home className="w-8 h-8 text-indigo-600" />
+          <div className="bg-gray-50 p-2 rounded-xl mb-4">
+            <Home className="w-8 h-8 text-black" />
           </div>
-         <h1 className="text-3xl font-bold text-darkgreen">
-          Welcome Back!</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Welcome Back!</h1>
           <p className="text-gray-500 mt-1">Login to your account</p>
         </div>
 
@@ -54,7 +52,7 @@ const LoginPage = () => {
             <input
               type="email"
               placeholder="your.email@example.com"
-              className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -62,28 +60,28 @@ const LoginPage = () => {
             <input
               type="password"
               placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
           </div>
 
           {/* Remember me & Forgot Password */}
           <div className="flex items-center justify-between text-sm">
             <label className="flex items-center text-gray-600 cursor-pointer">
-              <input type="checkbox" className="form-checkbox h-4 w-4 text-indigo-600 border-gray-300 rounded mr-2" />
+              <input type="checkbox" className="form-checkbox h-4 w-4 text-black border-gray-300 rounded mr-2" />
               Remember me
             </label>
-            <a href="#" className="text-indigo-600 hover:underline font-medium">Forgot password ?</a>
+            <a href="#" className="text-black hover:underline font-medium">Forgot password ?</a>
           </div>
 
           {/* Login Button */}
-          <button type="submit" className="w-full bg-darkgreen text-white font-bold py-3 rounded-md hover:bg-sage transition">
+          <button type="submit" className="w-full bg-[#00FF00] hover:bg-white text-black font-bold py-3 rounded-full hover:shadow-xl transition-all duration-300 shadow-lg shadow-black/20 transform hover:-translate-y-0.5 uppercase tracking-wide">
             LOGIN
           </button>
         </form>
 
         {/* Sign Up Link */}
         <div className="text-center mt-6 text-sm text-gray-600">
-          Don't have an Account ? <Link to="/signup" className="text-indigo-600 font-bold hover:underline">Sign Up here</Link>
+          Don't have an Account ? <Link to="/signup" className="text-black font-bold hover:underline">Sign Up here</Link>
         </div>
 
         {/* Security Benefits List */}

@@ -6,17 +6,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 :root {
-  --primary-color: #2F5D50;
-  --secondary-color: #7FB8A6;
-  --bg-color: #F7F5EF;
+  --primary-color: #00FF00;
+  --secondary-color: #00CC00;
+  --bg-color: #ffffff;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #F7F5EF; /* cream */
-  color: #1F2937;
+  background-color: #ffffff;
+  /* cream */
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,16 +35,16 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #ffffff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #7FB8A6;
+  background: #ffffff;
   border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2F5D50;
+  background: #ffffff;
 }
