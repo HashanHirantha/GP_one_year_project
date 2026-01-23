@@ -10,7 +10,7 @@ const Contact = () => {
       <Navbar />
 
       {/* Header Section */}
-      <div className="relative bg-gradient-to-br from-primary via-purple-700 to-secondary text-white pt-32 pb-16 text-center px-4 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-primary via-gray-700 to-secondary text-white pt-32 pb-16 text-center px-4 overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
@@ -31,7 +31,7 @@ const Contact = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="opacity-90 text-purple-200 text-lg max-w-2xl mx-auto"
+            className="opacity-90 text-gray-200 text-lg max-w-2xl mx-auto"
           >
             Have questions? We'd love to hear from you. Send us a message!
           </motion.p>
@@ -43,23 +43,23 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-purple-900 mb-8">Send Us A Message</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Send Us A Message</h2>
             <form className="space-y-6">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Name *</label>
-                <input type="text" placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none transition" />
+                <input type="text" placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Email *</label>
-                <input type="email" placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none transition" />
+                <input type="email" placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Subject *</label>
-                <input type="text" placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none transition" />
+                <input type="text" placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Message *</label>
-                <textarea rows="5" placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none transition"></textarea>
+                <textarea rows="5" placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition"></textarea>
               </div>
 
               {/* Mock Captcha */}
@@ -68,10 +68,10 @@ const Contact = () => {
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Enter Captcha *</label>
-                <input type="text" placeholder="Enter the characters above" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-purple-500 outline-none transition" />
+                <input type="text" placeholder="Enter the characters above" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
 
-              <button className="w-full bg-purple-900 hover:bg-purple-800 text-white font-bold py-4 rounded-xl transition shadow-lg active:scale-95 uppercase tracking-wide">
+              <button className="w-full bg-[#00FF00] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5">
                 Submit Form
               </button>
             </form>
@@ -85,7 +85,7 @@ const Contact = () => {
                 <Mail size={24} />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 text-lg mb-1">Email Address</h3>
+                <h3 className="font-bold text-gray-900 text-lg mb-1">Email Address</h3>
                 <p className="text-gray-500 text-sm">propertyfinding@gmail.com</p>
                 <p className="text-gray-500 text-sm">support@smartpropertyfinder.lk</p>
               </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                 <Phone size={24} />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 text-lg mb-1">Phone Number</h3>
+                <h3 className="font-bold text-gray-900 text-lg mb-1">Phone Number</h3>
                 <p className="text-gray-500 text-sm">+94 11 234 5678</p>
                 <p className="text-gray-500 text-sm">+94 77 123 4567</p>
               </div>
@@ -107,7 +107,7 @@ const Contact = () => {
                 <MapPin size={24} />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 text-lg mb-1">Office Address</h3>
+                <h3 className="font-bold text-gray-900 text-lg mb-1">Office Address</h3>
                 <p className="text-gray-500 text-sm">123 Main Street,</p>
                 <p className="text-gray-500 text-sm">Colombo 03, Sri Lanka</p>
               </div>
@@ -118,7 +118,7 @@ const Contact = () => {
                 <Clock size={24} />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 text-lg mb-1">Working Hours</h3>
+                <h3 className="font-bold text-gray-900 text-lg mb-1">Working Hours</h3>
                 <p className="text-gray-500 text-sm">Monday - Friday: 9:00 a.m - 6:00 p.m.</p>
                 <p className="text-gray-500 text-sm">Saturday: 10:00 a.m - 4:00 p.m.</p>
                 <p className="text-gray-500 text-sm">Sunday: Closed</p>
@@ -129,7 +129,7 @@ const Contact = () => {
 
         {/* Map Section */}
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-20 text-center">
-          <h3 className="text-lg font-bold text-purple-900 mb-6 flex items-center justify-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center justify-center gap-2">
             <MapPin className="text-red-500" size={20} /> Find Us On Map
           </h3>
           <div className="bg-purple-100 h-80 rounded-2xl w-full overflow-hidden relative">
@@ -149,39 +149,39 @@ const Contact = () => {
 
         {/* FAQ Section */}
         <div className="text-center max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-purple-900 mb-12">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Frequently Asked Questions</h2>
 
           <div className="space-y-4">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-left">
-              <h3 className="font-bold text-purple-900 flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-gray-900 flex items-center gap-3 mb-2">
                 <span className="text-red-500 text-xl font-black">?</span> How do I list my property?
               </h3>
               <p className="text-gray-600 text-sm ml-8">Simply sign up as a property owner, complete your profile, and use the "Add Property" feature from your dashboard. You can upload photos, videos, and all necessary documents.</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-left">
-              <h3 className="font-bold text-purple-900 flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-gray-900 flex items-center gap-3 mb-2">
                 <span className="text-red-500 text-xl font-black">?</span> Is there a fee to use the platform?
               </h3>
               <p className="text-gray-600 text-sm ml-8">Browsing and searching properties is completely free. Property owners may have subscription plans for premium features. A small service fee applies for online payments.</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-left">
-              <h3 className="font-bold text-purple-900 flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-gray-900 flex items-center gap-3 mb-2">
                 <span className="text-red-500 text-xl font-black">?</span> How do I contact property owners?
               </h3>
               <p className="text-gray-600 text-sm ml-8">Once you create an account, you can use our secure messaging system to directly contact property owners or schedule viewings.</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-left">
-              <h3 className="font-bold text-purple-900 flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-gray-900 flex items-center gap-3 mb-2">
                 <span className="text-red-500 text-xl font-black">?</span> Are all properties verified?
               </h3>
               <p className="text-gray-600 text-sm ml-8">Yes, we verify all property listings and owner credentials to ensure authenticity and protect our users from fraud.</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-left">
-              <h3 className="font-bold text-purple-900 flex items-center gap-3 mb-2">
+              <h3 className="font-bold text-gray-900 flex items-center gap-3 mb-2">
                 <span className="text-red-500 text-xl font-black">?</span> How quickly will I get a response?
               </h3>
               <p className="text-gray-600 text-sm ml-8">Our support team typically responds within 24 hours on business days. For urgent matters, please call our hotline.</p>

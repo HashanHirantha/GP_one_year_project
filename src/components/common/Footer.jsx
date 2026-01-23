@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-10 pb-4 mt-auto">
+    <footer className="bg-[#00FF00] text-black pt-10 pb-4 mt-auto">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div>
-          <h3 className="font-bold text-lg mb-4">Smart Property Finder</h3>
+          <h3 className="font-bold text-lg mb-4">Smart<span className="text-white"> Property</span> Finder</h3>
           <p className="text-sm opacity-80">Your trusted platform for finding the perfect property.</p>
         </div>
         <div>
           <h4 className="font-bold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-80">
-            <li><Link to="/" className="hover:text-secondary transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-secondary transition-colors">About</Link></li>
-            <li><Link to="/properties" className="hover:text-secondary transition-colors">Properties</Link></li>
-            <li><Link to="/contact" className="hover:text-secondary transition-colors">Contact</Link></li>
+            <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+            <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+            <li><Link to="/properties" className="hover:text-white transition-colors">Properties</Link></li>
+            <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>
         </div>
         <div>
@@ -36,7 +36,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-center text-xs opacity-60 border-t border-purple-800 pt-4">
+      <div className="text-center text-xs opacity-60 border-t border-black/20 pt-4">
         © 2025 Smart Property Finder. All rights reserved.
       </div>
     </footer>

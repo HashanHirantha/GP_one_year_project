@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 import { Link } from 'react-router-dom';
 
-const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, type, isSponsored }) => {
+const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, type, isSponsored, image }) => {
     return (
         <Link to={`/property/${id}`}>
             <motion.div
@@ -13,11 +13,20 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
                 className="bg-white rounded-xl shadow-lg run-shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl cursor-pointer"
             >
                 {/* Top Gradient Section */}
-                <div className="h-48 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center relative">
-                    {type === 'Apartment' ? (
-                        <Building className="text-white w-16 h-16 drop-shadow-md" />
-                    ) : (
-                        <Home className="text-white w-16 h-16 drop-shadow-md" />
+                <div
+                    className="h-48 bg-gray-200 relative bg-cover bg-center"
+                    style={{ backgroundImage: image ? `url(${image})` : undefined }}
+                >
+                    {!image && <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500" />}
+
+                    {!image && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            {type === 'Apartment' ? (
+                                <Building className="text-white w-16 h-16 drop-shadow-md" />
+                            ) : (
+                                <Home className="text-white w-16 h-16 drop-shadow-md" />
+                            )}
+                        </div>
                     )}
                 </div>
 
@@ -39,7 +48,7 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
                     {/* Property Specs */}
                     <div className="flex justify-between items-center text-gray-600 text-xs mb-4">
                         <div className="flex items-center gap-1">
-                            <div className="bg-purple-100 p-1.5 rounded-full"><Bed size={14} className="text-purple-600" /></div>
+                            <div className="bg-purple-100 p-1.5 rounded-full"><Bed size={14} className="text-gray-900" /></div>
                             <span>{beds}</span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -52,7 +61,7 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
                         </div>
                     </div>
 
-                    <div className="font-bold text-xl text-purple-900 border-t border-gray-100 pt-3">
+                    <div className="font-bold text-xl text-red-600 border-t border-gray-100 pt-3">
                         {price}
                     </div>
                 </div>
