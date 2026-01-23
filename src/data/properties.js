@@ -13,7 +13,6 @@ export const properties = [
         description: "This beautiful 4-bedroom house offers modern living in a prime location. Features a spacious living area, modern kitchen, and landscaped garden. Perfect for a growing family.",
         amenities: ["Air Conditioning", "Garden", "Garage", "Security System", "Modern Kitchen", "Balcony"],
         images: [
-            "https://images.unsplash.com/photo-1600596542815-27b9c0e906f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
             "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
             "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
