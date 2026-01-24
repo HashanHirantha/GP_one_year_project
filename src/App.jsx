@@ -12,6 +12,7 @@ import PropertyDetails from './pages/public/PropertyDetails';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
+
 function App() {
   return (
     <Router>
