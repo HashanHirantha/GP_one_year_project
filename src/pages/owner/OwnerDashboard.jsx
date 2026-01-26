@@ -35,13 +35,17 @@ const PageTransition = ({ children }) => (
 const DashboardHome = () => (
   <div className="space-y-6">
     <OwnerStats />
-    <MyProperties />
-    <AddProperty />
     <Inquiries />
-    <OwnerAnalytics />
     <PaymentsRevenue />
     <Bookings />
-    <OwnerSettings />
+    <MyProperties />
+    <AddProperty />
+
+    
+    <OwnerAnalytics />
+    
+    
+    
   </div>
 );
 
