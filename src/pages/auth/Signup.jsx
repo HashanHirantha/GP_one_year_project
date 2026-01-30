@@ -18,13 +18,13 @@ const SignupPage = () => {
 
     return (
         // Main container with the purple gradient background
-        <div className="min-h-screen flex items-center justify-center p-4 pt-32 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-dark">
+        <div className="min-h-screen flex items-center justify-center p-4 pt-32 bg-gray-100">
             {/* Central Card */}
             <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
 
                 {/* Header Section */}
                 <div className="flex flex-col items-center text-center mb-6">
-                    <h1 className="text-2xl font-bold text-purple-900">Register Here</h1>
+                    <h1 className="text-2xl font-bold text-gray-900">Register Here</h1>
                     <p className="text-gray-500 text-sm mt-1">create your account to get started</p>
                 </div>
 
@@ -65,8 +65,8 @@ const SignupPage = () => {
                                 type="button"
                                 onClick={() => setRole(roleOption)}
                                 className={`py-2 px-4 rounded-lg text-sm font-medium transition-all duration-200 border ${role === roleOption
-                                    ? 'bg-purple-800 text-white border-purple-800 shadow-md transform scale-105'
-                                    : 'bg-white text-gray-500 border-gray-300 hover:border-purple-400 hover:text-purple-600'
+                                    ? 'bg-black text-white border-black shadow-md transform scale-105'
+                                    : 'bg-white text-gray-500 border-gray-300 hover:border-gray-400 hover:text-black'
                                     }`}
                             >
                                 {roleOption}
@@ -82,7 +82,7 @@ const SignupPage = () => {
                         <input
                             type="text"
                             placeholder="Enter your full name"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                         />
                     </div>
                     <div>
@@ -90,7 +90,7 @@ const SignupPage = () => {
                         <input
                             type="email"
                             placeholder="your.email@example.com"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                         />
                     </div>
                     <div>
@@ -106,7 +106,7 @@ const SignupPage = () => {
                     <div className="space-y-3 pt-2">
                         <label className="flex items-center space-x-3 text-xs text-gray-500 cursor-pointer group">
                             <div className="relative flex items-center">
-                                <input type="checkbox" className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-400 transition-all checked:border-purple-600 checked:bg-purple-600 hover:border-purple-500" />
+                                <input type="checkbox" className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-400 transition-all checked:border-black checked:bg-black hover:border-gray-500" />
                                 <svg className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" width="12" height="12">
                                     <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg>
@@ -116,24 +116,24 @@ const SignupPage = () => {
 
                         <label className="flex items-center space-x-3 text-xs text-gray-500 cursor-pointer group">
                             <div className="relative flex items-center">
-                                <input type="checkbox" required className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-400 transition-all checked:border-purple-600 checked:bg-purple-600 hover:border-purple-500" />
+                                <input type="checkbox" required className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-400 transition-all checked:border-black checked:bg-black hover:border-gray-500" />
                                 <svg className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" width="12" height="12">
                                     <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg>
                             </div>
-                            <span className="group-hover:text-gray-700 transition">I have read, understood and accept <a href="#" className="text-purple-700 font-bold hover:underline">Terms & conditions</a></span>
+                            <span className="group-hover:text-gray-700 transition">I have read, understood and accept <a href="#" className="text-black font-bold hover:underline">Terms & conditions</a></span>
                         </label>
                     </div>
 
                     {/* Register Button */}
-                    <button type="submit" className="w-full bg-purple-800 text-white font-bold py-3 uppercase tracking-wide rounded-md hover:bg-purple-900 shadow-lg hover:shadow-xl transition-all duration-300 mt-4">
+                    <button type="submit" className="w-full bg-[#00FF00] hover:bg-white text-black font-bold py-3 rounded-full hover:shadow-xl transition-all duration-300 shadow-lg shadow-black/20 transform hover:-translate-y-0.5 uppercase tracking-wide mt-4">
                         Click to Register
                     </button>
                 </form>
 
                 {/* Login Link */}
                 <div className="text-center mt-6 text-xs text-gray-500">
-                    Already have an Account? <Link to="/login" className="text-purple-800 font-bold hover:underline ml-1">Login Here</Link>
+                    Already have an Account? <Link to="/login" className="text-black font-bold hover:underline ml-1">Login Here</Link>
                 </div>
 
             </div>

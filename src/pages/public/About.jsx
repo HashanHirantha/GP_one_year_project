@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import heroImage from '../../assets/images/home_hero/hero6.jpg';
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
@@ -76,7 +77,7 @@ const About = () => {
     { title: 'Map Integration', desc: 'View properties on interactive maps with radius search.', icon: <Map className="w-8 h-8 text-orange-500" /> },
     { title: 'Direct Communication', desc: 'Chat directly with property owners and buyers.', icon: <MessageSquare className="w-8 h-8 text-cyan-500" /> },
     { title: 'Reviews & Ratings', desc: 'Read genuine reviews from verified users.', icon: <Star className="w-8 h-8 text-yellow-500" /> },
-    { title: 'Price Trends', desc: 'Real-time property price analytics and trends.', icon: <TrendingUp className="w-8 h-8 text-purple-500" /> },
+    { title: 'Price Trends', desc: 'Real-time property price analytics and trends.', icon: <TrendingUp className="w-8 h-8 text-black" /> },
   ];
 
   const reasons = [
@@ -89,14 +90,14 @@ const About = () => {
   ];
 
   const teamMembers = [
-    { name: "V.P Pulasinghe", role: "Project Manager", initials: "VP", color: "bg-purple-600" },
-    { name: "W.A.D Ranaweera", role: "Analyst", initials: "DR", color: "bg-purple-600" },
-    { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-purple-600" },
-    { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-purple-600" },
-    { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-purple-600" },
-    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-purple-600" },
-    { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-purple-600" },
-    { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-purple-600" },
+    { name: "V.P Pulasinghe", role: "Project Manager", initials: "VP", color: "bg-green-500" },
+    { name: "W.A.D Ranaweera", role: "Analyst", initials: "DR", color: "bg-green-500" },
+    { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-green-500" },
+    { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-green-500" },
+    { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-green-500" },
+    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-green-500" },
+    { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-green-500" },
+    { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-green-500" },
   ];
 
   return (
@@ -104,7 +105,9 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-primary via-purple-700 to-secondary text-white pt-32 pb-32 text-center px-4 overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative pt-36 pb-36 text-center px-4 overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="absolute inset-0 bg-black/60 z-0"></div>
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
@@ -119,13 +122,13 @@ const About = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight"
           >
-            About <span className="text-accent">Smart Property Finder</span>
+            <span className="text-white">About Smart Property Finder</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="max-w-2xl mx-auto text-lg md:text-xl font-light italic opacity-90 tracking-wide"
+            className="max-w-2xl mx-auto text-lg md:text-xl text-white font-light italic opacity-90 tracking-wide"
           >
             We decided to making property searching, buying, and selling easy, secure, and transparent for everyone.
           </motion.p>
@@ -133,7 +136,7 @@ const About = () => {
       </div>
 
       {/* Mission Vision Values Cards */}
-      <div className="container mx-auto px-4 -mt-10 relative z-10 pb-16">
+      <div className="container mx-auto px-4 pb-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -147,28 +150,28 @@ const About = () => {
               }
             }
           }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} whileHover={{ y: -10 }} className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center transition-shadow hover:shadow-2xl">
             <div className="mb-4 p-3 bg-red-50 rounded-full"><Target className="w-10 h-10 text-red-500" /></div>
-            <h3 className="text-purple-900 font-bold text-lg mb-3">Our mission</h3>
+            <h3 className="text-gray-900 font-bold text-lg mb-3">Our mission</h3>
             <p className="text-xs text-gray-500 leading-relaxed">To provide a trusted, user-friendly platform that connects property seekers with their ideal homes, while empowering property owners.</p>
           </motion.div>
           <motion.div variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} whileHover={{ y: -10 }} className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center transition-shadow hover:shadow-2xl">
             <div className="mb-4 p-3 bg-yellow-50 rounded-full"><Users className="w-10 h-10 text-yellow-500" /></div>
-            <h3 className="text-purple-900 font-bold text-lg mb-3">Our vision</h3>
+            <h3 className="text-gray-900 font-bold text-lg mb-3">Our vision</h3>
             <p className="text-xs text-gray-500 leading-relaxed">To become the leading property finding platform, revolutionizing how people discover, buy, sell and rent properties.</p>
           </motion.div>
           <motion.div variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} whileHover={{ y: -10 }} className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center transition-shadow hover:shadow-2xl">
             <div className="mb-4 p-3 bg-blue-50 rounded-full"><Award className="w-10 h-10 text-blue-500" /></div>
-            <h3 className="text-purple-900 font-bold text-lg mb-3">Our values</h3>
+            <h3 className="text-gray-900 font-bold text-lg mb-3">Our values</h3>
             <p className="text-xs text-gray-500 leading-relaxed">Trust, transparency, innovation, and customer satisfaction are at the heart of everything we do. We believe in building lasting relationships.</p>
           </motion.div>
         </motion.div>
       </div>
 
       {/* Stats Section */}
-      <div className="bg-[#6b2c91] text-white py-12">
+      <div className="bg-[#00FF00] text-white py-12">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat, idx) => (
             <motion.div
@@ -188,7 +191,7 @@ const About = () => {
       <div className="bg-gray-100 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-purple-900 tracking-tight">What we offer</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 tracking-tight">What we offer</h2>
           </div>
           <motion.div
             variants={containerVariants}
@@ -204,8 +207,8 @@ const About = () => {
                 whileHover={{ y: -10 }}
                 className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center"
               >
-                <div className="mb-4 p-3 bg-purple-50 rounded-full">{offer.icon}</div>
-                <h3 className="font-bold text-purple-900 mb-2">{offer.title}</h3>
+                <div className="mb-4 p-3 bg-gray-50 rounded-full">{offer.icon}</div>
+                <h3 className="font-bold text-gray-900 mb-2">{offer.title}</h3>
                 <p className="text-xs text-gray-500">{offer.desc}</p>
               </motion.div>
             ))}
@@ -217,7 +220,7 @@ const About = () => {
       <div className="bg-gray-100 pb-20 pt-10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-purple-900 tracking-tight">Why Choose Us</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 tracking-tight">Why Choose Us</h2>
           </div>
           <motion.div
             variants={containerVariants}
@@ -236,7 +239,7 @@ const About = () => {
                 <div className={`p-3 rounded-full mb-4 ${reason.bg}`}>
                   {reason.icon}
                 </div>
-                <h3 className="font-bold text-purple-900 mb-2">{reason.title}</h3>
+                <h3 className="font-bold text-gray-900 mb-2">{reason.title}</h3>
                 <p className="text-xs text-gray-500">{reason.desc}</p>
               </motion.div>
             ))}
@@ -245,10 +248,10 @@ const About = () => {
       </div>
 
       {/* Meet Our Team */}
-      <div className="bg-white py-20">
+      <div className="bg-gray-100 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-purple-900 tracking-tight">Meet Our Team</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 tracking-tight">Meet Our Team</h2>
           </div>
           <motion.div
             variants={containerVariants}

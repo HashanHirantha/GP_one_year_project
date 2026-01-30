@@ -35,13 +35,13 @@ const PageTransition = ({ children }) => (
 const AdminHome = () => (
   <div className="space-y-6">
     <AdminStats />
-    <RecentActivity />
-    <UserManagement />
-    <PropertyManagement />
     <Transactions />
     <AnalyticsReports />
+    <PropertyManagement />
+    <UserManagement />
+    <RecentActivity />
     <ContentModeration />
-    <SystemSettings />
+   
   </div>
 );
 
