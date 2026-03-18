@@ -39,15 +39,15 @@ const DashboardLayout = ({ role = 'admin', children }) => {
   }) || menu[0];
 
   return (
-    <div className="flex min-h-screen bg-gray-100 font-sans">
-      <aside className="w-64 bg-[#6D28D9] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl z-20">
-        <div className="p-4 flex items-center justify-between border-b border-purple-800 bg-[#5B21B6]">
+    <div className="flex min-h-screen bg-slate-950 font-sans">
+      <aside className="w-64 bg-slate-900 text-slate-300 flex-shrink-0 hidden md:flex flex-col shadow-2xl z-20 border-r border-slate-800">
+        <div className="p-4 flex items-center justify-between border-b border-slate-800 bg-slate-950">
           <div className="flex items-center gap-2">
-            <Settings className="text-gray-300 w-5 h-5 animate-spin-slow" />
-            <h2 className="text-lg font-bold tracking-wide">Admin Panel</h2>
+            <Settings className="text-slate-400 w-5 h-5 animate-spin-slow" />
+            <h2 className="text-lg font-bold tracking-wide text-white">Admin Panel</h2>
           </div>
-          <div className="bg-white/20 p-1 rounded hover:bg-white/30 cursor-pointer">
-            <Menu size={20} className="text-white" />
+          <div className="bg-white/5 p-1 rounded hover:bg-white/10 cursor-pointer border border-slate-700/50">
+            <Menu size={20} className="text-slate-400" />
           </div>
         </div>
         <nav className="flex-grow py-4 space-y-1">
@@ -60,8 +60,8 @@ const DashboardLayout = ({ role = 'admin', children }) => {
               onClick={() => navigate(item.path)}
             />
           ))}
-          <div className="mt-auto pt-4 border-t border-purple-800 px-4 pb-4">
-            <button onClick={() => navigate('/')} className="flex items-center space-x-3 px-4 py-3 w-full text-left hover:bg-red-500/20 rounded-lg transition-colors text-red-100 hover:text-white">
+          <div className="mt-auto pt-4 border-t border-slate-800 px-4 pb-4">
+            <button onClick={() => navigate('/')} className="flex items-center space-x-3 px-4 py-3 w-full text-left hover:bg-red-500/10 rounded-lg transition-colors text-red-400 hover:text-red-300">
               <LogOut size={20} />
               <span>Logout</span>
             </button>
@@ -69,20 +69,20 @@ const DashboardLayout = ({ role = 'admin', children }) => {
         </nav>
       </aside>
 
-      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
-        <header className="bg-white shadow-sm px-8 py-5 flex justify-between items-center z-10 border-b border-gray-200">
-          <h2 className="text-gray-800 font-bold text-2xl capitalize text-primary">{activeItem.label}</h2>
+      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+        <header className="bg-slate-900 shadow-md px-8 py-5 flex justify-between items-center z-10 border-b border-slate-800">
+          <h2 className="text-white font-bold text-2xl capitalize text-primary">{activeItem.label}</h2>
           <div className="flex items-center gap-4">
             <div className="flex flex-col items-end mr-2">
-              <span className="text-sm font-bold text-gray-800">{role === 'admin' ? 'Admin User' : 'Property Owner'}</span>
-              <span className="text-xs text-gray-500">{role === 'admin' ? 'admin@spf.lk' : 'owner@spf.lk'}</span>
+              <span className="text-sm font-bold text-slate-200">{role === 'admin' ? 'Admin User' : 'Property Owner'}</span>
+              <span className="text-xs text-slate-400">{role === 'admin' ? 'admin@spf.lk' : 'owner@spf.lk'}</span>
             </div>
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center text-sm font-bold shadow-md border-2 border-white ring-2 ring-purple-100">
+            <div className="w-10 h-10 rounded-full bg-slate-800 text-slate-200 flex items-center justify-center text-sm font-bold shadow-sm border border-slate-700">
               {role === 'admin' ? 'AD' : 'PO'}
             </div>
           </div>
         </header>
-        <div className="p-8 overflow-y-auto flex-1 scroll-smooth">
+        <div className="p-8 overflow-y-auto flex-1 scroll-smooth text-slate-300 custom-scrollbar">
           {children}
         </div>
       </main>

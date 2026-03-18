@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import hero1 from '../../assets/images/home_hero/hero1.jpg';
 import hero2 from '../../assets/images/home_hero/hero2.jpg';
 import hero3 from '../../assets/images/home_hero/hero3.jpg';
@@ -31,144 +31,90 @@ const Home = () => {
   const trendingDeals = properties.slice(3, 6);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <Navbar />
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-16 text-center px-4 overflow-hidden bg-white text-white">
-        <AnimatePresence mode='popLayout'>
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroImages[currentImageIndex]})` }}
-          />
-        </AnimatePresence>
+    <div className="min-h-screen bg-[#011C40] text-white flex flex-col font-sans selection:bg-[#54ACBF] selection:text-white overflow-x-hidden">
+        <Navbar />
 
-        {/* Overlay - adjusting z-index to be above the slider */}
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
+      {/* Hero Section with Radial Gradient & Glows */}
+      <div className="relative pt-40 pb-20 text-center px-4 overflow-hidden min-h-[90vh] flex flex-col justify-center">
 
-        {/* Background Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-0 pointer-events-none z-10">
-          <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
-          <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-accent rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-secondary rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-4000"></div>
+        {/* Animated Background Gradient */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#011C40] via-[#023859] to-[#011C40]"></div>
+          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#54ACBF] rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-[#26658C] rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse animation-delay-2000"></div>
+          <div className="absolute top-[30%] left-[20%] w-[300px] h-[300px] bg-[#A7EBF2] rounded-full mix-blend-overlay filter blur-[80px] opacity-10"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto">
-          {/* ... (keep as is) ... */}
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.5, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
-          >
-            Find Your Dream <span className="text-white">Property</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="opacity-90 mb-10 text-xl font-light italic tracking-wide max-w-2xl mx-auto"
-          >
-            Your trusted platform for Renting, Selling, and Buying properties with verified listings.
-          </motion.p>
-
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center"
+          >
+            <span className="py-1 px-4 rounded-full border border-[#54ACBF]/30 bg-[#54ACBF]/10 text-[#A7EBF2] text-sm font-medium mb-6 backdrop-blur-sm">
+              No. 1 Property Platform in Sri Lanka
+            </span>
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-[#A7EBF2] to-[#54ACBF]">
+              Find Your Dream <br /> Property
+            </h1>
+            <p className="opacity-80 mb-12 text-xl font-light tracking-wide max-w-2xl mx-auto text-blue-100">
+              Your trusted platform for Renting, Selling, and Buying properties with verified listings and smart insights.
+            </p>
+          </motion.div>
+
+          {/* Glassmorphism Search Bar */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            whileHover={{ y: -10, scale: 1.02 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-            className="max-w-4xl mx-auto p-6 drop-shadow-2xl"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="glass-card max-w-5xl mx-auto p-6 rounded-3xl"
           >
             {/* Top Row: Search & Button */}
             <div className="flex flex-col md:flex-row gap-4 mb-4">
               <input
                 type="text"
-                placeholder="Search..."
-                className="flex-grow rounded-full px-6 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all bg-white shadow-lg"
+                placeholder="Search by location, property type..."
+                className="flex-grow rounded-2xl px-6 py-4 text-white bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#54ACBF]/50 focus:border-[#54ACBF] transition-all placeholder-white/40"
               />
-              <button className="bg-[#00FF00] hover:bg-white text-black px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-black/20 hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95">
+              <button className="bg-gradient-to-r from-[#54ACBF] to-[#26658C] hover:brightness-110 text-white px-10 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-[#54ACBF]/20 transform hover:-translate-y-0.5 active:scale-95 text-lg">
                 Search
               </button>
             </div>
 
             {/* Bottom Row: Filters */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Radius</option>
-                <option value="1">1 km</option>
-                <option value="5">5 km</option>
-                <option value="10">10 km</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Property Type</option>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="villa">Villa</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Max Price</option>
-                <option value="50m">50 M</option>
-                <option value="100m">100 M</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Max Bedroom</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3+</option>
-              </select>
+              {/* Custom Select Style wrapper */}
+              {[
+                { label: 'Radius', options: ['1 km', '5 km', '10 km'] },
+                { label: 'Property Type', options: ['Apartment', 'House', 'Villa'] },
+                { label: 'Max Price', options: ['50 M', '100 M', '200 M'] },
+                { label: 'Bedrooms', options: ['1', '2', '3+'] }
+              ].map((filter, index) => (
+                <select key={index} className="w-full rounded-xl px-4 py-3 text-sm text-white bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#54ACBF]/50 cursor-pointer transition-colors appearance-none hover:bg-white/10">
+                  <option value="" className="bg-[#023859] text-gray-400">{filter.label}</option>
+                  {filter.options.map((opt) => (
+                    <option key={opt} value={opt} className="bg-[#023859]">{opt}</option>
+                  ))}
+                </select>
+              ))}
             </div>
           </motion.div>
         </div>
       </div>
 
+      {/* Hot Deal Properties Section */}
+      <div className="relative py-20 overflow-hidden">
+        {/* Section Background Glow */}
+        <div className="absolute top-[20%] right-0 w-[500px] h-[500px] bg-[#54ACBF] rounded-full mix-blend-soft-light filter blur-[150px] opacity-10 pointer-events-none"></div>
 
-
-      <div className="container mx-auto px-4 py-16">
-        <div className="mb-10 text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-black tracking-tight">Hot Deal Properties</h2>
-          <p className="text-gray-500 text-lg mt-2 font-light">Best value for money properties picked for you</p>
-        </div>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2
-              }
-            }
-          }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {hotDeals.map((property) => (
-            <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-              <PropertyCard
-                id={property.id}
-                title={property.title}
-                price={property.price}
-                location={property.location}
-                type={property.type}
-                isFeatured={property.isFeatured}
-                image={property.images[0]}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Trending Properties Section */}
-      <div className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="mb-10 text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-black tracking-tight">Trending Properties</h2>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-2">Hot Deal Properties</h2>
+              <p className="text-[#A7EBF2]/70 text-lg font-light">Best value picked exclusively for you</p>
+            </div>
+            <button className="hidden md:block text-[#54ACBF] hover:text-white font-medium transition-colors">View All Deals →</button>
           </div>
 
           <motion.div
@@ -177,17 +123,47 @@ const Home = () => {
             viewport={{ once: true, margin: "-100px" }}
             variants={{
               hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2
-                }
-              }
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {hotDeals.map((property) => (
+              <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}>
+                <PropertyCard
+                  id={property.id}
+                  title={property.title}
+                  price={property.price}
+                  location={property.location}
+                  type={property.type}
+                  isFeatured={property.isFeatured}
+                  image={property.images[0]}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Trending Properties Section */}
+      <div className="relative py-20 bg-[#001026]/50">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center md:text-left">
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Trending Properties</h2>
+            <p className="text-[#A7EBF2]/70 text-lg font-light mt-2">Most viewed properties this week</p>
+          </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
             }}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {trendingDeals.map((property) => (
-              <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
+              <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}>
                 <TrendingPropertyCard
                   id={property.id}
                   title={property.title}
@@ -207,10 +183,11 @@ const Home = () => {
       </div>
 
       {/* Property Pricing Trends Section */}
-      <div className="bg-white py-16">
+      <div className="relative py-20">
         <div className="container mx-auto px-4">
-          <div className="mb-10 text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-black tracking-tight">Property Pricing Trends</h2>
+          <div className="mb-12 text-center md:text-left">
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Market Insights</h2>
+            <p className="text-[#A7EBF2]/70 text-lg font-light mt-2">Track property value trends in your area</p>
           </div>
 
           <motion.div
@@ -218,13 +195,13 @@ const Home = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto glass-card p-8 rounded-3xl"
           >
             <PricingTrendChart />
           </motion.div>
         </div>
       </div>
-      <Footer />
+        <Footer />
     </div>
   );
 };

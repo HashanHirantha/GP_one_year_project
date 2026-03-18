@@ -9,50 +9,52 @@ const MyProperties = () => {
     ];
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+        <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 mb-8 shadow-sm">
             <div className="flex items-center gap-2 mb-6">
-                <Home className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">My properties</h3>
+                <Home className="text-slate-400 w-6 h-6" />
+                <h3 className="text-lg font-bold text-slate-100">My properties</h3>
             </div>
 
             <div className="flex justify-end mb-4">
-                <button className="bg-secondary text-white text-sm px-4 py-2 rounded-lg hover:bg-purple-600 transition font-bold">+ add new property</button>
+                <button className="bg-[#54ACBF] hover:bg-[#26658C] text-white text-sm px-4 py-2 rounded-lg transition font-medium shadow-sm flex items-center gap-1">
+                    <Plus size={16} /> Add new property
+                </button>
             </div>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+                <table className="w-full text-left border-collapse whitespace-nowrap">
                     <thead>
-                        <tr className="text-gray-600 text-sm border-b border-gray-200">
-                            <th className="py-3 font-bold">Property</th>
-                            <th className="py-3 font-bold">Type</th>
-                            <th className="py-3 font-bold">Price</th>
-                            <th className="py-3 font-bold">Views</th>
-                            <th className="py-3 font-bold">Inquiries</th>
-                            <th className="py-3 font-bold">Status</th>
-                            <th className="py-3 font-bold text-center">Actions</th>
+                        <tr className="text-slate-400 text-sm border-b border-slate-800">
+                            <th className="py-3 px-4 font-medium">Property</th>
+                            <th className="py-3 px-4 font-medium">Type</th>
+                            <th className="py-3 px-4 font-medium">Price</th>
+                            <th className="py-3 px-4 font-medium">Views</th>
+                            <th className="py-3 px-4 font-medium">Inquiries</th>
+                            <th className="py-3 px-4 font-medium">Status</th>
+                            <th className="py-3 px-4 font-medium text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="text-sm text-gray-700">
+                    <tbody className="text-sm text-slate-300">
                         {properties.map((prop, index) => (
-                            <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td className="py-4">
-                                    <div className="font-semibold">{prop.name}</div>
-                                    <div className="text-xs text-gray-400">Colombo 04</div>
+                            <tr key={index} className="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors">
+                                <td className="py-4 px-4">
+                                    <div className="font-medium text-slate-200">{prop.name}</div>
+                                    <div className="text-xs text-slate-500">Colombo 04</div>
                                 </td>
-                                <td className="py-4 text-gray-500">{prop.type}</td>
-                                <td className="py-4">{prop.price}</td>
-                                <td className="py-4">{prop.views}</td>
-                                <td className="py-4">{prop.inquiries}</td>
-                                <td className="py-4">
-                                    <span className={`text-xs font-bold italic ${prop.statusColor}`}>
+                                <td className="py-4 px-4 text-slate-400">{prop.type}</td>
+                                <td className="py-4 px-4 font-medium text-slate-300">{prop.price}</td>
+                                <td className="py-4 px-4 font-medium">{prop.views}</td>
+                                <td className="py-4 px-4 font-medium">{prop.inquiries}</td>
+                                <td className="py-4 px-4">
+                                    <span className={`text-[10px] uppercase font-medium tracking-wider px-2 py-1 rounded-full ${prop.statusColor.replace('text-', 'bg-opacity-10 bg-').replace('text-', 'text-')}`}>
                                         {prop.status}
                                     </span>
                                 </td>
-                                <td className="py-4 text-center">
+                                <td className="py-4 px-4 text-center">
                                     <div className="flex justify-center gap-2">
-                                        <button className="p-1.5 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-gray-700"><Eye size={16} /></button>
-                                        <button className="p-1.5 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-gray-700"><Edit2 size={16} /></button>
-                                        <button className="p-1.5 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-gray-700"><Trash2 size={16} /></button>
+                                        <button className="p-1.5 bg-slate-800 rounded-lg hover:bg-slate-700 transition text-slate-300 hover:text-white border border-slate-700 shadow-sm"><Eye size={16} /></button>
+                                        <button className="p-1.5 bg-slate-800 rounded-lg hover:bg-slate-700 transition text-slate-300 hover:text-white border border-slate-700 shadow-sm"><Edit2 size={16} /></button>
+                                        <button className="p-1.5 bg-red-500/10 rounded-lg hover:bg-red-500/20 transition text-red-400 border border-red-500/20 shadow-sm"><Trash2 size={16} /></button>
                                     </div>
                                 </td>
                             </tr>

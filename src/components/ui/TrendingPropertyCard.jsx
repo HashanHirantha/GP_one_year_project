@@ -10,14 +10,14 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
             <motion.div
                 whileHover={{ y: -10, scale: 1.02 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="bg-white rounded-xl shadow-lg run-shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl cursor-pointer"
+                className="glass-card rounded-2xl shadow-lg overflow-hidden cursor-pointer group hover:shadow-[#54ACBF]/20"
             >
                 {/* Top Gradient Section */}
                 <div
-                    className="h-48 bg-gray-200 relative bg-cover bg-center"
+                    className="h-48 bg-[#023859] relative bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
                     style={{ backgroundImage: image ? `url(${image})` : undefined }}
                 >
-                    {!image && <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500" />}
+                    {!image && <div className="absolute inset-0 bg-gradient-to-r from-[#023859] to-[#011C40]" />}
 
                     {!image && (
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -31,37 +31,37 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
                 </div>
 
                 {/* Content Section */}
-                <div className="p-5">
+                <div className="p-5 relative bg-[#011C40]/40 backdrop-blur-md">
                     {/* Sponsored Tag */}
                     {isSponsored && (
-                        <span className="bg-orange-400 text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wide">
+                        <span className="bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wide">
                             sponsored
                         </span>
                     )}
 
-                    <h3 className="font-bold text-gray-800 mb-1 text-sm md:text-base">{title}</h3>
+                    <h3 className="font-bold text-white mb-2 text-sm md:text-base">{title}</h3>
 
-                    <div className="flex items-center text-gray-500 text-xs mb-4">
-                        <MapPin size={12} className="mr-1 text-red-500" /> {location}
+                    <div className="flex items-center text-white/70 text-xs mb-4">
+                        <MapPin size={12} className="mr-1 text-[#54ACBF]" /> {location}
                     </div>
 
                     {/* Property Specs */}
-                    <div className="flex justify-between items-center text-gray-600 text-xs mb-4">
+                    <div className="flex justify-between items-center text-white/60 text-xs mb-4">
                         <div className="flex items-center gap-1">
-                            <div className="bg-purple-100 p-1.5 rounded-full"><Bed size={14} className="text-gray-900" /></div>
+                            <div className="bg-[#54ACBF]/10 p-1.5 rounded-full"><Bed size={14} className="text-[#54ACBF]" /></div>
                             <span>{beds}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <div className="bg-blue-100 p-1.5 rounded-full"><Bath size={14} className="text-blue-600" /></div>
+                            <div className="bg-[#54ACBF]/10 p-1.5 rounded-full"><Bath size={14} className="text-[#54ACBF]" /></div>
                             <span>{baths}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <div className="bg-yellow-100 p-1.5 rounded-full"><Ruler size={14} className="text-yellow-600" /></div>
+                            <div className="bg-[#54ACBF]/10 p-1.5 rounded-full"><Ruler size={14} className="text-[#54ACBF]" /></div>
                             <span>{sqft} sqft</span>
                         </div>
                     </div>
 
-                    <div className="font-bold text-xl text-red-600 border-t border-gray-100 pt-3">
+                    <div className="font-bold text-xl text-[#54ACBF] border-t border-white/10 pt-3">
                         {price}
                     </div>
                 </div>

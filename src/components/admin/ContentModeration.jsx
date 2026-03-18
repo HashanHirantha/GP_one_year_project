@@ -9,40 +9,40 @@ const ContentModeration = () => {
     ];
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+        <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 mb-8 shadow-sm">
             <div className="flex items-center gap-2 mb-6">
-                <ShieldAlert className="text-green-500 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Content Moderation</h3>
+                <ShieldAlert className="text-slate-400 w-6 h-6" />
+                <h3 className="text-lg font-bold text-slate-100">Content Moderation</h3>
             </div>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+                <table className="w-full text-left border-collapse whitespace-nowrap">
                     <thead>
-                        <tr className="text-gray-600 text-sm border-b border-gray-200">
-                            <th className="py-3 font-bold">Content Type</th>
-                            <th className="py-3 font-bold">Reporter</th>
-                            <th className="py-3 font-bold">Reason</th>
-                            <th className="py-3 font-bold">Date</th>
-                            <th className="py-3 font-bold">Status</th>
-                            <th className="py-3 font-bold text-center">Actions</th>
+                        <tr className="text-slate-400 text-sm border-b border-slate-800">
+                            <th className="py-3 px-4 font-medium">Content Type</th>
+                            <th className="py-3 px-4 font-medium">Reporter</th>
+                            <th className="py-3 px-4 font-medium">Reason</th>
+                            <th className="py-3 px-4 font-medium">Date</th>
+                            <th className="py-3 px-4 font-medium">Status</th>
+                            <th className="py-3 px-4 font-medium text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="text-sm text-gray-700">
+                    <tbody className="text-sm text-slate-300">
                         {reports.map((report, index) => (
-                            <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td className="py-4 font-medium text-gray-500">{report.type}</td>
-                                <td className="py-4 text-gray-500">{report.reporter}</td>
-                                <td className="py-4 font-medium">{report.reason}</td>
-                                <td className="py-4 text-gray-500">{report.date}</td>
-                                <td className="py-4">
-                                    <span className={`text-xs font-bold ${report.statusColor}`}>
+                            <tr key={index} className="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors">
+                                <td className="py-4 px-4 font-medium text-slate-500">{report.type}</td>
+                                <td className="py-4 px-4 text-slate-400">{report.reporter}</td>
+                                <td className="py-4 px-4 font-semibold text-slate-200">{report.reason}</td>
+                                <td className="py-4 px-4 text-slate-500">{report.date}</td>
+                                <td className="py-4 px-4">
+                                    <span className={`text-xs font-medium tracking-wider uppercase ${report.statusColor}`}>
                                         {report.status}
                                     </span>
                                 </td>
-                                <td className="py-4 text-center">
+                                <td className="py-4 px-4 text-center">
                                     <div className="flex justify-center gap-2">
-                                        <button className="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1 rounded transition-colors font-bold">Review</button>
-                                        <button className="bg-gray-500 hover:bg-gray-600 text-white text-xs px-3 py-1 rounded transition-colors font-bold">Dismiss</button>
+                                        <button className="bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs px-3 py-1 rounded transition-colors border border-red-500/20">Review</button>
+                                        <button className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1 rounded transition-colors border border-slate-700">Dismiss</button>
                                     </div>
                                 </td>
                             </tr>
