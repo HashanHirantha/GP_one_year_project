@@ -73,7 +73,7 @@ const Contact = () => {
                 <input type="text" placeholder="Enter the characters above" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
 
-              <button className="w-full bg-[#00FF00] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5">
+              <button className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5">
                 Submit Form
               </button>
             </form>

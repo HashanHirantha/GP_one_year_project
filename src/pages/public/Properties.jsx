@@ -64,7 +64,7 @@ const Properties = () => {
           </select>
 
           {/* Search Button */}
-          <button className="w-full md:w-auto px-8 py-2.5 bg-[#00FF00] hover:bg-white text-black font-bold rounded-full text-sm uppercase transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:-translate-y-0.5">
+          <button className="w-full md:w-auto px-8 py-2.5 bg-[#06cc50] hover:bg-white text-black font-bold rounded-full text-sm uppercase transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl hover:-translate-y-0.5">
             search
           </button>
 
@@ -150,7 +150,7 @@ const Properties = () => {
               />
             </div>
 
-            <button className="w-full bg-[#00FF00] hover:bg-white text-black font-medium py-2 rounded-full mt-4 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+            <button className="w-full bg-[#06cc50] hover:bg-white text-black font-medium py-2 rounded-full mt-4 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
               Apply Filters
             </button>
           </div>
@@ -164,7 +164,7 @@ const Properties = () => {
               <h2 className="text-lg font-bold text-gray-800">Found {properties.length} Properties</h2>
             </div>
             <div className="flex items-center gap-2">
-              <button className="flex items-center gap-2 bg-[#00FF00] text-black px-4 py-2 rounded-full shadow-lg shadow-black/20 hover:bg-white hover:shadow-xl transition-all hover:-translate-y-0.5">
+              <button className="flex items-center gap-2 bg-[#06cc50] text-black px-4 py-2 rounded-full shadow-lg shadow-black/20 hover:bg-white hover:shadow-xl transition-all hover:-translate-y-0.5">
                 <List size={18} />
                 <span className="font-medium">list</span>
               </button>

@@ -8,16 +8,16 @@ const Footer = () => {
     <footer className="bg-[#F8FAFC] text-black pt-10 pb-4 mt-auto">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div>
-          <h3 className="font-bold text-lg mb-4">Smart<span className="text-[#00FF00]"> Property</span> Finder</h3>
+          <h3 className="font-bold text-lg mb-4">Smart<span className="text-[#06cc50]"> Property</span> Finder</h3>
           <p className="text-sm opacity-80">Your trusted platform for finding the perfect property.</p>
         </div>
         <div>
           <h4 className="font-bold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-80">
-            <li><Link to="/" className="hover:text-[#00FF00] transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-[#00FF00] transition-colors">About</Link></li>
-            <li><Link to="/properties" className="hover:text-[#00FF00] transition-colors">Properties</Link></li>
-            <li><Link to="/contact" className="hover:text-[#00FF00] transition-colors">Contact</Link></li>
+            <li><Link to="/" className="hover:text-[#06cc50] transition-colors">Home</Link></li>
+            <li><Link to="/about" className="hover:text-[#06cc50] transition-colors">About</Link></li>
+            <li><Link to="/properties" className="hover:text-[#06cc50] transition-colors">Properties</Link></li>
+            <li><Link to="/contact" className="hover:text-[#06cc50] transition-colors">Contact</Link></li>
           </ul>
         </div>
         <div>

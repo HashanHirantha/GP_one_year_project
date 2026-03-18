@@ -62,8 +62,8 @@ const PricingTrendChart = () => {
                     {/* Gradient Definition */}
                     <defs>
                         <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#00FF00" stopOpacity="0.3" />
-                            <stop offset="100%" stopColor="#00FF00" stopOpacity="0" />
+                            <stop offset="0%" stopColor="#06cc50" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#06cc50" stopOpacity="0" />
                         </linearGradient>
                     </defs>
 
@@ -88,7 +88,7 @@ const PricingTrendChart = () => {
                     <motion.path
                         d={pathD}
                         fill="none"
-                        stroke="#00FF00"
+                        stroke="#06cc50"
                         strokeWidth="4"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -113,7 +113,7 @@ const PricingTrendChart = () => {
                                 cy={p.y}
                                 r="6"
                                 fill="white"
-                                stroke="#00ff00"
+                                stroke="#06cc50"
                                 strokeWidth="3"
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}

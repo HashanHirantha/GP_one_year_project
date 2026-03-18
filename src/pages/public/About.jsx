@@ -171,7 +171,7 @@ const About = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-[#00FF00] text-white py-12">
+      <div className="bg-[#06cc50] text-white py-12">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat, idx) => (
             <motion.div

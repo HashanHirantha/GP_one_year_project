@@ -68,7 +68,7 @@ const PropertyDetails = () => {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="mb-8"
                 >
-                    <div className="relative h-[300px] md:h-[500px] bg-[#00FF00]/95 rounded-3xl overflow-hidden shadow-xl group">
+                    <div className="relative h-[300px] md:h-[500px] bg-[#06cc50]/95 rounded-3xl overflow-hidden shadow-xl group">
                         <AnimatePresence mode='wait'>
                             <motion.img
                                 key={activeImage}
@@ -104,7 +104,7 @@ const PropertyDetails = () => {
                             <button
                                 key={idx}
                                 onClick={() => setActiveImage(idx)}
-                                className={`w-15 h-15 md:w-15 md:h-15 rounded-2xl overflow-hidden border-2 transition-all flex items-center justify-center bg-[#00FF00]/95 duration-300 ${activeImage === idx ? 'border-green-600 ring-4 ring-green-100 scale-105' : 'border-transparent opacity-80 hover:opacity-100 hover:scale-105'}`}
+                                className={`w-15 h-15 md:w-15 md:h-15 rounded-2xl overflow-hidden border-2 transition-all flex items-center justify-center bg-[#06cc50]/95 duration-300 ${activeImage === idx ? 'border-green-600 ring-4 ring-green-100 scale-105' : 'border-transparent opacity-80 hover:opacity-100 hover:scale-105'}`}
                             >
                                 <Camera className="text-white/50 w-5 h-5" />
                             </button>
@@ -293,7 +293,7 @@ const PropertyDetails = () => {
                             </div>
 
                             <div className="space-y-3">
-                                <button className="w-full bg-[#00FF00] hover:bg-white text-black text-xs font-bold py-3 rounded-full transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
+                                <button className="w-full bg-[#06cc50] hover:bg-white text-black text-xs font-bold py-3 rounded-full transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
                                     <Phone size={14} className="fill-current" /> Call Owner
                                 </button>
                                 <button className="w-full bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 text-xs font-bold py-3 rounded-xl transition shadow-sm active:scale-95 flex items-center justify-center gap-2">

@@ -46,7 +46,7 @@ const Navbar = () => {
             <LogoIcon className="w-12 h-12" />
           </div>
           <span className="text-3xl font-bold tracking-tight font-sans">
-            Smart<span className="text-[#00FF00]">Property</span>Finder
+            Smart<span className="text-[#06cc50]">Property</span>Finder
           </span>
         </Link>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
               {isActive(link.path) && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#00FF00] rounded-full"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#06cc50] rounded-full"
                 />
               )}
             </Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/signup"
-              className="px-5 py-2 rounded-full bg-[#00FF00] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
+              className="px-5 py-2 rounded-full bg-[#06cc50] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
             >
               Sign Up
             </Link>

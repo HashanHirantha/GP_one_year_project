@@ -90,7 +90,7 @@ const Home = () => {
                 placeholder="Search..."
                 className="flex-grow rounded-full px-6 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all bg-white shadow-lg"
               />
-              <button className="bg-[#00FF00] hover:bg-white text-black px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-black/20 hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95">
+              <button className="bg-[#06cc50] hover:bg-white text-black px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-black/20 hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95">
                 Search
               </button>
             </div>

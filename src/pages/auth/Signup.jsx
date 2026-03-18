@@ -126,7 +126,7 @@ const SignupPage = () => {
                     </div>
 
                     {/* Register Button */}
-                    <button type="submit" className="w-full bg-[#00FF00] hover:bg-white text-black font-bold py-3 rounded-full hover:shadow-xl transition-all duration-300 shadow-lg shadow-black/20 transform hover:-translate-y-0.5 uppercase tracking-wide mt-4">
+                    <button type="submit" className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-3 rounded-full hover:shadow-xl transition-all duration-300 shadow-lg shadow-black/20 transform hover:-translate-y-0.5 uppercase tracking-wide mt-4">
                         Click to Register
                     </button>
                 </form>
