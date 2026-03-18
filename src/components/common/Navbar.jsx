@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../../assets/logo.png';
+import LogoIcon from './LogoIcon';
 
 const NavLink = ({ to, children }) => (
   <Link
@@ -42,8 +42,8 @@ const Navbar = () => {
       <div className="container mx-auto px-6 flex justify-between items-center relative">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group z-10">
-          <div className="bg-white p-2 rounded-full shadow-lg group-hover:scale-110 transition-transform duration-300">
-            <img src={logo} alt="Smart Property Finder Logo" className="w-10 h-10 object-contain" />
+          <div className="group-hover:scale-110 transition-transform duration-300">
+            <LogoIcon className="w-12 h-12" />
           </div>
           <span className="text-3xl font-bold tracking-tight font-sans">
             Smart<span className="text-[#00FF00]">Property</span>Finder
