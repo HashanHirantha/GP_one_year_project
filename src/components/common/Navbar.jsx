@@ -37,7 +37,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#00FF00]/95 backdrop-blur-md shadow-lg py-2' : 'bg-[#00FF00] py-4'
+    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#F8FAFC]/95 backdrop-blur-md shadow-lg py-2' : 'bg-[#F8FAFC] py-4'
       } text-black`}>
       <div className="container mx-auto px-6 flex justify-between items-center relative">
         {/* Logo */}
@@ -46,7 +46,7 @@ const Navbar = () => {
             <img src={logo} alt="Smart Property Finder Logo" className="w-10 h-10 object-contain" />
           </div>
           <span className="text-3xl font-bold tracking-tight font-sans">
-            Smart<span className="text-white">Property</span>Finder
+            Smart<span className="text-[#00FF00]">Property</span>Finder
           </span>
         </Link>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
               {isActive(link.path) && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-white rounded-full"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#00FF00] rounded-full"
                 />
               )}
             </Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-4">
             <Link
               to="/login"
-              className="px-5 py-2 rounded-full bg-[#00FF00] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
+              className="px-5 py-2 rounded-full bg-[#F8FAFC] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
             >
               Login
             </Link>
@@ -116,7 +116,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="w-full h-px bg-white/10 my-2"></div>
-              <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center py-3 border border-white/20 rounded-xl hover:bg-white/10 transition">Login</Link>
+              <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center py-3 bg-[#F8FAFC] text-black rounded-xl hover:bg-white transition">Login</Link>
               <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full py-3 bg-secondary rounded-xl font-bold hover:bg-accent hover:text-primary transition shadow-lg text-center block">Sign Up</Link>
             </div>
           </motion.div>
