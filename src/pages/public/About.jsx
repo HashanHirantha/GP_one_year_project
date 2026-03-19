@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import heroImage from '../../assets/images/home_hero/hero6.jpg';
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
 import {
   Target, Users, Award,
   Search, CheckCircle, Map, MessageSquare,
   Star, TrendingUp, Shield, Zap, Handshake,
-  Smartphone, Wallet, Heart
+  Smartphone, Wallet, Heart, X
 } from 'lucide-react';
 
 const StatItem = ({ value, label }) => {
@@ -45,6 +45,8 @@ const StatItem = ({ value, label }) => {
 };
 
 const About = () => {
+  const [selectedMember, setSelectedMember] = useState(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,14 +92,14 @@ const About = () => {
   ];
 
   const teamMembers = [
-    { name: "V.P Pulasinghe", role: "Project Manager", initials: "VP", color: "bg-green-500" },
-    { name: "W.A.D Ranaweera", role: "Analyst", initials: "DR", color: "bg-green-500" },
-    { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-green-500" },
-    { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-green-500" },
-    { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-green-500" },
-    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-green-500" },
-    { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-green-500" },
-    { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-green-500" },
+    { name: "V.P Pulasinghe", role: "Project Manager", initials: "VP", color: "bg-green-500", email: "vppulasinghe@smartproperty.com", quote: "Leadership is not just about making decisions; it's about inspiring the team to achieve greatness together." },
+    { name: "W.A.D Ranaweera", role: "Analyst", initials: "DR", color: "bg-teal-500", email: "ranaweera@smartproperty.com", quote: "Data holds the key to the future. Our goal is to unlock its potential for every user." },
+    { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-blue-500", email: "seneviratne@smartproperty.com", quote: "Design is not just what it looks like; it's how it makes people feel." },
+    { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-indigo-500", email: "nisansala@smartproperty.com", quote: "We build interfaces that don't just work, but delight the users at every interaction." },
+    { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-purple-500", email: "nagahawatta@smartproperty.com", quote: "Code is poetry. When written well, it orchestrates beautiful experiences." },
+    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-pink-500", email: "sachinthana@smartproperty.com", quote: "A strong foundation ensures that the platform can scale and perform reliably." },
+    { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-red-500", email: "buddhima@smartproperty.com", quote: "Behind every great user experience is a robust, secure, and blazing fast backend." },
+    { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-orange-500", email: "alwis@smartproperty.com", quote: "Quality is not an act, it is a habit. We ensure every feature is flawless." },
   ];
 
   return (
@@ -265,7 +267,8 @@ const About = () => {
                 key={idx}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center"
+                onClick={() => setSelectedMember(member)}
+                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center cursor-pointer"
               >
                 <div className={`w-20 h-20 rounded-full ${member.color} flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg`}>
                   {member.initials}
@@ -279,6 +282,61 @@ const About = () => {
       </div>
 
       <Footer />
+
+      {/* Team Member Modal */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedMember(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute top-4 right-4 p-2 bg-black/5 hover:bg-black/10 rounded-full transition-colors z-10"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+
+              {/* Header/Banner */}
+              <div className={`h-32 ${selectedMember.color} w-full`} />
+
+              <div className="px-8 pb-8 flex flex-col items-center -mt-16">
+                <div className={`w-32 h-32 rounded-full ${selectedMember.color} border-4 border-white flex items-center justify-center text-white text-5xl font-bold shadow-lg mb-4`}>
+                  {selectedMember.initials}
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-1">{selectedMember.name}</h3>
+                <p className="text-sm text-blue-600 font-semibold uppercase tracking-wider mb-5">{selectedMember.role}</p>
+
+                <div className="w-full bg-gray-50 rounded-xl p-5 mb-5 border border-gray-100 relative shadow-inner">
+                  <div className="absolute top-0 left-4 -mt-4 text-5xl text-gray-300 font-serif opacity-50">"</div>
+                  <p className="text-gray-600 text-sm text-center italic relative z-10 mt-2 font-medium">
+                    {selectedMember.quote}
+                  </p>
+                </div>
+
+                <div className="w-full flex items-center justify-center space-x-3 py-3 bg-gray-100 rounded-lg text-gray-700 border border-gray-200">
+                  <MessageSquare className="w-4 h-4 text-gray-500" />
+                  <span className="text-sm font-medium">{selectedMember.email}</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };

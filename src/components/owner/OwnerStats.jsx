@@ -13,7 +13,7 @@ const OwnerStats = () => {
             {stats.map((stat, index) => (
                 <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col hover:shadow-md transition-shadow">
                     <span className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">{stat.label}</span>
-                    <h3 className="text-3xl font-bold text-purple-900">{stat.value}</h3>
+                    <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
                 </div>
             ))}
         </div>

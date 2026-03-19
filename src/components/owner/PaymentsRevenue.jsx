@@ -9,25 +9,25 @@ const PaymentsRevenue = () => {
     ];
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-purple-800">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-[#06cc50]">
             <div className="flex items-center gap-2 mb-6">
-                <CreditCard className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Payments & Revenue</h3>
+                <CreditCard className="text-[#06cc50] w-6 h-6" />
+                <h3 className="text-lg font-bold text-gray-900">Payments & Revenue</h3>
             </div>
 
             {/* Revenue Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="border border-gray-100 p-4 rounded-lg shadow-sm">
                     <span className="text-xs font-bold text-gray-500 uppercase">Total Revenue</span>
-                    <h4 className="text-xl font-bold text-purple-900 mt-1">Rs. 560,000</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mt-1">Rs. 560,000</h4>
                 </div>
                 <div className="border border-gray-100 p-4 rounded-lg shadow-sm bg-orange-50/50">
                     <span className="text-xs font-bold text-gray-500 uppercase">Pending Payments</span>
-                    <h4 className="text-xl font-bold text-purple-900 mt-1">Rs. 25K</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mt-1">Rs. 25K</h4>
                 </div>
                 <div className="border border-gray-100 p-4 rounded-lg shadow-sm">
                     <span className="text-xs font-bold text-gray-500 uppercase">This Month</span>
-                    <h4 className="text-xl font-bold text-purple-900 mt-1">Rs. 90K</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mt-1">Rs. 90K</h4>
                 </div>
             </div>
 

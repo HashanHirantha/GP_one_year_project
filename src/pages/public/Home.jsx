@@ -34,7 +34,7 @@ const Home = () => {
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       {/* Hero Section */}
-      <div className="relative pt-32 pb-16 text-center px-4 overflow-hidden bg-white text-white">
+      <div className="relative min-h-screen flex flex-col justify-center items-center pt-20 pb-16 text-center px-4 overflow-hidden bg-white text-white">
         <AnimatePresence mode='popLayout'>
           <motion.div
             key={currentImageIndex}

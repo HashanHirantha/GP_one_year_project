@@ -11,12 +11,12 @@ const MyProperties = () => {
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
             <div className="flex items-center gap-2 mb-6">
-                <Home className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">My properties</h3>
+                <Home className="text-[#06cc50] w-6 h-6" />
+                <h3 className="text-lg font-bold text-gray-900">My properties</h3>
             </div>
 
             <div className="flex justify-end mb-4">
-                <button className="bg-secondary text-white text-sm px-4 py-2 rounded-lg hover:bg-purple-600 transition font-bold">+ add new property</button>
+                <button className="bg-[#06cc50] hover:bg-[#05b346] transition font-bold">+ add new property</button>
             </div>
 
             <div className="overflow-x-auto">
