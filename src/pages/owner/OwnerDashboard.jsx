@@ -11,7 +11,7 @@ import Inquiries from '../../components/owner/Inquiries';
 import OwnerAnalytics from '../../components/owner/OwnerAnalytics';
 import PaymentsRevenue from '../../components/owner/PaymentsRevenue';
 import Bookings from '../../components/owner/Bookings';
-import OwnerSettings from '../../components/owner/OwnerSettings';
+import EditProperty from '../../components/common/EditProperty'; // Added import for EditProperty
 
 // Animation Variants
 const pageVariants = {
@@ -34,14 +34,13 @@ const PageTransition = ({ children }) => (
 
 const DashboardHome = () => (
   <div className="space-y-6">
+    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between border-t-4 border-purple-800">
+       <div>
+         <h1 className="text-2xl font-bold text-gray-800">Welcome to your dashboard!</h1>
+         <p className="text-gray-500 mt-1">Manage your properties, track analytics, and boost your sales.</p>
+       </div>
+    </div>
     <OwnerStats />
-    <MyProperties />
-    <AddProperty />
-    <Inquiries />
-    <OwnerAnalytics />
-    <PaymentsRevenue />
-    <Bookings />
-    <OwnerSettings />
   </div>
 );
 
@@ -55,10 +54,10 @@ const OwnerDashboard = () => {
           <Route path="/" element={<PageTransition><DashboardHome /></PageTransition>} />
           <Route path="/my-properties" element={<PageTransition><MyProperties /></PageTransition>} />
           <Route path="/add-property" element={<PageTransition><AddProperty /></PageTransition>} />
+          <Route path="edit-property/:id" element={<PageTransition><EditProperty /></PageTransition>} /> {/* Added new route for EditProperty */}
           <Route path="/inquiries" element={<PageTransition><Inquiries /></PageTransition>} />
           <Route path="/analytics" element={<PageTransition><OwnerAnalytics /></PageTransition>} />
           <Route path="/bookings" element={<PageTransition><Bookings /></PageTransition>} />
-          <Route path="/settings" element={<PageTransition><OwnerSettings /></PageTransition>} />
           <Route path="*" element={<PageTransition><div className="p-4">Module under construction</div></PageTransition>} />
         </Routes>
       </AnimatePresence>
