@@ -8,10 +8,12 @@ import AdminStats from '../../components/admin/AdminStats';
 import RecentActivity from '../../components/admin/RecentActivity';
 import UserManagement from '../../components/admin/UserManagement';
 import PropertyManagement from '../../components/admin/PropertyManagement';
-import Transactions from '../../components/admin/Transactions';
 import AnalyticsReports from '../../components/admin/AnalyticsReports';
 import ContentModeration from '../../components/admin/ContentModeration';
 import SystemSettings from '../../components/admin/SystemSettings';
+import ContactMessages from '../../components/admin/ContactMessages';
+import AddProperty from '../../components/owner/AddProperty';
+import EditProperty from '../../components/common/EditProperty';
 
 // Animation Variants
 const pageVariants = {
@@ -38,10 +40,9 @@ const AdminHome = () => (
     <RecentActivity />
     <UserManagement />
     <PropertyManagement />
-    <Transactions />
     <AnalyticsReports />
-    <ContentModeration />
-    <SystemSettings />
+    {/* <ContentModeration />
+    <SystemSettings /> */}
   </div>
 );
 
@@ -55,10 +56,12 @@ const AdminDashboard = () => {
           <Route path="/" element={<PageTransition><AdminHome /></PageTransition>} />
           <Route path="/users" element={<PageTransition><UserManagement /></PageTransition>} />
           <Route path="/properties" element={<PageTransition><PropertyManagement /></PageTransition>} />
-          <Route path="/transactions" element={<PageTransition><Transactions /></PageTransition>} />
+          <Route path="/messages" element={<PageTransition><ContactMessages /></PageTransition>} />
+          <Route path="/add-property" element={<PageTransition><AddProperty /></PageTransition>} />
           <Route path="/analytics" element={<PageTransition><AnalyticsReports /></PageTransition>} />
-          <Route path="/moderation" element={<PageTransition><ContentModeration /></PageTransition>} />
-          <Route path="/settings" element={<PageTransition><SystemSettings /></PageTransition>} />
+          {/* <Route path="/moderation" element={<PageTransition><ContentModeration /></PageTransition>} />
+          <Route path="/settings" element={<PageTransition><SystemSettings /></PageTransition>} /> */}
+          <Route path="/edit-property/:id" element={<PageTransition><EditProperty /></PageTransition>} />
           <Route path="*" element={<PageTransition><div className="p-4">Module not found</div></PageTransition>} />
         </Routes>
       </AnimatePresence>
