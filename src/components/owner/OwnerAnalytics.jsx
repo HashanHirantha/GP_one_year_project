@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart } from 'lucide-react';
+import { supabase } from '../../config/supabase';
+import { useAuth } from '../../context/AuthContext';
 
 const OwnerAnalytics = () => {
+    const { user } = useAuth();
+    const [topProperties, setTopProperties] = useState([]);
+    
+    useEffect(() => {
+        if (user) fetchTopProperties();
+    }, [user]);
+
+    const fetchTopProperties = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('properties')
+                .select('title, views')
+                .eq('seller_id', user.id)
+                .order('views', { ascending: false })
+                .limit(5);
+            
+            if (error) throw error;
+            setTopProperties(data || []);
+        } catch (error) {
+            console.error("Error fetching top properties:", error);
+        }
+    };
+
+    const maxViews = topProperties.length > 0 ? Math.max(...topProperties.map(p => p.views || 0)) : 100;
+
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-[#06cc50]">
             <div className="flex items-center gap-2 mb-6">
@@ -9,35 +36,31 @@ const OwnerAnalytics = () => {
                 <h3 className="text-lg font-bold text-gray-900">Analytics & Insights</h3>
             </div>
 
-            <h4 className="text-sm font-bold text-gray-900 mb-4">Property views (Last 7 days)</h4>
+            <h4 className="text-sm font-bold text-purple-900 mb-4">Top Properties by Views</h4>
 
-            {/* Simple Bar Chart Visualization */}
-            <div className="h-48 flex items-end justify-between px-4 pb-2 border-b border-gray-200 gap-2 md:gap-8">
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-1/3 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">30</span>
+            {topProperties.length > 0 ? (
+                <div className="flex flex-col gap-4 mt-6">
+                    {topProperties.map((prop, idx) => {
+                        const widthPercentage = maxViews > 0 ? Math.max((prop.views / maxViews) * 100, 5) : 5;
+                        return (
+                            <div key={idx} className="flex flex-col gap-1">
+                                <div className="flex justify-between text-xs font-bold text-gray-700">
+                                    <span className="truncate max-w-[70%]">{prop.title}</span>
+                                    <span>{prop.views || 0} views</span>
+                                </div>
+                                <div className="w-full bg-gray-100 rounded-full h-2.5">
+                                    <div 
+                                        className="bg-purple-600 h-2.5 rounded-full transition-all duration-1000 ease-out" 
+                                        style={{ width: `${widthPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-2/5 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">45</span>
-                </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-1/4 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">20</span>
-                </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-3/5 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">60</span>
-                </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-1/2 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">50</span>
-                </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-4/5 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">80</span>
-                </div>
-                <div className="w-full bg-[#06cc50]/20 rounded-t-md relative group h-2/3 hover:bg-[#06cc50]/30 transition-all cursor-pointer">
-                    <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-900 opacity-0 group-hover:opacity-100 transition">65</span>
-                </div>
-            </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-2 px-2">
-                <span>Day 1</span><span>Day 2</span><span>Day 3</span><span>Day 4</span><span>Day 5</span><span>Day 6</span><span>Day 7</span>
-            </div>
+            ) : (
+                <p className="text-sm text-gray-500 italic">No view data available yet. Start sharing your properties!</p>
+            )}
         </div>
     );
 };

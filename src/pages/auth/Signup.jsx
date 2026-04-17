@@ -1,19 +1,51 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../../config/supabase';
 
 const SignupPage = () => {
-    const [role, setRole] = useState('Property Owner');
+    const [role, setRole] = useState('buyer');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        if (role === 'Admin') {
-            navigate('/dashboard/admin');
-        } else if (role === 'Property Owner') {
-            navigate('/dashboard/owner');
-        } else {
-            navigate('/');
+        setLoading(true);
+        setError(null);
+
+        if (password !== confirmPassword) {
+            setError("Passwords do not match! Please verify your keystrokes.");
+            setLoading(false);
+            return;
         }
+
+        const { data, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: name,
+                    role: role,
+                    phone: phone
+                }
+            }
+        });
+
+        if (signUpError) {
+            setError(signUpError.message);
+            setLoading(false);
+            return;
+        }
+
+        // On success, redirect to login page
+        navigate('/login', { state: { message: 'Registration successful! Please log in with your new credentials.' } });
+        
+        setLoading(false);
     };
 
     return (
@@ -59,14 +91,14 @@ const SignupPage = () => {
                 <div className="mb-6">
                     <label className="block text-sm font-bold text-gray-900 mb-2">I am an</label>
                     <div className="grid grid-cols-2 gap-3">
-                        {['Property Owner', 'Agent', 'Admin', 'Buyer'].map((roleOption) => (
+                        {['buyer', 'seller'].map((roleOption) => (
                             <button
                                 key={roleOption}
                                 type="button"
                                 onClick={() => setRole(roleOption)}
-                                className={`py-2 px-4 rounded-lg text-sm font-medium transition-all duration-200 border ${role === roleOption
-                                    ? 'bg-black text-white border-black shadow-md transform scale-105'
-                                    : 'bg-white text-gray-500 border-gray-300 hover:border-gray-400 hover:text-black'
+                                className={`py-2 px-4 rounded-lg text-sm font-bold uppercase transition-all duration-200 border ${role === roleOption
+                                    ? 'bg-purple-800 text-white border-purple-800 shadow-md transform scale-105'
+                                    : 'bg-white text-gray-500 border-gray-300 hover:border-purple-400 hover:text-purple-600'
                                     }`}
                             >
                                 {roleOption}
@@ -77,10 +109,18 @@ const SignupPage = () => {
 
                 {/* Signup Form */}
                 <form className="space-y-4" onSubmit={handleRegister}>
+                    {error && (
+                        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm border border-red-200">
+                            {error}
+                        </div>
+                    )}
                     <div>
                         <label className="block text-sm font-bold text-gray-900 mb-1">Your name *</label>
                         <input
                             type="text"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             placeholder="Enter your full name"
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                         />
@@ -89,6 +129,9 @@ const SignupPage = () => {
                         <label className="block text-sm font-bold text-gray-900 mb-1">Email Address *</label>
                         <input
                             type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="your.email@example.com"
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                         />
@@ -97,7 +140,32 @@ const SignupPage = () => {
                         <label className="block text-sm font-bold text-gray-900 mb-1">Create Password *</label>
                         <input
                             type="password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Minimum 8 characters"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold text-gray-900 mb-1">Confirm Password *</label>
+                        <input
+                            type="password"
+                            required
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="Repeat your password"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold text-gray-900 mb-1">Phone Number *</label>
+                        <input
+                            type="tel"
+                            required
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="e.g. +94 77 123 4567"
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                         />
                     </div>
@@ -126,8 +194,8 @@ const SignupPage = () => {
                     </div>
 
                     {/* Register Button */}
-                    <button type="submit" className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-3 rounded-full hover:shadow-xl transition-all duration-300 shadow-lg shadow-black/20 transform hover:-translate-y-0.5 uppercase tracking-wide mt-4">
-                        Click to Register
+                    <button disabled={loading} type="submit" className="w-full bg-purple-800 text-white font-bold py-3 uppercase tracking-wide rounded-md hover:bg-purple-900 shadow-lg hover:shadow-xl transition-all duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed">
+                        {loading ? 'Registering...' : 'Click to Register'}
                     </button>
                 </form>
 
