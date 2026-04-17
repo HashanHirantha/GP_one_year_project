@@ -95,8 +95,8 @@ const UserManagement = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-2">
-                    <User className="text-purple-600 w-6 h-6" />
-                    <h3 className="text-lg font-bold text-purple-900">User management</h3>
+                    <User className="text-[#06cc50] w-6 h-6" />
+                    <h3 className="text-lg font-bold text-slate-800">User management</h3>
                 </div>
                 <button onClick={fetchUsers} className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-1 transition-colors shadow-sm">
                     Refresh Feed

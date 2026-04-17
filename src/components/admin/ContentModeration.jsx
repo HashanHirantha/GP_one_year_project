@@ -12,7 +12,7 @@ const ContentModeration = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
             <div className="flex items-center gap-2 mb-6">
                 <ShieldAlert className="text-green-500 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Content Moderation</h3>
+                <h3 className="text-lg font-bold text-slate-800">Content Moderation</h3>
             </div>
 
             <div className="overflow-x-auto">

@@ -107,7 +107,8 @@ const Properties = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-primary via-purple-700 to-secondary text-white pt-32 pb-16 text-center px-4 mb-6">
+      <div className="relative pt-32 pb-16 text-center px-4 mb-6 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="absolute inset-0 bg-black/50 z-0"></div>
         <div className="relative z-10">
           <motion.h1
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
@@ -115,7 +116,7 @@ const Properties = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-4xl md:text-5xl font-bold mb-4"
           >
-            Browse <span className="text-accent">Properties</span>
+            Browse <span className="text-white">Properties</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, scale: 0.8 }}
@@ -147,7 +148,7 @@ const Properties = () => {
 
       <div className="container mx-auto px-4 pb-8 flex flex-col md:flex-row gap-6">
         <aside className="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-sm h-fit border border-gray-100">
-          <h3 className="font-bold text-purple-900 border-b-2 border-purple-100 pb-2 mb-6 text-lg">
+          <h3 className="font-bold text-gray-900 border-b-2 border-gray-100 pb-2 mb-6 text-lg">
             filter properties
           </h3>
 
@@ -189,14 +190,14 @@ const Properties = () => {
                   value={sideMinPrice}
                   onChange={(e) => setSideMinPrice(e.target.value.replace(/\D/g, ''))}
                   placeholder="min price"
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 placeholder-gray-400"
+                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400"
                 />
                 <input
                   type="text"
                   value={sideMaxPrice}
                   onChange={(e) => setSideMaxPrice(e.target.value.replace(/\D/g, ''))}
                   placeholder="max price"
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 placeholder-gray-400"
+                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400"
                 />
               </div>
             </div>

@@ -30,10 +30,10 @@ const OwnerAnalytics = () => {
     const maxViews = topProperties.length > 0 ? Math.max(...topProperties.map(p => p.views || 0)) : 100;
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-purple-800">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-[#06cc50]">
             <div className="flex items-center gap-2 mb-6">
-                <BarChart className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Analytics & Insights</h3>
+                <BarChart className="text-[#06cc50] w-6 h-6" />
+                <h3 className="text-lg font-bold text-gray-900">Analytics & Insights</h3>
             </div>
 
             <h4 className="text-sm font-bold text-purple-900 mb-4">Top Properties by Views</h4>

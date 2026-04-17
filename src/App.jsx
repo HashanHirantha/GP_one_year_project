@@ -11,10 +11,12 @@ import Signup from './pages/auth/Signup';
 import PropertyDetails from './pages/public/PropertyDetails';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />

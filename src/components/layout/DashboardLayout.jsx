@@ -40,14 +40,14 @@ const DashboardLayout = ({ role = 'admin', children }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-100 font-sans">
-      <aside className="w-64 bg-[#6D28D9] text-white flex-shrink-0 hidden md:flex flex-col shadow-xl z-20">
-        <div className="p-4 flex items-center justify-between border-b border-purple-800 bg-[#5B21B6]">
+      <aside className="w-64 bg-white border-r border-gray-200 text-gray-800 flex-shrink-0 hidden md:flex flex-col shadow-lg z-20">
+        <div className="p-4 flex items-center justify-between border-b border-gray-100 bg-gray-50">
           <div className="flex items-center gap-2">
-            <Settings className="text-gray-300 w-5 h-5 animate-spin-slow" />
-            <h2 className="text-lg font-bold tracking-wide">Admin Panel</h2>
+            <Settings className="text-[#06cc50] w-5 h-5 animate-spin-slow" />
+            <h2 className="text-lg font-bold tracking-wide text-gray-800">Admin Panel</h2>
           </div>
-          <div className="bg-white/20 p-1 rounded hover:bg-white/30 cursor-pointer">
-            <Menu size={20} className="text-white" />
+          <div className="bg-gray-200/50 p-1 rounded hover:bg-gray-200 cursor-pointer">
+            <Menu size={20} className="text-gray-600" />
           </div>
         </div>
         <nav className="flex-grow py-4 space-y-1">
@@ -60,8 +60,8 @@ const DashboardLayout = ({ role = 'admin', children }) => {
               onClick={() => navigate(item.path)}
             />
           ))}
-          <div className="mt-auto pt-4 border-t border-purple-800 px-4 pb-4">
-            <button onClick={() => navigate('/')} className="flex items-center space-x-3 px-4 py-3 w-full text-left hover:bg-red-500/20 rounded-lg transition-colors text-red-100 hover:text-white">
+          <div className="mt-auto pt-4 border-t border-gray-100 px-4 pb-4">
+            <button onClick={() => navigate('/')} className="flex items-center space-x-3 px-4 py-3 w-full text-left font-medium hover:bg-red-50 rounded-lg transition-colors text-red-500 hover:text-red-700">
               <LogOut size={20} />
               <span>Logout</span>
             </button>
@@ -77,7 +77,7 @@ const DashboardLayout = ({ role = 'admin', children }) => {
               <span className="text-sm font-bold text-gray-800">{role === 'admin' ? 'Admin User' : 'Property Owner'}</span>
               <span className="text-xs text-gray-500">{role === 'admin' ? 'admin@spf.lk' : 'owner@spf.lk'}</span>
             </div>
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center text-sm font-bold shadow-md border-2 border-white ring-2 ring-purple-100">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#06cc50] to-green-500 text-white flex items-center justify-center text-sm font-bold shadow-md border-2 border-white ring-2 ring-green-100">
               {role === 'admin' ? 'AD' : 'PO'}
             </div>
           </div>

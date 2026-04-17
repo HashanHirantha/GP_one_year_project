@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../../assets/logo.png';
+import LogoIcon from './LogoIcon';
+
+const NavLink = ({ to, children }) => (
+  <Link
+    to={to}
+    className="relative text-white transition group"
+  >
+    {children}
+    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+);
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,16 +37,16 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg py-2' : 'bg-primary py-4'
-      } text-white`}>
+    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#F8FAFC]/95 backdrop-blur-md shadow-lg py-2' : 'bg-[#F8FAFC] py-4'
+      } text-black`}>
       <div className="container mx-auto px-6 flex justify-between items-center relative">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group z-10">
-          <div className="bg-white p-2 rounded-full shadow-lg group-hover:scale-110 transition-transform duration-300">
-            <img src={logo} alt="Smart Property Finder Logo" className="w-10 h-10 object-contain" />
+          <div className="group-hover:scale-110 transition-transform duration-300">
+            <LogoIcon className="w-12 h-12" />
           </div>
           <span className="text-3xl font-bold tracking-tight font-sans">
-            Smart<span className="text-accent">Property</span>Finder
+            Smart<span className="text-[#06cc50]">Property</span>Finder
           </span>
         </Link>
 
@@ -46,14 +56,14 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`relative font-medium text-sm tracking-wide transition-colors duration-200 ${isActive(link.path) ? 'text-white' : 'text-white/80 hover:text-white'
+              className={`relative font-medium text-sm tracking-wide transition-colors duration-200 ${isActive(link.path) ? 'text-black' : 'text-black/80 hover:text-black'
                 }`}
             >
               {link.name}
               {isActive(link.path) && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#06cc50] rounded-full"
                 />
               )}
             </Link>
@@ -65,13 +75,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-4">
             <Link
               to="/login"
-              className="px-5 py-2 rounded-full border border-white/30 text-sm font-semibold hover:bg-white hover:text-primary transition-all duration-300"
+              className="px-5 py-2 rounded-full bg-[#F8FAFC] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="px-5 py-2 rounded-full bg-secondary text-white text-sm font-semibold shadow-lg shadow-purple-900/20 hover:bg-accent hover:text-primary hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
+              className="px-5 py-2 rounded-full bg-[#06cc50] hover:bg-white text-black text-sm font-semibold shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-center flex items-center justify-center"
             >
               Sign Up
             </Link>
@@ -106,7 +116,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="w-full h-px bg-white/10 my-2"></div>
-              <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center py-3 border border-white/20 rounded-xl hover:bg-white/10 transition">Login</Link>
+              <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center py-3 bg-[#F8FAFC] text-black rounded-xl hover:bg-white transition">Login</Link>
               <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full py-3 bg-secondary rounded-xl font-bold hover:bg-accent hover:text-primary transition shadow-lg text-center block">Sign Up</Link>
             </div>
           </motion.div>

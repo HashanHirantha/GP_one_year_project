@@ -115,8 +115,8 @@ const AnalyticsReports = () => {
     return (
         <div className="mb-8">
             <div className="flex items-center gap-2 mb-6">
-                <BarChart className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Analytics & Reports</h3>
+                <BarChart className="text-[#06cc50] w-6 h-6" />
+                <h3 className="text-lg font-bold text-slate-800">Analytics & Reports</h3>
             </div>
 
             {/* Stats Cards - Removed Revenue section per request */}
@@ -133,7 +133,7 @@ const AnalyticsReports = () => {
 
             {/* Generate Reports */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h4 className="font-bold text-purple-900 mb-4">Generate Reports</h4>
+                <h4 className="font-bold text-slate-800 mb-4">Generate Reports</h4>
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-bold text-gray-700 mb-1">Report Type</label>

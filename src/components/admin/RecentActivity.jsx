@@ -9,7 +9,7 @@ const RecentActivity = () => {
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
-            <h3 className="text-lg font-bold text-purple-900 mb-4">Recent System Activity</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-4">Recent System Activity</h3>
             <div className="space-y-4">
                 {activities.map((item, index) => (
                     <div key={index} className="flex justify-between items-center border-b border-gray-50 last:border-0 pb-3 last:pb-0">

@@ -150,10 +150,10 @@ const AddProperty = () => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-purple-800">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-[#06cc50]">
             <div className="flex items-center gap-2 mb-6">
-                <Home className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Add new Property</h3>
+                <Home className="text-[#06cc50] w-6 h-6" />
+                <h3 className="text-lg font-bold text-gray-900">Add new Property</h3>
             </div>
 
             {message.text && (
