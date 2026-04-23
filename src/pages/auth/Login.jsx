@@ -109,9 +109,9 @@ const LoginPage = () => {
         {/* Header Section with Icon and Title */}
         <div className="flex flex-col items-center text-center mb-8">
           <div className="bg-gray-50 p-2 rounded-xl mb-4">
-            <Home className="w-8 h-8 text-black" />
+            <Home className="w-8 h-8 text-[#06cc50]" />
           </div>
-          <h1 className="text-3xl font-bold text-purple-900">{isResetting ? "Reset Password" : "Welcome Back!"}</h1>
+          <h1 className="text-3xl font-bold text-[#06cc50]">{isResetting ? "Reset Password" : "Welcome Back!"}</h1>
           <p className="text-gray-500 mt-1">{isResetting ? "We'll send you an email payload to securely override your credentials." : "Login to your account"}</p>
         </div>
 
@@ -185,7 +185,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-md px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent"
                 />
             </div>
           )}
@@ -193,23 +193,22 @@ const LoginPage = () => {
           {/* Remember me & Forgot Password */}
           <div className="flex items-center justify-between text-sm">
             <label className="flex items-center text-gray-600 cursor-pointer">
-              <input type="checkbox" className="form-checkbox h-4 w-4 text-black border-gray-300 rounded mr-2" />
+              <input type="checkbox" className="form-checkbox h-4 w-4 text-[#06cc50] border-gray-300 rounded mr-2 focus:ring-[#06cc50]" />
               Remember me
             </label>
-            <button type="button" onClick={() => { setIsResetting(!isResetting); setError(null); setSuccess(null); }} className="text-indigo-600 hover:underline font-medium">
+            <button type="button" onClick={() => { setIsResetting(!isResetting); setError(null); setSuccess(null); }} className="text-[#06cc50] hover:text-[#00CC00] hover:underline font-medium">
                 {isResetting ? 'Return to Login Mode' : 'Forgot password ?'}
             </button>
           </div>
 
           {/* Submit Button */}
-          <button disabled={loading} type="submit" className="w-full bg-indigo-800 text-white font-bold py-3 rounded-md hover:bg-indigo-900 transition disabled:opacity-70 disabled:cursor-not-allowed">
+          <button disabled={loading} type="submit" className="w-full bg-[#06cc50] text-white font-bold py-3 rounded-md hover:bg-[#00CC00] transition disabled:opacity-70 disabled:cursor-not-allowed">
             {loading ? 'PROCESSING...' : (isResetting ? 'ISSUE RECOVERY EMAIL' : 'LOGIN')}
           </button>
         </form>
 
-        {/* Sign Up Link */}
         <div className="text-center mt-6 text-sm text-gray-600">
-          Don't have an Account ? <Link to="/signup" className="text-black font-bold hover:underline">Sign Up here</Link>
+          Don't have an Account ? <Link to="/signup" className="text-[#06cc50] font-bold hover:text-[#00CC00] hover:underline">Sign Up here</Link>
         </div>
 
         {/* Security Benefits List */}

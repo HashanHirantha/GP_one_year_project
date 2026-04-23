@@ -97,8 +97,8 @@ const SignupPage = () => {
                                 type="button"
                                 onClick={() => setRole(roleOption)}
                                 className={`py-2 px-4 rounded-lg text-sm font-bold uppercase transition-all duration-200 border ${role === roleOption
-                                    ? 'bg-purple-800 text-white border-purple-800 shadow-md transform scale-105'
-                                    : 'bg-white text-gray-500 border-gray-300 hover:border-purple-400 hover:text-purple-600'
+                                    ? 'bg-[#06cc50] text-white border-[#06cc50] shadow-md transform scale-105'
+                                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#00CC00] hover:text-[#00CC00]'
                                     }`}
                             >
                                 {roleOption}
@@ -144,7 +144,7 @@ const SignupPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Minimum 8 characters"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent transition"
                         />
                     </div>
                     <div>
@@ -155,7 +155,7 @@ const SignupPage = () => {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="Repeat your password"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent transition"
                         />
                     </div>
                     <div>
@@ -166,7 +166,7 @@ const SignupPage = () => {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="e.g. +94 77 123 4567"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent transition"
                         />
                     </div>
 
@@ -194,7 +194,7 @@ const SignupPage = () => {
                     </div>
 
                     {/* Register Button */}
-                    <button disabled={loading} type="submit" className="w-full bg-purple-800 text-white font-bold py-3 uppercase tracking-wide rounded-md hover:bg-purple-900 shadow-lg hover:shadow-xl transition-all duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed">
+                    <button disabled={loading} type="submit" className="w-full bg-[#06cc50] text-white font-bold py-3 uppercase tracking-wide rounded-md hover:bg-[#00CC00] shadow-lg hover:shadow-xl transition-all duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed">
                         {loading ? 'Registering...' : 'Click to Register'}
                     </button>
                 </form>
