@@ -15,15 +15,15 @@ const Footer = () => {
           <h4 className="font-bold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm opacity-80">
             <li><Link to="/" className="hover:text-[#06cc50] transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-[#06cc50] transition-colors">About</Link></li>
             <li><Link to="/properties" className="hover:text-[#06cc50] transition-colors">Properties</Link></li>
+            <li><Link to="/about" className="hover:text-[#06cc50] transition-colors">About</Link></li>
             <li><Link to="/contact" className="hover:text-[#06cc50] transition-colors">Contact</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold mb-4">Contact Us</h4>
           <ul className="space-y-2 text-sm opacity-80">
-            <li className="flex items-center gap-2"><Mail size={14} /> info@spf.com</li>
+            <li className="flex items-center gap-2"><Mail size={14} /> propertyfindingeasily@gmail.com</li>
             <li className="flex items-center gap-2"><Phone size={14} /> +94 77 123 4567</li>
           </ul>
         </div>
@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center text-xs opacity-60 border-t border-black/20 pt-4">
-        © 2025 Smart Property Finder. All rights reserved.
+        © 2026 Smart Property Finder. All rights reserved.
       </div>
     </footer>
   );

@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { supabase } from '../../config/supabase';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import contactHeader from '../../assets/images/contact/contact_header.png';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [loading, setLoading] = useState(false);
+  const [statusMsg, setStatusMsg] = useState({ type: '', text: '' });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setStatusMsg({ type: 'error', text: 'Please fill all fields' });
+      return;
+    }
+    
+    setLoading(true);
+    setStatusMsg({ type: '', text: '' });
+
+    try {
+      const { error } = await supabase.from('contact_messages').insert([{
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      }]);
+
+      if (error) throw error;
+      
+      setStatusMsg({ type: 'success', text: 'Your message has been sent successfully!' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatusMsg({ type: 'error', text: 'Failed to send message. Please try again later.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <Navbar />
@@ -46,35 +85,31 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Send Us A Message</h2>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {statusMsg.text && (
+                <div className={`p-4 rounded-xl text-sm font-bold ${statusMsg.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {statusMsg.text}
+                </div>
+              )}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Name *</label>
-                <input type="text" placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Email *</label>
-                <input type="email" placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Subject *</label>
-                <input type="text" placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Message *</label>
-                <textarea rows="5" placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition"></textarea>
+                <textarea rows="5" name="message" value={formData.message} onChange={handleChange} placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition"></textarea>
               </div>
 
-              {/* Mock Captcha */}
-              <div className="bg-gray-100 p-4 rounded-xl flex items-center justify-center gap-4 text-2xl font-mono text-gray-500 tracking-[0.5em] select-none">
-                <s>8</s> K <s>N</s> A
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Enter Captcha *</label>
-                <input type="text" placeholder="Enter the characters above" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
-              </div>
-
-              <button className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5">
-                Submit Form
+              <button disabled={loading} type="submit" className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center">
+                {loading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div> : 'Submit Form'}
               </button>
             </form>
           </div>

@@ -6,6 +6,7 @@ import Footer from '../../components/common/Footer';
 import PropertyCard from '../../components/ui/PropertyCard';
 import { Filter, MapPin, List, Map, Loader } from 'lucide-react';
 import { supabase } from '../../config/supabase';
+import heroImage from '../../assets/images/properties_header.png';
 
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -139,7 +140,7 @@ const Properties = () => {
             value={topSearch}
             onChange={(e) => setTopSearch(e.target.value)}
             placeholder="Search by keywords..."
-            className="w-full md:flex-1 p-2.5 border border-gray-400 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-600"
+            className="w-full md:flex-1 p-2.5 border border-gray-400 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-900"
           />
 
           {/* Search Button removed since it is auto-applying */}
@@ -160,7 +161,7 @@ const Properties = () => {
                 type="text"
                 value={sideLocation}
                 onChange={(e) => setSideLocation(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-900"
               />
             </div>
 
@@ -190,14 +191,14 @@ const Properties = () => {
                   value={sideMinPrice}
                   onChange={(e) => setSideMinPrice(e.target.value.replace(/\D/g, ''))}
                   placeholder="min price"
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400"
+                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400 text-gray-900"
                 />
                 <input
                   type="text"
                   value={sideMaxPrice}
                   onChange={(e) => setSideMaxPrice(e.target.value.replace(/\D/g, ''))}
                   placeholder="max price"
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400"
+                  className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black placeholder-gray-400 text-gray-900"
                 />
               </div>
             </div>
@@ -210,7 +211,7 @@ const Properties = () => {
                 min="0"
                 value={sideBeds}
                 onChange={(e) => setSideBeds(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-900"
               />
             </div>
 
@@ -222,7 +223,7 @@ const Properties = () => {
                 min="0"
                 value={sideBaths}
                 onChange={(e) => setSideBaths(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-900"
               />
             </div>
             
@@ -234,7 +235,7 @@ const Properties = () => {
                 min="0"
                 value={sideCapacity}
                 onChange={(e) => setSideCapacity(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-purple-500 text-gray-900"
               />
             </div>
 

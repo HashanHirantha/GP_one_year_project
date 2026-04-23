@@ -10,14 +10,27 @@ import Footer from '../../components/common/Footer';
 import PropertyCard from '../../components/ui/PropertyCard';
 import TrendingPropertyCard from '../../components/ui/TrendingPropertyCard';
 import { TrendingUp, BarChart2 } from 'lucide-react';
-import PricingTrendChart from '../../components/ui/PricingTrendChart';
-
-import { properties } from '../../data/properties';
+import { supabase } from '../../config/supabase';
+import { useNavigate } from 'react-router-dom';
 
 const heroImages = [hero1, hero2, hero3, hero4, hero5];
 
 const Home = () => {
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [hotDealsData, setHotDealsData] = useState([]);
+  const [trendingDealsData, setTrendingDealsData] = useState([]);
+  const [loadingHot, setLoadingHot] = useState(true);
+  const [loadingTrending, setLoadingTrending] = useState(true);
+
+  // Custom Analytics Chart Data
+  const chartData = [
+    { city: 'Colombo', price: '85M', label: 'Rs. 85M', height: '85%', color: 'from-[#06cc50] to-green-700' },
+    { city: 'Kandy', price: '45M', label: 'Rs. 45M', height: '45%', color: 'from-green-400 to-[#06cc50]' },
+    { city: 'Galle', price: '60M', label: 'Rs. 60M', height: '60%', color: 'from-emerald-400 to-[#06cc50]' },
+    { city: 'Gampaha', price: '35M', label: 'Rs. 35M', height: '35%', color: 'from-green-500 to-emerald-700' },
+    { city: 'Negombo', price: '40M', label: 'Rs. 40M', height: '40%', color: 'from-[#06cc50] to-teal-600' }
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,10 +38,74 @@ const Home = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  // Use first 3 properties for Hot Deals
-  const hotDeals = properties.slice(0, 3);
-  // Use next 3 properties for Trending (or filter if needed)
-  const trendingDeals = properties.slice(3, 6);
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoadingHot(true);
+      setLoadingTrending(true);
+      
+      try {
+        const [hotRes, trendRes] = await Promise.all([
+          supabase
+            .from('properties')
+            .select(`*, property_images(image_url, is_primary)`)
+            .order('created_at', { ascending: false })
+            .limit(10),
+          supabase
+            .from('properties')
+            .select(`*, property_images(image_url, is_primary)`)
+            .limit(20)
+        ]);
+
+        if (hotRes.error) console.error('Error fetching hot deals:', hotRes.error.message);
+        setHotDealsData(hotRes.data || []);
+
+        if (trendRes.error) console.error('Error fetching trending deals:', trendRes.error.message);
+        // Shuffle the trending deals to make it random and slice top 8
+        // Spread into a new array to prevent mutating read-only array from Supabase
+        const shuffledTrending = [...(trendRes.data || [])].sort(() => 0.5 - Math.random()).slice(0, 8);
+        setTrendingDealsData(shuffledTrending);
+
+      } catch (error) {
+        console.error('Unexpected error loading properties:', error);
+      } finally {
+        setLoadingHot(false);
+        setLoadingTrending(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  const hotDeals = hotDealsData.map(p => {
+    const primaryImg = p.property_images?.find(i => i.is_primary)?.image_url || p.property_images?.[0]?.image_url;
+    return {
+      id: p.id,
+      title: p.title,
+      price: `Rs. ${p.price?.toLocaleString()}`,
+      location: p.city || 'Location N/A',
+      type: p.property_type,
+      isFeatured: true, // Fake featured
+      image: primaryImg,
+      is_available: p.is_available ?? true
+    };
+  });
+
+  const trendingDeals = trendingDealsData.map(p => {
+    const primaryImg = p.property_images?.find(i => i.is_primary)?.image_url || p.property_images?.[0]?.image_url;
+    return {
+      id: p.id,
+      title: p.title,
+      price: `Rs. ${p.price?.toLocaleString()}`,
+      location: p.city || 'Location N/A',
+      beds: p.bedrooms || 3,
+      baths: p.bathrooms || 2,
+      sqft: p.area_sqm || 750,
+      type: p.property_type,
+      isSponsored: false,
+      image: primaryImg
+    };
+  });
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -133,35 +210,35 @@ const Home = () => {
           <p className="text-gray-500 text-lg mt-2 font-light">Best value for money properties picked for you</p>
         </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2
-              }
-            }
-          }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {hotDeals.map((property) => (
-            <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-              <PropertyCard
-                id={property.id}
-                title={property.title}
-                price={property.price}
-                location={property.location}
-                type={property.type}
-                isFeatured={property.isFeatured}
-                image={property.images[0]}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="flex overflow-x-auto gap-6 pb-8 snap-x scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+          {loadingHot ? (
+            <div className="w-full text-center py-20 text-gray-400">Loading dynamic properties...</div>
+          ) : hotDeals.length > 0 ? (
+            hotDeals.map((property) => (
+              <motion.div 
+                key={property.id} 
+                className="min-w-[300px] md:min-w-[350px] snap-center shrink-0 pt-3" 
+                initial={{ opacity: 0, scale: 0.9 }} 
+                whileInView={{ opacity: 1, scale: 1 }} 
+                viewport={{ once: true, margin: "50px" }}
+                transition={{ duration: 0.5 }}
+              >
+                <PropertyCard
+                  id={property.id}
+                  title={property.title}
+                  price={property.price}
+                  location={property.location}
+                  type={property.type}
+                  isFeatured={property.isFeatured}
+                  image={property.image}
+                  is_available={property.is_available}
+                />
+              </motion.div>
+            ))
+          ) : (
+            <div className="w-full text-center py-20 text-gray-400">No hot properties found.</div>
+          )}
+        </div>
       </div>
 
       {/* Trending Properties Section */}
@@ -171,38 +248,37 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-black tracking-tight">Trending Properties</h2>
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2
-                }
-              }
-            }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            {trendingDeals.map((property) => (
-              <motion.div key={property.id} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-                <TrendingPropertyCard
-                  id={property.id}
-                  title={property.title}
-                  location={property.location}
-                  price={property.price}
-                  beds={property.beds}
-                  baths={property.baths}
-                  sqft={property.sqft}
-                  type={property.type}
-                  isSponsored={property.isSponsored}
-                  image={property.images[0]}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="flex overflow-x-auto gap-6 pb-8 snap-x scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+            {loadingTrending ? (
+              <div className="w-full text-center py-20 text-gray-400">Loading dynamic properties...</div>
+            ) : trendingDeals.length > 0 ? (
+              trendingDeals.map((property) => (
+                <motion.div 
+                  key={property.id} 
+                  className="min-w-[300px] md:min-w-[350px] snap-center shrink-0 pt-3" 
+                  initial={{ opacity: 0, scale: 0.9 }} 
+                  whileInView={{ opacity: 1, scale: 1 }} 
+                  viewport={{ once: true, margin: "50px" }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <TrendingPropertyCard
+                    id={property.id}
+                    title={property.title}
+                    location={property.location}
+                    price={property.price}
+                    beds={property.beds}
+                    baths={property.baths}
+                    sqft={property.sqft}
+                    type={property.type}
+                    isSponsored={property.isSponsored}
+                    image={property.image}
+                  />
+                </motion.div>
+              ))
+            ) : (
+              <div className="w-full text-center py-20 text-gray-400">No trending properties found.</div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -214,13 +290,38 @@ const Home = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
+            className="bg-white rounded-3xl h-[400px] flex items-end justify-between p-8 pt-16 border border-gray-100 shadow-2xl relative overflow-hidden"
           >
-            <PricingTrendChart />
+            <div className="absolute top-6 left-6 flex items-center gap-2 text-black border-b border-gray-100 pb-2 w-[calc(100%-3rem)]">
+              <TrendingUp className="w-5 h-5 text-[#06cc50]" />
+              <h3 className="font-bold text-lg">Market Averages (Estimated)</h3>
+            </div>
+            
+            {chartData.map((data, index) => (
+              <div key={index} className="flex flex-col items-center justify-end h-full w-1/6 group">
+                <div className="relative w-full flex justify-center items-end h-[250px] mb-4">
+                  <motion.div 
+                    initial={{ height: 0 }}
+                    whileInView={{ height: data.height }}
+                    transition={{ duration: 1, delay: 0.2 * index, ease: "easeOut" }}
+                    className={`w-full max-w-[60px] rounded-t-xl bg-gradient-to-t ${data.color} shadow-lg relative cursor-pointer`}
+                  >
+                    {/* Tooltip */}
+                    <motion.div 
+                      className="absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-bold py-1.5 px-3 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10"
+                    >
+                      {data.label}
+                      <div className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+                    </motion.div>
+                  </motion.div>
+                </div>
+                <p className="font-semibold text-gray-600 text-sm">{data.city}</p>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
