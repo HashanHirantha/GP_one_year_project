@@ -1,10 +1,59 @@
-import React from 'react';
-import { MapPin, Bed, Bath, Ruler, Home, Building } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MapPin, Bed, Bath, Ruler, Home, Building, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
-
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { supabase } from '../../config/supabase';
 
 const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, type, isSponsored, image }) => {
+    const { user } = useAuth();
+    const [isFavorite, setIsFavorite] = useState(false);
+  
+    useEffect(() => {
+      if (user && id) {
+        checkFavorite();
+      }
+    }, [user, id]);
+  
+    const checkFavorite = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('favorites')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('property_id', id)
+          .maybeSingle();
+        
+        if (!error && data) {
+          setIsFavorite(true);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+  
+    const toggleFavorite = async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+  
+      if (!user) {
+        alert("Please login to save properties to your favorites.");
+        return;
+      }
+  
+      try {
+        if (isFavorite) {
+          setIsFavorite(false);
+          await supabase.from('favorites').delete().eq('user_id', user.id).eq('property_id', id);
+        } else {
+          setIsFavorite(true);
+          await supabase.from('favorites').insert([{ user_id: user.id, property_id: id }]);
+        }
+      } catch (err) {
+        console.error("Error toggling favorite:", err);
+      }
+    };
+
     return (
         <Link to={`/property/${id}`}>
             <motion.div
@@ -28,6 +77,13 @@ const TrendingPropertyCard = ({ id, title, price, location, beds, baths, sqft, t
                             )}
                         </div>
                     )}
+
+                    <button 
+                        onClick={toggleFavorite}
+                        className="absolute top-3 right-3 p-2.5 bg-white/80 backdrop-blur rounded-full hover:bg-white transition-all shadow-md z-10"
+                    >
+                        <Heart size={20} className={`${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'} transition-colors`} />
+                    </button>
                 </div>
 
                 {/* Content Section */}
