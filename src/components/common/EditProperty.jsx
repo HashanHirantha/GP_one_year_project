@@ -214,10 +214,10 @@ const EditProperty = () => {
     if (fetching) return <div className="p-8 text-center text-gray-500">Loading property data...</div>;
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-purple-800">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 border-t-4 border-green-800">
             <div className="flex items-center gap-2 mb-6">
-                <Home className="text-purple-600 w-6 h-6" />
-                <h3 className="text-lg font-bold text-purple-900">Edit Property</h3>
+                <Home className="text-green-600 w-6 h-6" />
+                <h3 className="text-lg font-bold text-green-900">Edit Property</h3>
             </div>
 
             {message.text && (
@@ -230,11 +230,11 @@ const EditProperty = () => {
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-xs font-bold text-gray-700 mb-1">Property name *</label>
-                        <input type="text" name="title" value={formData.title} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                        <input type="text" name="title" value={formData.title} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-gray-700 mb-1">Property type *</label>
-                        <select name="property_type" value={formData.property_type} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none bg-white">
+                        <select name="property_type" value={formData.property_type} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none bg-white">
                             <option value="" disabled>Select property type</option>
                             <option value="apartment">Apartment</option>
                             <option value="house">House</option>
@@ -246,58 +246,58 @@ const EditProperty = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Location / City *</label>
-                            <input type="text" name="location" value={formData.location} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="text" name="location" value={formData.location} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">State / Province</label>
-                            <input type="text" name="state" value={formData.state} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="text" name="state" value={formData.state} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Zip Code</label>
-                            <input type="text" name="zip_code" value={formData.zip_code} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="text" name="zip_code" value={formData.zip_code} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Price (Rs.) *</label>
-                            <input type="text" name="price" value={formData.price} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="text" name="price" value={formData.price} onChange={handleChange} required className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Bedrooms</label>
-                            <input type="number" min="0" name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="number" min="0" name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Bathrooms</label>
-                            <input type="number" min="0" name="bathrooms" value={formData.bathrooms} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="number" min="0" name="bathrooms" value={formData.bathrooms} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Area (sqft)</label>
-                            <input type="number" min="0" name="area_sqft" value={formData.area_sqft} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="number" min="0" name="area_sqft" value={formData.area_sqft} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Max Guests</label>
-                            <input type="number" min="0" name="max_guests" value={formData.max_guests} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="number" min="0" name="max_guests" value={formData.max_guests} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Contact Number</label>
-                            <input type="text" name="contact_number" value={formData.contact_number} onChange={handleChange} placeholder="+94 77 123 4567" className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                            <input type="text" name="contact_number" value={formData.contact_number} onChange={handleChange} placeholder="+94 77 123 4567" className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                         </div>
                         <div className="flex items-center mt-6">
-                            <input type="checkbox" id="is_available" name="is_available" checked={formData.is_available} onChange={handleChange} className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500" />
+                            <input type="checkbox" id="is_available" name="is_available" checked={formData.is_available} onChange={handleChange} className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500" />
                             <label htmlFor="is_available" className="ml-2 text-sm font-bold text-gray-700 cursor-pointer">Property is Available</label>
                         </div>
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-gray-700 mb-1">Description</label>
-                        <textarea name="description" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm h-24 focus:ring-1 focus:ring-purple-500 outline-none"></textarea>
+                        <textarea name="description" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2 text-sm h-24 focus:ring-1 focus:ring-green-500 outline-none"></textarea>
                     </div>
 
                     <div>
                         <label className="block text-xs font-bold text-gray-700 mb-1">Google Maps Embed URL (Optional)</label>
-                        <input type="text" name="map_url" value={formData.map_url || ''} onChange={handleChange} placeholder='Paste the "src" link or full <iframe> code here' className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-purple-500 outline-none" />
+                        <input type="text" name="map_url" value={formData.map_url || ''} onChange={handleChange} placeholder='Paste the "src" link or full <iframe> code here' className="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-green-500 outline-none" />
                     </div>
 
                     {/* Existing Images */}
@@ -324,13 +324,13 @@ const EditProperty = () => {
                         <label className="block text-xs font-bold text-gray-700 mb-1">Upload Additional Images (Max 5)</label>
                         <label className="border-2 border-dashed border-gray-300 rounded-md h-32 flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:bg-gray-50 transition relative overflow-hidden">
                             <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" />
-                            <Plus size={24} className="mb-1 text-purple-600" />
+                            <Plus size={24} className="mb-1 text-green-600" />
                             <span className="text-xs text-center leading-tight">Click to upload<br />PNG, JPG or GIF</span>
                             
                             {images.length > 0 && (
                                 <div className="absolute inset-0 bg-white bg-opacity-95 flex items-center justify-center flex-wrap gap-2 p-2 pointer-events-none">
                                     {images.map((img, idx) => (
-                                        <div key={idx} className="text-xs bg-purple-100 text-purple-900 px-2 py-1 rounded truncate max-w-[80px]">
+                                        <div key={idx} className="text-xs bg-green-100 text-green-900 px-2 py-1 rounded truncate max-w-[80px]">
                                             {img.name}
                                         </div>
                                     ))}
@@ -341,7 +341,7 @@ const EditProperty = () => {
                     </div>
 
                     <div className="flex gap-4 pt-4">
-                        <button type="submit" disabled={loading} className="bg-secondary text-white text-sm px-6 py-2 rounded-lg hover:bg-purple-600 transition font-bold shadow-md flex items-center justify-center min-w-[140px]">
+                        <button type="submit" disabled={loading} className="bg-secondary text-white text-sm px-6 py-2 rounded-lg hover:bg-green-600 transition font-bold shadow-md flex items-center justify-center min-w-[140px]">
                             {loading ? <Loader size={16} className="animate-spin" /> : <><Save size={16} className="mr-2" /> Save Changes</>}
                         </button>
                         <button type="button" onClick={() => navigate(-1)} className="bg-gray-400 text-white text-sm px-6 py-2 rounded-lg hover:bg-gray-500 transition font-bold shadow-md">Cancel</button>

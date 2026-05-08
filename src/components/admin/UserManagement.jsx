@@ -139,7 +139,7 @@ const UserManagement = () => {
                                         <select 
                                             value={user.role} 
                                             onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                                            className="border border-gray-200 rounded p-1 text-xs focus:ring-1 focus:ring-purple-500 outline-none font-bold shadow-sm"
+                                            className="border border-gray-200 rounded p-1 text-xs focus:ring-1 focus:ring-green-500 outline-none font-bold shadow-sm"
                                         >
                                             <option value="admin">Admin</option>
                                             <option value="seller">Seller</option>
@@ -148,7 +148,7 @@ const UserManagement = () => {
                                         </select>
                                     </td>
                                     <td className="py-4 text-gray-500">{user.phone}</td>
-                                    <td className="py-4 text-center font-bold text-purple-600">{user.properties} Units</td>
+                                    <td className="py-4 text-center font-bold text-green-600">{user.properties} Units</td>
                                     <td className="py-4 text-right">
                                         <div className="flex justify-end gap-2">
                                             <button onClick={() => handleDeleteUser(user.id)} className="p-1.5 bg-red-50 hover:bg-red-100 text-red-500 hover:text-red-700 font-bold border border-red-200 text-xs px-3 py-1 rounded transition-colors flex items-center gap-1 shadow-sm">

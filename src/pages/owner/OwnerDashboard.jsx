@@ -34,7 +34,7 @@ const PageTransition = ({ children }) => (
 
 const DashboardHome = () => (
   <div className="space-y-6">
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between border-t-4 border-purple-800">
+    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between border-t-4 border-green-800">
        <div>
          <h1 className="text-2xl font-bold text-gray-800">Welcome to your dashboard!</h1>
          <p className="text-gray-500 mt-1">Manage your properties, track analytics, and boost your sales.</p>

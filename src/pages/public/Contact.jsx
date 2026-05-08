@@ -21,7 +21,7 @@ const Contact = () => {
       setStatusMsg({ type: 'error', text: 'Please fill all fields' });
       return;
     }
-    
+
     setLoading(true);
     setStatusMsg({ type: '', text: '' });
 
@@ -34,7 +34,7 @@ const Contact = () => {
       }]);
 
       if (error) throw error;
-      
+
       setStatusMsg({ type: 'success', text: 'Your message has been sent successfully!' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
@@ -93,19 +93,19 @@ const Contact = () => {
               )}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Name *</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" className="w-full border border-gray-200 rounded-xl p-3 text-sm text-black placeholder-gray-400 focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Email *</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" className="w-full border border-gray-200 rounded-xl p-3 text-sm text-black placeholder-gray-400 focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Subject *</label>
-                <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition" />
+                <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="w-full border border-gray-200 rounded-xl p-3 text-sm text-black placeholder-gray-400 focus:ring-2 focus:ring-gray-300 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Message *</label>
-                <textarea rows="5" name="message" value={formData.message} onChange={handleChange} placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-2 focus:ring-gray-300 outline-none transition"></textarea>
+                <textarea rows="5" name="message" value={formData.message} onChange={handleChange} placeholder="Write your message here..." className="w-full border border-gray-200 rounded-xl p-3 text-sm text-black placeholder-gray-400 focus:ring-2 focus:ring-gray-300 outline-none transition"></textarea>
               </div>
 
               <button disabled={loading} type="submit" className="w-full bg-[#06cc50] hover:bg-white text-black font-bold py-4 rounded-full transition shadow-lg shadow-black/20 hover:shadow-xl active:scale-95 uppercase tracking-wide transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center">

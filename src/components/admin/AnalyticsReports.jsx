@@ -123,11 +123,11 @@ const AnalyticsReports = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                     <span className="text-gray-500 text-xs font-bold uppercase tracking-wider">Active Listings</span>
-                    <h3 className="text-2xl font-bold text-purple-900 mt-2">{activeListings}</h3>
+                    <h3 className="text-2xl font-bold text-green-900 mt-2">{activeListings}</h3>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                     <span className="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Inquiries</span>
-                    <h3 className="text-2xl font-bold text-purple-900 mt-2">{totalInquiries}</h3>
+                    <h3 className="text-2xl font-bold text-green-900 mt-2">{totalInquiries}</h3>
                 </div>
             </div>
 
@@ -140,7 +140,7 @@ const AnalyticsReports = () => {
                         <select 
                             value={reportType} 
                             onChange={(e) => setReportType(e.target.value)}
-                            className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-purple-500 outline-none text-gray-500"
+                            className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-green-500 outline-none text-gray-500"
                         >
                             <option value="">Select Report Type</option>
                             <option value="Inquiries Report">Inquiries Report</option>
@@ -156,7 +156,7 @@ const AnalyticsReports = () => {
                                     type="date" 
                                     value={startDate}
                                     onChange={(e) => setStartDate(e.target.value)}
-                                    className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-purple-500 outline-none text-gray-500" 
+                                    className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-green-500 outline-none text-gray-500" 
                                 />
                             </div>
                             <div className="relative flex-1">
@@ -164,7 +164,7 @@ const AnalyticsReports = () => {
                                     type="date" 
                                     value={endDate}
                                     onChange={(e) => setEndDate(e.target.value)}
-                                    className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-purple-500 outline-none text-gray-500" 
+                                    className="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-green-500 outline-none text-gray-500" 
                                 />
                             </div>
                         </div>
@@ -172,7 +172,7 @@ const AnalyticsReports = () => {
                     <button 
                         onClick={handleGenerateReport}
                         disabled={isGenerating}
-                        className="bg-secondary hover:bg-purple-600 disabled:opacity-50 text-white text-sm font-bold py-2 px-6 rounded-lg transition-colors shadow-md mt-2"
+                        className="bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white text-sm font-bold py-2 px-6 rounded-lg transition-colors shadow-md mt-2"
                     >
                         {isGenerating ? 'Generating...' : 'Generate and Download CSV'}
                     </button>

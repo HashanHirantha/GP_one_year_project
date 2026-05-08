@@ -92,7 +92,7 @@ const ContactMessages = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
       </div>
     );
   }
@@ -102,7 +102,7 @@ const ContactMessages = () => {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-            <MessageSquare className="text-purple-600" />
+            <MessageSquare className="text-green-600" />
             Contact Messages
           </h2>
           <p className="text-gray-500 text-sm mt-1">Review and manage inquiries from the contact form</p>
@@ -116,7 +116,7 @@ const ContactMessages = () => {
               onClick={() => setFilter(f)}
               className={`px-4 py-2 text-sm font-medium rounded-md capitalize transition-colors ${
                 filter === f 
-                  ? 'bg-purple-100 text-purple-700' 
+                  ? 'bg-green-100 text-green-700' 
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -141,7 +141,7 @@ const ContactMessages = () => {
         ) : (
           <div className="divide-y divide-gray-100">
             {filteredMessages.map((msg) => (
-              <div key={msg.id} className={`transition-colors hover:bg-gray-50 ${msg.status === 'unread' ? 'bg-purple-50/30' : ''}`}>
+              <div key={msg.id} className={`transition-colors hover:bg-gray-50 ${msg.status === 'unread' ? 'bg-green-50/30' : ''}`}>
                 <div 
                   className="p-5 cursor-pointer flex items-center justify-between"
                   onClick={() => {
@@ -149,7 +149,7 @@ const ContactMessages = () => {
                   }}
                 >
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="bg-gradient-to-br from-purple-100 to-purple-200 p-3 rounded-full text-purple-700">
+                    <div className="bg-gradient-to-br from-green-100 to-green-200 p-3 rounded-full text-green-700">
                       <User size={20} />
                     </div>
                     <div>
@@ -192,7 +192,7 @@ const ContactMessages = () => {
                             <Mail size={16} className="text-gray-400" />
                             <div>
                               <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Email</p>
-                              <a href={`mailto:${msg.email}`} className="font-medium text-purple-600 hover:underline">{msg.email}</a>
+                              <a href={`mailto:${msg.email}`} className="font-medium text-green-600 hover:underline">{msg.email}</a>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">

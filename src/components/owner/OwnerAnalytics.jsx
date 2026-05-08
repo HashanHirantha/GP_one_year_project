@@ -36,7 +36,7 @@ const OwnerAnalytics = () => {
                 <h3 className="text-lg font-bold text-gray-900">Analytics & Insights</h3>
             </div>
 
-            <h4 className="text-sm font-bold text-purple-900 mb-4">Top Properties by Views</h4>
+            <h4 className="text-sm font-bold text-green-900 mb-4">Top Properties by Views</h4>
 
             {topProperties.length > 0 ? (
                 <div className="flex flex-col gap-4 mt-6">
@@ -50,7 +50,7 @@ const OwnerAnalytics = () => {
                                 </div>
                                 <div className="w-full bg-gray-100 rounded-full h-2.5">
                                     <div 
-                                        className="bg-purple-600 h-2.5 rounded-full transition-all duration-1000 ease-out" 
+                                        className="bg-green-600 h-2.5 rounded-full transition-all duration-1000 ease-out" 
                                         style={{ width: `${widthPercentage}%` }}
                                     ></div>
                                 </div>
