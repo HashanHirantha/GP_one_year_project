@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Users, FileText, CreditCard, BarChart, Settings, LogOut, PlusCircle, MessageSquare, Building, ShieldCheck, Menu, Calendar, Home, Mail } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, CreditCard, BarChart, Settings, LogOut, PlusCircle, MessageSquare, Building, ShieldCheck, Menu, Calendar, Home, Mail, Bell } from 'lucide-react';
 import SidebarItem from '../ui/SidebarItem';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -15,7 +15,7 @@ const DashboardLayout = ({ role = 'admin', children }) => {
     { id: 'users', path: '/dashboard/admin/users', icon: Users, label: 'User Management' },
     { id: 'properties', path: '/dashboard/admin/properties', icon: Building, label: 'Property Management' },
     { id: 'messages', path: '/dashboard/admin/messages', icon: Mail, label: 'Messages' },
-    { id: 'analytics', path: '/dashboard/admin/analytics', icon: BarChart, label: 'Analytics & Reports' },
+    { id: 'analytics', path: '/dashboard/admin/analytics', icon: BarChart, label: 'Analytics & Reports' }
   ];
 
   const ownerMenu = [

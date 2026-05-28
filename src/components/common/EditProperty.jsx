@@ -14,6 +14,8 @@ const EditProperty = () => {
     const [message, setMessage] = useState({ text: '', type: '' });
     const [images, setImages] = useState([]);
     const [existingImages, setExistingImages] = useState([]);
+    const [originalPrice, setOriginalPrice] = useState(0);
+    const [whatsappNotifications, setWhatsappNotifications] = useState([]);
     
     const [formData, setFormData] = useState({
         title: '',
@@ -58,6 +60,8 @@ const EditProperty = () => {
                 setFetching(false);
                 return;
             }
+
+            setOriginalPrice(data.price || 0);
 
             setFormData({
                 title: data.title || '',
@@ -197,10 +201,149 @@ const EditProperty = () => {
             if (imageUploadError) {
                 setMessage({ text: `Property updated, but new images failed to upload: ${imageUploadError}`, type: 'error' });
             } else {
-                setMessage({ text: 'Property updated successfully!', type: 'success' });
+                let successMsg = 'Property updated successfully!';
+                
+                // Check for price drop and send alerts
+                if (priceValue < originalPrice && priceValue > 0) {
+                    // Create in-app notifications for users who favorited this property
+                    try {
+                        let favoriteUsers = [];
+                        const { data: favs, error: favsError } = await supabase
+                            .from('favorites')
+                            .select('user_id')
+                            .eq('property_id', id);
+                        
+                        if (!favsError && favs) {
+                            favoriteUsers = favs.map(f => f.user_id);
+                        }
+
+                        if (favoriteUsers.length > 0) {
+                            const notificationsToInsert = favoriteUsers.map(userId => ({
+                                user_id: userId,
+                                property_id: id,
+                                title: 'Price Drop Alert!',
+                                message: `The price of "${formData.title}" has dropped to Rs. ${priceValue}.`,
+                                is_read: false
+                            }));
+                            await supabase.from('notifications').insert(notificationsToInsert);
+                        }
+                    } catch (e) {
+                        console.warn("Supabase notifications error (table may not exist), using fallback:", e);
+                    }
+
+                    // LocalStorage mock notifications fallback
+                    try {
+                        const localNotifications = JSON.parse(localStorage.getItem('mock_notifications') || '[]');
+                        localNotifications.push({
+                            id: Math.random().toString(),
+                            property_id: id,
+                            title: 'Price Drop Alert!',
+                            message: `The price of "${formData.title}" has dropped to Rs. ${priceValue}.`,
+                            is_read: false,
+                            created_at: new Date().toISOString()
+                        });
+                        localStorage.setItem('mock_notifications', JSON.stringify(localNotifications));
+                    } catch (e) {
+                        console.error("Local notifications fallback error:", e);
+                    }
+
+                    try {
+                        let alertsList = [];
+                        
+                        // 1. Try backend API first (supports unified local file + database storage)
+                        try {
+                            const response = await fetch(`http://localhost:3001/api/price-alerts/${id}`);
+                            const result = await response.json();
+                            if (result.success) {
+                                alertsList = result.alerts;
+                            }
+                        } catch (apiErr) {
+                            console.warn("Failed to fetch price alerts from backend API, trying direct Supabase:", apiErr);
+                        }
+
+                        // 2. Direct Supabase fallback
+                        if (alertsList.length === 0) {
+                            const { data: alerts, error } = await supabase
+                                .from('price_alerts')
+                                .select('phone_number')
+                                .eq('property_id', id);
+
+                            if (!error && alerts) {
+                                alertsList = alerts.map(a => a.phone_number);
+                            }
+                        }
+
+                        // 3. LocalStorage fallback
+                        if (alertsList.length === 0) {
+                            const localAlerts = JSON.parse(localStorage.getItem('mock_price_alerts') || '[]');
+                            alertsList = localAlerts.filter(a => a.property_id === id).map(a => a.phone_number);
+                        }
+
+                        if (alertsList.length > 0) {
+                            const initialNotifications = alertsList.map(phone => ({
+                                id: Math.random(),
+                                phone: phone,
+                                message: `Price Drop Alert! ${formData.title} dropped to Rs. ${priceValue}.`,
+                                status: 'sending',
+                                errorMsg: ''
+                            }));
+                            setWhatsappNotifications(initialNotifications);
+
+                            let sentCount = 0;
+                            let failCount = 0;
+
+                            for (const notification of initialNotifications) {
+                                try {
+                                    const response = await fetch('http://localhost:3001/api/send-sms', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            to: notification.phone,
+                                            message: notification.message
+                                        })
+                                    });
+
+                                    if (!response.ok) {
+                                        const errorData = await response.json();
+                                        throw new Error(errorData.error || 'Server returned an error');
+                                    }
+
+                                    const result = await response.json();
+                                    if (result.success) {
+                                        sentCount++;
+                                        setWhatsappNotifications(prev =>
+                                            prev.map(item => item.id === notification.id ? { ...item, status: 'success' } : item)
+                                        );
+                                    } else {
+                                        throw new Error(result.error || 'Unknown error');
+                                    }
+                                } catch (e) {
+                                    failCount++;
+                                    console.error("WhatsApp sending error:", e);
+                                    setWhatsappNotifications(prev =>
+                                        prev.map(item => item.id === notification.id ? { ...item, status: 'failed', errorMsg: e.message } : item)
+                                    );
+                                }
+                            }
+
+                            if (sentCount > 0) {
+                                successMsg += ` WhatsApp alerts sent to ${sentCount} subscribers!`;
+                            }
+                            if (failCount > 0) {
+                                successMsg += ` Failed to send WhatsApp to ${failCount} subscribers. Check error details.`;
+                            }
+                        }
+                    } catch (err) {
+                        console.error("Alert error", err);
+                    }
+                }
+
+                setMessage({ text: successMsg, type: 'success' });
                 setTimeout(() => {
                     navigate(-1); // Go back to the list
-                }, 1500);
+                }, 8000); // give time to read success/error messages
             }
 
         } catch (error) {
@@ -348,6 +491,48 @@ const EditProperty = () => {
                     </div>
                 </form>
             ) : null}
+
+            {/* Simulated WhatsApp Notifications UI */}
+            {whatsappNotifications.length > 0 && (
+                <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3">
+                    {whatsappNotifications.map((sms) => (
+                        <div key={sms.id} className={`bg-white border-2 rounded-2xl shadow-2xl p-4 w-80 transform transition-all ${
+                            sms.status === 'sending' ? 'border-yellow-400 animate-pulse' :
+                            sms.status === 'success' ? 'border-green-500 animate-bounce' : 'border-red-500'
+                        }`}>
+                            <div className="flex items-center gap-2 mb-2 border-b pb-2">
+                                <div className={`p-1.5 rounded-full ${
+                                    sms.status === 'sending' ? 'bg-yellow-100 text-yellow-600' :
+                                    sms.status === 'success' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                }`}>
+                                    {sms.status === 'sending' ? (
+                                        <Loader size={14} className="animate-spin" />
+                                    ) : sms.status === 'success' ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                    )}
+                                </div>
+                                <div className="font-bold text-gray-800 text-sm">
+                                    {sms.status === 'sending' ? 'Sending WhatsApp...' :
+                                     sms.status === 'success' ? 'WhatsApp Sent Successfully' : 'WhatsApp Delivery Failed'}
+                                </div>
+                                <div className="text-xs text-gray-400 ml-auto">Just now</div>
+                            </div>
+                            <div className="text-xs font-bold text-gray-500 mb-1">To: {sms.phone}</div>
+                            <div className="bg-gray-100 rounded-lg p-3 text-sm text-gray-800 relative">
+                                {sms.message}
+                                <div className="absolute -left-1.5 top-3 w-3 h-3 bg-gray-100 transform rotate-45"></div>
+                            </div>
+                            {sms.status === 'failed' && (
+                                <div className="text-[11px] text-red-600 font-semibold mt-2 bg-red-50 p-2 rounded border border-red-200">
+                                    {sms.errorMsg || 'Could not connect to the backend server. Is it running?'}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

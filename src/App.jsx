@@ -12,6 +12,7 @@ import Signup from './pages/auth/Signup';
 import UpdatePassword from './pages/auth/UpdatePassword';
 import PropertyDetails from './pages/public/PropertyDetails';
 import Favorites from './pages/public/Favorites'; 
+import SmsAlertsInfo from './pages/public/SmsAlertsInfo';
 import Profile from './pages/public/Profile';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -50,6 +51,7 @@ function App() {
         <Route path="/update-password" element={<UpdatePassword />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
         <Route path="/favorites" element={<Favorites />} /> 
+        <Route path="/sms-alerts" element={<SmsAlertsInfo />} />
         <Route path="/profile" element={<Profile />} />
 
         {/* Dashboard Routes - Nested routing handled within components */}

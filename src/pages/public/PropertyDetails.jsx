@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Bed, Bath, Ruler, Car, Phone, Mail, MessageSquare, Heart, Calendar, Share2, Printer, ChevronLeft, ChevronRight, Star, FileText, Camera, Users } from 'lucide-react';
+import { MapPin, Bed, Bath, Ruler, Car, Phone, Mail, MessageSquare, Heart, Calendar, Share2, Printer, ChevronLeft, ChevronRight, Star, FileText, Camera, Users, Bell, X } from 'lucide-react';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
 import { supabase } from '../../config/supabase';
@@ -27,6 +27,19 @@ const PropertyDetails = () => {
     const [inquiryMessage, setInquiryMessage] = useState('');
     const [sendingInquiry, setSendingInquiry] = useState(false);
 
+    // Price Drop Alerts state
+    const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+    const [whatsappStatus, setWhatsappStatus] = useState('fetching');
+    const [whatsappBotNumber, setWhatsappBotNumber] = useState(null);
+    const [activeAlertTab, setActiveAlertTab] = useState('qr'); // 'qr' or 'code'
+    const [subscriptionStatus, setSubscriptionStatus] = useState('idle'); // idle, success, error
+    const [codeError, setCodeError] = useState('');
+    const [alertCodePhone, setAlertCodePhone] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
+    const [verificationStep, setVerificationStep] = useState(1); // 1: input phone, 2: input OTP code
+    const [sendingCode, setSendingCode] = useState(false);
+    const [verifyingCode, setVerifyingCode] = useState(false);
+
     useEffect(() => {
         if (id) {
             fetchProperty();
@@ -34,6 +47,12 @@ const PropertyDetails = () => {
             if (user) checkFavorite();
         }
     }, [id, user]);
+
+    useEffect(() => {
+        if (isAlertModalOpen) {
+            fetchWhatsappInfo();
+        }
+    }, [isAlertModalOpen]);
 
     const incrementViews = async () => {
         // Prevent double counting in React Strict Mode and stop spamming on refresh
@@ -224,6 +243,93 @@ const PropertyDetails = () => {
             alert("Failed to send message: " + (err.message || 'Unknown error'));
         } finally {
             setSendingInquiry(false);
+        }
+    };
+
+    const fetchWhatsappInfo = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/api/whatsapp-info');
+            const data = await response.json();
+            if (data.success) {
+                setWhatsappStatus(data.status);
+                setWhatsappBotNumber(data.number);
+            } else {
+                setWhatsappStatus('disconnected');
+            }
+        } catch (error) {
+            console.error("Error fetching WhatsApp info:", error);
+            setWhatsappStatus('disconnected');
+        }
+    };
+
+    const handleTabChange = (tab) => {
+        setActiveAlertTab(tab);
+        setCodeError('');
+        setAlertCodePhone('');
+        setVerificationCode('');
+        setVerificationStep(1);
+        setSubscriptionStatus('idle');
+    };
+
+    const handleCloseAlertModal = () => {
+        setIsAlertModalOpen(false);
+        setActiveAlertTab('qr');
+        setSubscriptionStatus('idle');
+        setCodeError('');
+        setAlertCodePhone('');
+        setVerificationCode('');
+        setVerificationStep(1);
+    };
+
+    const handleSendVerificationCode = async (e) => {
+        e.preventDefault();
+        const cleanedPhone = alertCodePhone.replace(/\D/g, '');
+        if (!cleanedPhone) return alert("Please enter a valid phone number.");
+        setSendingCode(true);
+        setCodeError('');
+        try {
+            const response = await fetch('http://localhost:3001/api/send-verification-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber: cleanedPhone, propertyId: id })
+            });
+            const result = await response.json();
+            if (response.ok && result.success) {
+                setVerificationStep(2);
+            } else {
+                setCodeError(result.error || 'Failed to send verification code.');
+            }
+        } catch (err) {
+            console.error("Error sending code:", err);
+            setCodeError('Failed to connect to the verification server. Please try again.');
+        } finally {
+            setSendingCode(false);
+        }
+    };
+
+    const handleVerifyCode = async (e) => {
+        e.preventDefault();
+        const cleanedPhone = alertCodePhone.replace(/\D/g, '');
+        if (!verificationCode.trim()) return alert("Please enter the verification code.");
+        setVerifyingCode(true);
+        setCodeError('');
+        try {
+            const response = await fetch('http://localhost:3001/api/verify-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber: cleanedPhone, code: verificationCode, propertyId: id })
+            });
+            const result = await response.json();
+            if (response.ok && result.success) {
+                setSubscriptionStatus('success');
+            } else {
+                setCodeError(result.error || 'Invalid code. Please check and try again.');
+            }
+        } catch (err) {
+            console.error("Error verifying code:", err);
+            setCodeError('Failed to connect to the verification server. Please try again.');
+        } finally {
+            setVerifyingCode(false);
         }
     };
 
@@ -596,6 +702,9 @@ const PropertyDetails = () => {
                         >
                             <h3 className="text-sm font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Quick Actions</h3>
                             <div className="space-y-3">
+                                <button onClick={() => setIsAlertModalOpen(true)} className="w-full bg-green-50 hover:bg-green-100 text-green-700 text-xs font-bold py-2.5 px-4 rounded-lg flex items-center gap-3 transition border border-green-200 shadow-sm active:scale-[0.98]">
+                                    <Bell size={14} className="text-green-600 fill-current" /> Get Price Drop Alerts
+                                </button>
                                 <button onClick={toggleFavorite} className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold py-2.5 px-4 rounded-lg flex items-center gap-3 transition">
                                     <Heart size={14} className={`${isFavorite ? 'text-red-500 fill-current' : 'text-pink-500'} transition-colors`} /> 
                                     {isFavorite ? 'Removed from Favorites' : 'Save to Favorites'}
@@ -637,6 +746,238 @@ const PropertyDetails = () => {
                                 {sendingInquiry ? 'Sending...' : 'Send Message'}
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Alert Modal */}
+            {isAlertModalOpen && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">
+                    <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 w-full max-w-lg border border-gray-100 relative overflow-hidden text-left">
+                        {/* Absolute close button */}
+                        <button 
+                            onClick={handleCloseAlertModal} 
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 p-2 rounded-full transition z-50 border-0 bg-transparent cursor-pointer flex items-center justify-center"
+                            aria-label="Close"
+                        >
+                            <X size={18} />
+                        </button>
+
+                        {/* Elegant background gradients */}
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-full blur-3xl pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-50 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div className="flex items-center justify-between mb-6 pb-3 border-b border-gray-100 relative z-10 pr-8">
+                            <div className="flex items-center gap-3 text-left">
+                                <div className="bg-green-100 p-2.5 rounded-2xl shadow-sm text-green-600">
+                                    <Bell size={20} className="fill-current" />
+                                </div>
+                                <div className="text-left">
+                                    <h3 className="text-xl font-black text-gray-900 tracking-tight m-0">Price Drop Alerts</h3>
+                                    <p className="text-xs text-gray-500 mt-0.5 mb-0">Subscribe to *{property.title}*</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {whatsappStatus === 'fetching' ? (
+                            <div className="py-12 flex flex-col items-center justify-center text-center">
+                                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-600 mb-4"></div>
+                                <p className="text-sm font-semibold text-gray-600">Connecting to WhatsApp Gateway...</p>
+                            </div>
+                        ) : whatsappStatus === 'connected' && whatsappBotNumber ? (
+                            // WhatsApp Flows
+                            <div className="relative z-10 space-y-6">
+                                {/* Tab Selector */}
+                                {subscriptionStatus !== 'success' && (
+                                    <div className="flex bg-gray-100 p-1.5 rounded-2xl border border-gray-200/50">
+                                        <button 
+                                            type="button"
+                                            onClick={() => handleTabChange('qr')}
+                                            className={`flex-1 text-center py-2 px-4 rounded-xl font-bold text-xs md:text-sm transition-all duration-300 border-0 cursor-pointer ${activeAlertTab === 'qr' ? 'bg-white text-green-700 shadow-sm' : 'bg-transparent text-gray-500 hover:text-gray-700'}`}
+                                        >
+                                            📷 Scan QR Code
+                                        </button>
+                                        <button 
+                                            type="button"
+                                            onClick={() => handleTabChange('code')}
+                                            className={`flex-1 text-center py-2 px-4 rounded-xl font-bold text-xs md:text-sm transition-all duration-300 border-0 cursor-pointer ${activeAlertTab === 'code' ? 'bg-white text-green-700 shadow-sm' : 'bg-transparent text-gray-500 hover:text-gray-700'}`}
+                                        >
+                                            💬 Get Code on WhatsApp
+                                        </button>
+                                    </div>
+                                )}
+                                {activeAlertTab === 'qr' ? (
+                                    <div className="space-y-6">
+                                        <p className="text-sm text-gray-600 text-center leading-relaxed">
+                                            Scan the QR code below to subscribe via **WhatsApp**. You will receive an instant alert on your phone whenever the price drops!
+                                        </p>
+
+                                        <div className="flex flex-col items-center justify-center bg-gray-50/50 p-6 rounded-2xl border border-dashed border-gray-200">
+                                            {/* Responsive QR Code Container (visible on all screens) */}
+                                            <div className="bg-white p-4 rounded-2xl shadow-md border border-gray-100 mb-2 transform hover:scale-105 transition-transform duration-300">
+                                                <img 
+                                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(
+                                                        `https://wa.me/${whatsappBotNumber}?text=${encodeURIComponent(`Subscribe to price drop alerts for property ${id}`)}`
+                                                    )}`}
+                                                    alt="WhatsApp Subscription QR Code" 
+                                                    className="w-[180px] h-[180px] block"
+                                                />
+                                            </div>
+                                            
+                                            <p className="text-[10px] text-gray-400 mt-2 text-center">
+                                                Scan with your phone's camera to open WhatsApp automatically
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    // Get Code on WhatsApp Tab Content
+                                    <div className="space-y-5">
+                                        {codeError && (
+                                            <div className="bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl p-3 flex gap-2 items-center text-left">
+                                                <span className="font-bold text-sm">⚠️</span>
+                                                <p className="m-0">{codeError}</p>
+                                            </div>
+                                        )}
+
+                                        {subscriptionStatus !== 'success' && (
+                                            <div className="space-y-4">
+                                                {verificationStep === 1 ? (
+                                                    <form onSubmit={handleSendVerificationCode} className="space-y-4">
+                                                        <p className="text-sm text-gray-600 text-center leading-relaxed">
+                                                            Enter your WhatsApp number. We'll send you a 6-digit verification code to type in here.
+                                                        </p>
+                                                        <div className="space-y-2 text-left">
+                                                            <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">WhatsApp Phone Number</label>
+                                                            <input
+                                                                type="tel"
+                                                                value={alertCodePhone}
+                                                                onChange={(e) => setAlertCodePhone(e.target.value)}
+                                                                placeholder="+94 77 123 4567"
+                                                                className="w-full border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <button
+                                                            type="submit"
+                                                            disabled={sendingCode}
+                                                            className="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold text-sm py-3 rounded-xl shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer border-0"
+                                                        >
+                                                            {sendingCode ? (
+                                                                <>
+                                                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                                                    Sending code...
+                                                                </>
+                                                            ) : (
+                                                                'Send Code to WhatsApp'
+                                                            )}
+                                                        </button>
+                                                    </form>
+                                                ) : (
+                                                    <form onSubmit={handleVerifyCode} className="space-y-4">
+                                                        <div className="bg-green-50 text-green-800 text-xs rounded-xl p-3 flex gap-2 items-center text-left">
+                                                            <span>✅</span>
+                                                            <p className="m-0">Verification code sent to <b>{alertCodePhone}</b> on WhatsApp.</p>
+                                                        </div>
+                                                        
+                                                        <div className="space-y-2 text-left">
+                                                            <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">6-Digit Verification Code</label>
+                                                            <input
+                                                                type="text"
+                                                                value={verificationCode}
+                                                                onChange={(e) => setVerificationCode(e.target.value)}
+                                                                placeholder="123456"
+                                                                maxLength={6}
+                                                                className="w-full text-center tracking-widest font-mono text-lg border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                                                                required
+                                                            />
+                                                        </div>
+                                                        
+                                                        <button
+                                                            type="submit"
+                                                            disabled={verifyingCode}
+                                                            className="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold text-sm py-3 rounded-xl shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer border-0"
+                                                        >
+                                                            {verifyingCode ? (
+                                                                <>
+                                                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                                                    Verifying...
+                                                                </>
+                                                            ) : (
+                                                                'Verify & Subscribe'
+                                                            )}
+                                                        </button>
+
+                                                        <div className="text-center pt-2">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => { setVerificationStep(1); setVerificationCode(''); setCodeError(''); }}
+                                                                className="text-xs font-semibold text-purple-600 hover:text-purple-800 underline transition bg-transparent border-0 cursor-pointer"
+                                                            >
+                                                                Change phone number / Resend code
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {subscriptionStatus === 'success' && (
+                                            <div className="py-8 text-center space-y-4">
+                                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto text-green-600 shadow-md">
+                                                    <span className="text-3xl font-black">✓</span>
+                                                </div>
+                                                <h4 className="text-lg font-bold text-green-800">✅ Subscription Confirmed!</h4>
+                                                <p className="text-sm text-gray-600 max-w-sm mx-auto leading-relaxed">
+                                                    You have successfully subscribed to price drop alerts for <b>{property.title}</b> via WhatsApp!
+                                                </p>
+                                                <button
+                                                    onClick={handleCloseAlertModal}
+                                                    className="bg-gray-900 hover:bg-black text-white text-xs font-bold py-2.5 px-6 rounded-xl transition cursor-pointer border-0"
+                                                >
+                                                    Done
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {subscriptionStatus !== 'success' && (
+                                    <div className="space-y-3 bg-green-50/40 p-4 rounded-xl border border-green-100 text-left">
+                                        <h4 className="text-xs font-bold text-green-800 uppercase tracking-wider m-0">How it works:</h4>
+                                        {activeAlertTab === 'qr' ? (
+                                            <ol className="text-xs text-green-700 space-y-1.5 list-decimal pl-4 leading-normal m-0">
+                                                <li>Scan the QR code to open a pre-filled chat on WhatsApp.</li>
+                                                <li>Send the message to register your phone number.</li>
+                                                <li>You'll get an immediate confirmation message from our system.</li>
+                                            </ol>
+                                        ) : (
+                                            <ol className="text-xs text-green-700 space-y-1.5 list-decimal pl-4 leading-normal m-0">
+                                                <li>Enter your phone number to receive a verification code.</li>
+                                                <li>Check your WhatsApp messages for the 6-digit code from our bot.</li>
+                                                <li>Enter it here to verify and complete subscription.</li>
+                                            </ol>
+                                        )}
+                                    </div>
+                                )}
+
+                            </div>
+                        ) : (
+                            <div className="py-8 text-center space-y-4">
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3 items-start text-xs text-amber-800 text-left">
+                                    <span className="text-amber-500 font-bold text-sm">⚠️</span>
+                                    <div>
+                                        <h4 className="font-bold text-amber-900 m-0 mb-1">WhatsApp Gateway Offline</h4>
+                                        <p className="m-0">The WhatsApp subscription gateway is currently offline. Please try again later.</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={handleCloseAlertModal}
+                                    className="bg-gray-900 hover:bg-black text-white text-xs font-bold py-2.5 px-6 rounded-xl transition cursor-pointer border-0"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
