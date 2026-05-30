@@ -12,9 +12,10 @@
 - Trending property cards on home page
 - Pricing trend chart component
 - Featured & sponsored property flags
+- Property view counter (session-deduplicated via `increment_property_views` RPC)
 
 ### 1.2 Search & Filtering ✅
-- Filter by property type (House, Apartment, etc.)
+- Filter by property type (House, Apartment, Villa, Land, Boarding)
 - Search by location and keywords
 - Price range filtering
 - Sort by various criteria
@@ -32,11 +33,11 @@
 - Persistent across sessions (Supabase-backed)
 
 ### 1.5 User Profile ✅
-- View and manage user profile information
+- View and manage user profile information (`user_profiles` table)
 - Role-aware profile display
 
 ### 1.6 Seller Dashboard ✅
-- Add new property listings (multi-field form)
+- Add new property listings (multi-field form with image upload to Supabase Storage)
 - Manage owned properties (edit, delete, toggle availability)
 - View and respond to buyer inquiries
 - Revenue and payment tracking
@@ -44,12 +45,12 @@
 - Account settings management
 
 ### 1.7 Admin Dashboard ✅
-- Platform-wide statistics overview
-- User management (search, edit roles, block users)
-- Property moderation (approve, reject, remove listings)
+- Platform-wide statistics overview (user count, property count)
+- User management (search, edit roles, block, delete users)
+- Property moderation (review, delete listings + images from storage)
 - Contact message management (read, reply, archive)
 - Content moderation tools
-- Analytics and reporting dashboards
+- Analytics and reporting dashboards (user growth, inquiry trends)
 - Transaction history
 - System settings configuration
 
@@ -66,11 +67,40 @@
 ### 1.10 Reviews & Ratings ✅
 - Users can rate properties (1-5 stars)
 - Written review comments
-- Reviews displayed on property detail pages
+- Reviews displayed on property detail pages with reviewer names (via `user_profiles` lookup)
+- Average rating calculation
 
 ### 1.11 Google Maps Integration ✅
-- Map URL field for properties
-- Location display on property details
+- Map URL field for properties (supports iframe embed code or raw src URL)
+- Interactive Google Maps iframe on property details
+
+### 1.12 Image Upload via Supabase Storage ✅
+- Direct image upload to Supabase Storage bucket (`property-images`)
+- Multiple image upload (up to 5 per property)
+- Primary image designation (first upload)
+- Image management in edit mode (add new, delete existing)
+- Images stored in `property_images` relational table
+
+### 1.13 WhatsApp Price Drop Alerts ✅
+- Dedicated "Price Drop Alerts" info page (`/sms-alerts`)
+- WhatsApp notification backend server (`server.js` on port 3001)
+- Two subscription methods:
+  - **Verification Code**: User enters phone → receives 6-digit OTP via WhatsApp → verifies on website
+  - **Short Code**: Website generates 5-digit code → user sends to bot's WhatsApp number → auto-subscribed
+- Direct WhatsApp subscription via message (e.g., "Subscribe to price drop alerts for property [id]")
+- QR-based WhatsApp authentication (via terminal)
+- Session persistence (`.wwebjs_auth/`)
+- Dual storage: Supabase `price_alerts` table + local JSON file fallback
+- Price drop alert modal integrated into PropertyDetails page
+
+### 1.14 Social Sharing ✅
+- Web Share API integration on property details page
+- Clipboard fallback for unsupported browsers
+- Share property title, description, and URL
+
+### 1.15 In-App Notifications (Schema) ✅
+- `notifications` table created with RLS policies
+- Supports per-user, per-property notifications with read status
 
 ---
 
@@ -83,47 +113,36 @@
 - Save search preferences
 - Search history
 
-### 2.2 Image Management 📋
-- Image upload via Supabase Storage (replace URL-based approach)
-- Image compression and optimisation
-- Multiple image upload with drag-and-drop
-- Virtual tour / 360° photo support
-
-### 2.3 Notifications System 📋
-- In-app notification centre
+### 2.2 Notifications System (Frontend) 📋
+- In-app notification centre (UI — schema already exists)
 - Email notifications for inquiry replies
 - Push notifications (browser / PWA)
 - Notification preferences management
 
-### 2.4 Messaging / Chat 📋
+### 2.3 Messaging / Chat 📋
 - Real-time chat between buyers and sellers
 - Chat history and message threads
 - File/image sharing in chat
 - Online status indicators
 
-### 2.5 Comparison Tool 📋
+### 2.4 Comparison Tool 📋
 - Side-by-side property comparison
 - Compare by price, area, amenities, location
 - Save and share comparisons
 
-### 2.6 Mortgage Calculator 📋
+### 2.5 Mortgage Calculator 📋
 - Built-in mortgage/loan calculator
 - Monthly payment estimates
 - Interest rate comparison
 - Down payment analysis
 
-### 2.7 Appointment/Viewing Scheduler 📋
-- Book property viewings online
+### 2.6 Appointment/Viewing Scheduler 📋
+- Book property viewings online (button placeholder exists)
 - Calendar integration
 - Automated reminders
 - Seller availability management
 
-### 2.8 Social Sharing 📋
-- Share property listings to WhatsApp, Facebook, X/Twitter
-- Generate shareable property links
-- Social media preview cards (Open Graph tags)
-
-### 2.9 Multi-Language Support (i18n) 📋
+### 2.7 Multi-Language Support (i18n) 📋
 - Sinhala and Tamil translations
 - Language switcher in UI
 - RTL layout support if needed
