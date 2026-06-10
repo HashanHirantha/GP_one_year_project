@@ -7,6 +7,9 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 
 dotenv.config();
+console.log("DEBUG ENV - VITE_SUPABASE_URL:", process.env.VITE_SUPABASE_URL);
+console.log("DEBUG ENV - VITE_SUPABASE_ANON_KEY:", process.env.VITE_SUPABASE_ANON_KEY);
+console.log("DEBUG ENV - VITE_SUPABASE_KEY:", process.env.VITE_SUPABASE_KEY);
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL,
@@ -607,3 +610,4 @@ app.listen(PORT, () => {
     console.log(`🚀 Notification Backend Server running on http://localhost:${PORT}`);
     console.log(`Waiting for notification requests...`);
 });
+
