@@ -1,12 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_KEY;
 
 const hasSupabaseConfig = Boolean(supabaseUrl && supabaseKey);
 
 if (!hasSupabaseConfig) {
-  console.warn('Missing Supabase environment variables. Auth features are disabled until VITE_SUPABASE_URL and VITE_SUPABASE_KEY are set.');
+  console.warn('Missing Supabase environment variables. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY (or VITE_SUPABASE_KEY).');
 }
 
 // Use harmless fallbacks so the app can still render public pages without crashing.
