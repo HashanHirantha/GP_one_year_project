@@ -153,52 +153,30 @@ const Home = () => {
             Your trusted platform for Renting, Selling, and Buying properties with verified listings.
           </motion.p>
 
-          <motion.div
+          <motion.button
+            onClick={() => navigate('/properties')}
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            whileHover={{ y: -10, scale: 1.02 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-            className="max-w-4xl mx-auto p-6 drop-shadow-2xl"
+            className="mt-[30px] inline-flex items-center gap-3 bg-[#06cc50] hover:bg-white text-black px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-black/20 hover:shadow-xl transition-all duration-300 transform"
           >
-            {/* Top Row: Search & Button */}
-            <div className="flex flex-col md:flex-row gap-4 mb-4">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="flex-grow rounded-full px-6 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all bg-white shadow-lg"
+            let's start to find your dream property
+            <svg
+              className="w-5 h-5 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.5"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
               />
-              <button className="bg-[#06cc50] hover:bg-white text-black px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-black/20 hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95">
-                Search
-              </button>
-            </div>
-
-            {/* Bottom Row: Filters */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Radius</option>
-                <option value="1">1 km</option>
-                <option value="5">5 km</option>
-                <option value="10">10 km</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Property Type</option>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="villa">Villa</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Max Price</option>
-                <option value="50m">50 M</option>
-                <option value="100m">100 M</option>
-              </select>
-              <select className="rounded-full px-4 py-2.5 text-gray-700 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer transition-colors">
-                <option value="">Max Bedroom</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3+</option>
-              </select>
-            </div>
-          </motion.div>
+            </svg>
+          </motion.button>
         </div>
       </div>
 
