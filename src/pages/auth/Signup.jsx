@@ -161,12 +161,15 @@ const SignupPage = () => {
                     <div>
                         <label className="block text-sm font-bold text-gray-900 mb-1">Phone Number *</label>
                         <input
-                            type="tel"
+                            type="text"                         
                             required
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="e.g. +94 77 123 4567"
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent transition"
+                            onChange={(e) => {
+                            const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                            setPhone(onlyNumbers);
+                            }}
+                        placeholder="e.g. 94771234567"
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#06cc50] focus:border-transparent transition"
                         />
                     </div>
 
