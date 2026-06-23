@@ -4,13 +4,37 @@ import { Bell, Smartphone, TrendingDown, ArrowRight, CheckCircle2 } from 'lucide
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
+import heroImage from '../../assets/images/alerts_header.png';
 
 const SmsAlertsInfo = () => {
     return (
-        <div className="min-h-screen bg-gray-50 font-sans flex flex-col">
+        <div className="min-h-screen bg-gray-50 font-sans flex flex-col text-gray-800">
             <Navbar />
             
-            <main className="flex-grow pt-28 pb-16">
+            {/* Hero Section */}
+            <div className="relative pt-32 pb-16 text-center px-4 mb-6 bg-cover bg-center text-white" style={{ backgroundImage: `url(${heroImage})` }}>
+                <div className="absolute inset-0 bg-black/50 z-0"></div>
+                <div className="relative z-10">
+                    <motion.h1
+                        initial={{ opacity: 0, scale: 0.5, y: 50 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="text-4xl md:text-5xl font-bold mb-4"
+                    >
+                        Smart <span className="text-white">SMS Alerts</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                        className="opacity-90 text-lg font-medium"
+                    >
+                        Never miss a price drop again. Stay updated in real-time.
+                    </motion.p>
+                </div>
+            </div>
+
+            <main className="flex-grow pb-16">
                 <div className="container mx-auto px-4 max-w-6xl">
                     
                     {/* Hero Section */}
