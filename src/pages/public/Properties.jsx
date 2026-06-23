@@ -108,7 +108,7 @@ const Properties = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
       {/* Hero Section */}
-      <div className="relative pt-32 pb-16 text-center px-4 mb-6 bg-cover bg-center text-white" style={{ backgroundImage: `url(${heroImage})` }}>
+      <div className="relative pt-36 pb-20 text-center px-4 mb-6 bg-cover bg-center text-white" style={{ backgroundImage: `url(${heroImage})` }}>
         <div className="absolute inset-0 bg-black/50 z-0"></div>
         <div className="relative z-10">
           <motion.h1

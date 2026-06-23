@@ -50,7 +50,7 @@ const Contact = () => {
       <Navbar />
 
       {/* Header Section */}
-      <div className="relative pt-36 pb-24 text-center px-4 overflow-hidden bg-cover bg-center text-white" style={{ backgroundImage: `url(${contactHeader})` }}>
+      <div className="relative pt-36 pb-20 text-center px-4 overflow-hidden bg-cover bg-center text-white" style={{ backgroundImage: `url(${contactHeader})` }}>
         <div className="absolute inset-0 bg-black/60 z-0"></div>
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">

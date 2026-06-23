@@ -58,10 +58,9 @@ const Favorites = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="relative pt-32 pb-16 text-center px-4 mb-8 bg-cover bg-center text-white" style={{ backgroundImage: `url(${favoritesHeader})` }}>
+      <div className="relative pt-36 pb-20 text-center px-4 mb-8 bg-cover bg-center text-white" style={{ backgroundImage: `url(${favoritesHeader})` }}>
         <div className="absolute inset-0 bg-black/55 z-0"></div>
         <div className="relative z-10 flex flex-col items-center">
-          <Heart className="w-12 h-12 text-red-500 mb-4 animate-pulse fill-red-500" />
           <motion.h1
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}

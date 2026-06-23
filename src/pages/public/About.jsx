@@ -107,8 +107,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      {/* Hero Section */}
-      <div className="relative pt-36 pb-36 text-center px-4 overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }}>
+      <div className="relative pt-36 pb-20 text-center px-4 overflow-hidden bg-cover bg-center text-white" style={{ backgroundImage: `url(${heroImage})` }}>
         <div className="absolute inset-0 bg-black/60 z-0"></div>
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
@@ -122,7 +121,7 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight"
+            className="text-4xl md:text-5xl font-bold mb-4 tracking-tight leading-tight"
           >
             <span className="text-white">About Smart Property Finder</span>
           </motion.h1>
@@ -130,9 +129,9 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="max-w-2xl mx-auto text-lg md:text-xl text-white font-light italic opacity-90 tracking-wide"
+            className="max-w-2xl mx-auto text-lg text-white font-light opacity-90 tracking-wide"
           >
-            We decided to making property searching, buying, and selling easy, secure, and transparent for everyone.
+            We are dedicated to making property searching, buying, and selling easy, secure, and transparent for everyone.
           </motion.p>
         </div>
       </div>
