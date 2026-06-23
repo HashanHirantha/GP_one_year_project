@@ -7,6 +7,7 @@ import { Heart, Loader } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../config/supabase';
 import { Navigate } from 'react-router-dom';
+import favoritesHeader from '../../assets/images/favorites_header.png';
 
 const Favorites = () => {
   const { user, loading: authLoading } = useAuth();
@@ -57,18 +58,19 @@ const Favorites = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="bg-primary text-white pt-32 pb-16 text-center px-4 mb-8 h-64 flex flex-col justify-center relative overflow-hidden">
+      <div className="relative pt-32 pb-16 text-center px-4 mb-8 bg-cover bg-center text-white" style={{ backgroundImage: `url(${favoritesHeader})` }}>
+        <div className="absolute inset-0 bg-black/55 z-0"></div>
         <div className="relative z-10 flex flex-col items-center">
           <Heart className="w-12 h-12 text-red-500 mb-4 animate-pulse fill-red-500" />
           <motion.h1
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-4xl md:text-5xl font-bold font-serif mb-2"
+            className="text-4xl md:text-5xl font-bold font-serif mb-2 text-white"
           >
-            Your <span className="text-accent">Favorites</span>
+            Your <span className="text-white">Favorites</span>
           </motion.h1>
-          <p className="opacity-90 mt-2 text-lg font-light max-w-xl">
+          <p className="opacity-90 mt-2 text-lg font-light max-w-xl text-gray-200">
             All the properties you love, saved in one place.
           </p>
         </div>
