@@ -18,6 +18,7 @@ const Navbar = () => {
   const [whatsappModalOpen, setWhatsappModalOpen] = useState(false);
   const [whatsappStatus, setWhatsappStatus] = useState('initializing');
   const [whatsappQr, setWhatsappQr] = useState(null);
+  const BOT_URL = import.meta.env.VITE_BOT_SERVER_URL || 'http://localhost:3001';
 
   // Request browser Notification permissions on mount
   useEffect(() => {
@@ -41,7 +42,7 @@ const Navbar = () => {
 
     const checkStatus = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/whatsapp-status');
+        const response = await fetch(`${BOT_URL}/api/whatsapp-status`);
         if (response.ok) {
           const data = await response.json();
           setWhatsappStatus(data.status);

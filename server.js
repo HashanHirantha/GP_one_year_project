@@ -13,13 +13,25 @@ console.log("DEBUG ENV - VITE_SUPABASE_KEY:", process.env.VITE_SUPABASE_KEY);
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL,
-    process.env.VITE_SUPABASE_ANON_KEY
+    process.env.VITE_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_KEY
 );
 
 const { Client, LocalAuth } = pkg;
 
-const app = express();
-app.use(cors());
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+    ? process.env.ALLOWED_ORIGINS.split(',') 
+    : ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 let isReady = false;
@@ -42,7 +54,8 @@ const whatsapp = new Client({
         dataPath: './.wwebjs_auth'
     }),
     puppeteer: {
-        executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        // Use default chromium on Linux servers, or specific path on Windows local
+        ...(process.platform === 'win32' ? { executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' } : {}),
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
 });
