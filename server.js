@@ -13,13 +13,27 @@ console.log("DEBUG ENV - VITE_SUPABASE_KEY:", process.env.VITE_SUPABASE_KEY);
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL,
-    process.env.VITE_SUPABASE_ANON_KEY
+    process.env.VITE_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_KEY
 );
 
 const { Client, LocalAuth } = pkg;
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+    ? process.env.ALLOWED_ORIGINS.split(',') 
+    : ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 let isReady = false;
@@ -42,7 +56,8 @@ const whatsapp = new Client({
         dataPath: './.wwebjs_auth'
     }),
     puppeteer: {
-        executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        // Use default chromium on Linux servers, or specific path on Windows local
+        ...(process.platform === 'win32' ? { executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' } : {}),
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
 });
@@ -105,6 +120,8 @@ whatsapp.on('message', async (msg) => {
         }
     } else if (bodyText.startsWith('Subscribe to price drop alerts for property ')) {
         propertyId = bodyText.replace('Subscribe to price drop alerts for property ', '').trim();
+    } else if (bodyText.startsWith('Subscribe to price alerts for property ')) {
+        propertyId = bodyText.replace('Subscribe to price alerts for property ', '').trim();
     }
 
     if (propertyId) {
@@ -182,11 +199,11 @@ whatsapp.on('message', async (msg) => {
             }
             
             if (alreadyExists) {
-                return msg.reply(`🔔 You are already subscribed to price drop alerts for *"${property.title}"*! We will notify you here as soon as the price drops.`);
+                return msg.reply(`🔔 You are already subscribed to price alerts for *"${property.title}"*! We will notify you here as soon as the price changes.`);
             }
 
             if (isSubscribed) {
-                msg.reply(`✅ *Subscription Confirmed!*\n\nYou have successfully subscribed to price drop alerts for *"${property.title}"*.\n\nWe will notify you here the second the price drops!`);
+                msg.reply(`✅ *Subscription Confirmed!*\n\nYou have successfully subscribed to price alerts for *"${property.title}"*.\n\nWe will notify you here the second the price changes!`);
                 console.log(`📱 Subscribed WhatsApp number ${rawPhone} to property "${property.title}"`);
             } else {
                 msg.reply("⚠️ An error occurred while processing your subscription. Please try again later.");
@@ -230,6 +247,36 @@ app.get('/api/whatsapp-status', (req, res) => {
         status: clientStatus,
         qr: latestQrCode
     });
+});
+
+app.post('/api/test-simulate-message', async (req, res) => {
+    const { bodyText, rawPhone } = req.body;
+    if (!bodyText || !rawPhone) {
+        return res.status(400).json({ success: false, error: 'bodyText and rawPhone are required' });
+    }
+    if (/^\d{5}$/.test(bodyText)) {
+        const record = subscriptionCodes.get(bodyText);
+        if (record) {
+            const propertyId = record.propertyId;
+            record.verified = true;
+            record.verifiedPhone = rawPhone;
+            try {
+                await supabase.from('price_alerts').insert([{
+                    property_id: propertyId,
+                    phone_number: rawPhone
+                }]);
+            } catch (err) {
+                let localAlerts = [];
+                if (fs.existsSync('price_alerts.json')) {
+                    localAlerts = JSON.parse(fs.readFileSync('price_alerts.json', 'utf8'));
+                }
+                localAlerts.push({ property_id: propertyId, phone_number: rawPhone, created_at: new Date().toISOString() });
+                fs.writeFileSync('price_alerts.json', JSON.stringify(localAlerts, null, 2));
+            }
+            return res.json({ success: true, message: `Simulated subscription for code ${bodyText}` });
+        }
+    }
+    res.status(400).json({ success: false, error: 'Code not found or invalid' });
 });
 
 const verificationCodes = new Map();
@@ -378,7 +425,7 @@ app.post('/api/send-verification-code', async (req, res) => {
         verificationCodes.set(`${cleaned}_${propertyId}`, { code, expiry });
 
         // Send WhatsApp verification message
-        const messageText = `🔐 *Smart Property Finder Verification Code*\n\nYour code is: *${code}*\n\nEnter this code on the website to subscribe to price drop alerts for *"${property.title}"*. (Valid for 5 mins)`;
+        const messageText = `🔐 *Smart Property Finder Verification Code*\n\nYour code is: *${code}*\n\nEnter this code on the website to subscribe to price alerts for *"${property.title}"*. (Valid for 5 mins)`;
         
         await whatsapp.sendMessage(targetJid, messageText);
         console.log(`✉️ Sent verification code ${code} to ${cleaned} for property ${propertyId}`);
@@ -475,7 +522,7 @@ app.post('/api/verify-code', async (req, res) => {
             const numberId = await whatsapp.getNumberId(whatsappId);
             const targetJid = numberId ? numberId._serialized : whatsappId;
 
-            await whatsapp.sendMessage(targetJid, `✅ *Subscription Confirmed!*\n\nYou have successfully subscribed to price drop alerts for *"${title}"*.\n\nWe will notify you here the second the price drops!`);
+            await whatsapp.sendMessage(targetJid, `✅ *Subscription Confirmed!*\n\nYou have successfully subscribed to price alerts for *"${title}"*.\n\nWe will notify you here the second the price changes!`);
         } catch (msgErr) {
             console.error("Failed to send verification confirmation message:", msgErr);
         }

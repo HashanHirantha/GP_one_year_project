@@ -44,6 +44,41 @@ const StatItem = ({ value, label }) => {
   );
 };
 
+/**
+ * TeamAvatar
+ * Renders the member's photo from /public/team/<photo>.
+ * If the image fails to load (file missing, wrong name, wrong extension),
+ * it gracefully falls back to a colored initials circle instead of a
+ * broken-image icon. Once every photo file exists at the right path,
+ * every card will show the real photo automatically — no other code
+ * changes needed.
+ */
+const TeamAvatar = ({ member, size = 'card' }) => {
+  const [imgError, setImgError] = useState(false);
+  const isLarge = size === 'modal';
+
+  const sizeClasses = isLarge
+    ? 'w-32 h-32 text-5xl border-4 border-white'
+    : 'w-20 h-20 text-2xl';
+
+  if (member.photo && !imgError) {
+    return (
+      <img
+        src={`/team/${member.photo}`}
+        alt={member.name}
+        onError={() => setImgError(true)}
+        className={`${sizeClasses} rounded-full object-cover shadow-lg mb-4`}
+      />
+    );
+  }
+
+  return (
+    <div className={`${sizeClasses} rounded-full ${member.color} flex items-center justify-center text-white font-bold shadow-lg mb-4`}>
+      {member.initials}
+    </div>
+  );
+};
+
 const About = () => {
   const [selectedMember, setSelectedMember] = useState(null);
 
@@ -91,15 +126,19 @@ const About = () => {
     { title: 'Personalized Service', desc: 'Get property recommendations based on your preferences.', icon: <Heart className="w-6 h-6 text-white" />, bg: 'bg-pink-500' },
   ];
 
+  // Single shared color applied to every card's avatar fallback / modal banner,
+  // so the team section reads as one consistent set instead of a rainbow.
+  const teamColor = "bg-gray-200";
+
   const teamMembers = [
-    { name: "V.P Pulasinghe", role: "Project Manager", initials: "VP", color: "bg-green-500", email: "vppulasinghe@smartproperty.com", quote: "Leadership is not just about making decisions; it's about inspiring the team to achieve greatness together." },
-    { name: "W.A.D Ranaweera", role: "Analyst", initials: "DR", color: "bg-teal-500", email: "ranaweera@smartproperty.com", quote: "Data holds the key to the future. Our goal is to unlock its potential for every user." },
-    { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-blue-500", email: "seneviratne@smartproperty.com", quote: "Design is not just what it looks like; it's how it makes people feel." },
-    { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-indigo-500", email: "nisansala@smartproperty.com", quote: "We build interfaces that don't just work, but delight the users at every interaction." },
-    { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-purple-500", email: "nagahawatta@smartproperty.com", quote: "Code is poetry. When written well, it orchestrates beautiful experiences." },
-    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-pink-500", email: "sachinthana@smartproperty.com", quote: "A strong foundation ensures that the platform can scale and perform reliably." },
-    { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-red-500", email: "buddhima@smartproperty.com", quote: "Behind every great user experience is a robust, secure, and blazing fast backend." },
-    { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-orange-500", email: "alwis@smartproperty.com", quote: "Quality is not an act, it is a habit. We ensure every feature is flawless." },
+    { name: "V.P. Pulasinghe", role: "Project Manager", initials: "VP", color: teamColor, photo: "v-p-pulasinghe.png", email: "virandiprabhadili@gmail.com", quote: "Leadership is not just about making decisions; it's about inspiring the team to achieve greatness together.", academicYear: "3rd Year", department: "Department of Scientific Computing", indexNumber: "FC221046" },
+    { name: "W.A.D. Ranaweera", role: "Analyst", initials: "DR", color: teamColor, photo: "w-a-d-ranaweera.jpeg", email: "dulneth204rashmikad@gmail.com", quote: "Data holds the key to the future. Our goal is to unlock its potential for every user.", academicYear: "3rd Year", department: "Department of Scientific Computing", indexNumber: "FC221031" },
+    { name: "G.A.L.H. Seneviratne", role: "Designer", initials: "LS", color: teamColor, photo: "l-h-seneviratne.png", email: "lisarahansali@gmail.com", quote: "Design is not just what it looks like; it's how it makes people feel.", academicYear: "3rd Year", department: "Department of Knowledge Engineering and Communication", indexNumber: "FC222039" },
+    { name: "P.K.A. Nisansala", role: "Front-end Developer", initials: "AN", color: teamColor, photo: "a-nisansala.png", email: "ashikaaanisansala@gmail.com", quote: "We build interfaces that don't just work, but delight the users at every interaction.", academicYear: "3rd Year", department: "Department of Knowledge Engineering and Communication", indexNumber: "FC222013" },
+    { name: "H.H.D. Nagahawatta", role: "Front-end Developer", initials: "HN", color: teamColor, photo: "h-h-nagahawatta.jpeg", email: "hashanhirantha12@gmail.com", quote: "Code is poetry. When written well, it orchestrates beautiful experiences.", academicYear: "3rd Year", department: "Department of Scientific Computing", indexNumber: "FC221004" },
+    { name: "O.P.S. Perera", role: "Database Administrator", initials: "PS", color: teamColor, photo: "o-p-s-perera.png", email: "poornasachinthana2241@gmail.com", quote: "A strong foundation ensures that the platform can scale and perform reliably.", academicYear: "3rd Year", department: "Department of Knowledge Engineering and Communication", indexNumber: "FC222026" },
+    { name: "W.D.P. Buddhima", role: "Back-end Developer", initials: "PB", color: teamColor, photo: "p-buddhima.jpeg", email: "passbudd@gmail.com", quote: "Behind every great user experience is a robust, secure, and blazing fast backend.", academicYear: "3rd Year", department: "Department of Knowledge Engineering and Communication", indexNumber: "FC222048" },
+    { name: "P.P.D. Alwis", role: "Tester", initials: "PA", color: teamColor, photo: "p-d-alwis.jpeg", email: "pesadaalwis7@gmail.com", quote: "Quality is not an act, it is a habit. We ensure every feature is flawless.", academicYear: "3rd Year", department: "Department of Scientific Computing", indexNumber: "FC221017" },
   ];
 
   return (
@@ -269,11 +308,14 @@ const About = () => {
                 onClick={() => setSelectedMember(member)}
                 className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center cursor-pointer"
               >
-                <div className={`w-20 h-20 rounded-full ${member.color} flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg`}>
-                  {member.initials}
-                </div>
+                <TeamAvatar member={member} size="card" />
                 <h3 className="font-bold text-gray-900 mb-1 text-sm">{member.name}</h3>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">{member.role}</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-3">{member.role}</p>
+                <div className="w-full pt-3 border-t border-gray-100 space-y-1">
+                  <p className="text-[11px] text-gray-500">{member.department}</p>
+                  <p className="text-[11px] text-gray-500">{member.academicYear}</p>
+                  <p className="text-[11px] font-medium text-gray-700">{member.indexNumber}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -312,9 +354,7 @@ const About = () => {
               <div className={`h-32 ${selectedMember.color} w-full`} />
 
               <div className="px-8 pb-8 flex flex-col items-center -mt-16">
-                <div className={`w-32 h-32 rounded-full ${selectedMember.color} border-4 border-white flex items-center justify-center text-white text-5xl font-bold shadow-lg mb-4`}>
-                  {selectedMember.initials}
-                </div>
+                <TeamAvatar member={selectedMember} size="modal" />
 
                 <h3 className="text-2xl font-bold text-gray-900 mb-1">{selectedMember.name}</h3>
                 <p className="text-sm text-blue-600 font-semibold uppercase tracking-wider mb-5">{selectedMember.role}</p>
@@ -326,9 +366,24 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="w-full flex items-center justify-center space-x-3 py-3 bg-gray-100 rounded-lg text-gray-700 border border-gray-200">
+                <div className="w-full flex items-center justify-center space-x-3 py-3 bg-gray-100 rounded-lg text-gray-700 border border-gray-200 mb-5">
                   <MessageSquare className="w-4 h-4 text-gray-500" />
                   <span className="text-sm font-medium">{selectedMember.email}</span>
+                </div>
+
+                <div className="w-full grid grid-cols-1 gap-2 text-sm">
+                  <div className="flex justify-between border-b border-gray-100 py-2">
+                    <span className="text-gray-500">Department</span>
+                    <span className="text-gray-900 font-medium">{selectedMember.department}</span>
+                  </div>
+                  <div className="flex justify-between border-b border-gray-100 py-2">
+                    <span className="text-gray-500">Academic year</span>
+                    <span className="text-gray-900 font-medium">{selectedMember.academicYear}</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-500">Index number</span>
+                    <span className="text-gray-900 font-medium">{selectedMember.indexNumber}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>

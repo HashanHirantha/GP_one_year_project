@@ -48,6 +48,42 @@ const SignupPage = () => {
         setLoading(false);
     };
 
+    const handleGoogleSignup = async () => {
+        setLoading(true);
+        setError(null);
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                data: {
+                    role: role,
+                },
+                redirectTo: `${window.location.origin}/`
+            }
+        });
+        if (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
+    const handleFacebookSignup = async () => {
+        setLoading(true);
+        setError(null);
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'facebook',
+            options: {
+                data: {
+                    role: role,
+                },
+                redirectTo: `${window.location.origin}/`
+            }
+        });
+        if (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
     return (
         // Main container with the purple gradient background
         <div className="min-h-screen flex items-center justify-center p-4 pt-32 bg-gray-100">
@@ -62,14 +98,24 @@ const SignupPage = () => {
 
                 {/* Social Login Buttons */}
                 <div className="flex gap-4 mb-6">
-                    <button className="flex-1 flex items-center justify-center gap-2 py-2 border border-blue-600 rounded-full text-gray-700 hover:bg-blue-50 transition">
+                    <button 
+                        type="button"
+                        onClick={handleFacebookSignup}
+                        disabled={loading}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 border border-blue-600 rounded-full text-gray-700 hover:bg-blue-50 transition disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
                         {/* Facebook Logo SVG */}
                         <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                         </svg>
                         <span className="font-semibold text-sm">facebook</span>
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 py-2 border border-red-500 rounded-full text-gray-700 hover:bg-red-50 transition">
+                    <button 
+                        type="button"
+                        onClick={handleGoogleSignup}
+                        disabled={loading}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 border border-red-500 rounded-full text-gray-700 hover:bg-red-50 transition disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
                         {/* Google Logo SVG */}
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="#EA4335" d="M12 5.04c1.91 0 3.63.66 4.99 1.74l3.73-3.73C18.27 1.19 15.33 0 12 0 7.39 0 3.39 2.77 1.47 6.82l4.34 2.17C7.11 6.45 9.36 5.04 12 5.04z" />

@@ -140,7 +140,7 @@ const Home = () => {
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
+            className="text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight"
           >
             Find Your Dream <span className="text-white">Property</span>
           </motion.h1>
@@ -272,7 +272,7 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-white rounded-3xl h-[400px] flex items-end justify-between p-8 pt-16 border border-gray-100 shadow-2xl relative overflow-hidden"
+            className="bg-white rounded-3xl h-[400px] flex items-end justify-between p-4 pt-16 md:p-8 border border-gray-100 shadow-2xl relative overflow-hidden"
           >
             <div className="absolute top-6 left-6 flex items-center gap-2 text-black border-b border-gray-100 pb-2 w-[calc(100%-3rem)]">
               <TrendingUp className="w-5 h-5 text-[#06cc50]" />
@@ -297,7 +297,7 @@ const Home = () => {
                     </motion.div>
                   </motion.div>
                 </div>
-                <p className="font-semibold text-gray-600 text-sm">{data.city}</p>
+                <p className="font-semibold text-gray-600 text-xs md:text-sm">{data.city}</p>
               </div>
             ))}
           </motion.div>

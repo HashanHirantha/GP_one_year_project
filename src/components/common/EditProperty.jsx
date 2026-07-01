@@ -8,6 +8,7 @@ const EditProperty = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user, role } = useAuth();
+    const BOT_URL = import.meta.env.VITE_BOT_SERVER_URL || 'http://localhost:3001';
     
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
@@ -203,8 +204,17 @@ const EditProperty = () => {
             } else {
                 let successMsg = 'Property updated successfully!';
                 
-                // Check for price drop and send alerts
-                if (priceValue < originalPrice && priceValue > 0) {
+                // Check for price changes and send alerts
+                if (priceValue !== originalPrice && priceValue > 0 && originalPrice > 0) {
+                    const isDrop = priceValue < originalPrice;
+                    const alertTitle = isDrop ? 'Price Drop Alert!' : 'Price Increase Alert!';
+                    const alertMessage = isDrop 
+                        ? `The price of "${formData.title}" has dropped to Rs. ${priceValue}.`
+                        : `The price of "${formData.title}" has increased to Rs. ${priceValue}.`;
+                    const whatsappMessage = isDrop
+                        ? `Price Drop Alert! ${formData.title} dropped to Rs. ${priceValue}.`
+                        : `Price Increase Alert! ${formData.title} increased to Rs. ${priceValue}.`;
+
                     // Create in-app notifications for users who favorited this property
                     try {
                         let favoriteUsers = [];
@@ -221,8 +231,8 @@ const EditProperty = () => {
                             const notificationsToInsert = favoriteUsers.map(userId => ({
                                 user_id: userId,
                                 property_id: id,
-                                title: 'Price Drop Alert!',
-                                message: `The price of "${formData.title}" has dropped to Rs. ${priceValue}.`,
+                                title: alertTitle,
+                                message: alertMessage,
                                 is_read: false
                             }));
                             await supabase.from('notifications').insert(notificationsToInsert);
@@ -237,8 +247,8 @@ const EditProperty = () => {
                         localNotifications.push({
                             id: Math.random().toString(),
                             property_id: id,
-                            title: 'Price Drop Alert!',
-                            message: `The price of "${formData.title}" has dropped to Rs. ${priceValue}.`,
+                            title: alertTitle,
+                            message: alertMessage,
                             is_read: false,
                             created_at: new Date().toISOString()
                         });
@@ -252,7 +262,7 @@ const EditProperty = () => {
                         
                         // 1. Try backend API first (supports unified local file + database storage)
                         try {
-                            const response = await fetch(`http://localhost:3001/api/price-alerts/${id}`);
+                            const response = await fetch(`${BOT_URL}/api/price-alerts/${id}`);
                             const result = await response.json();
                             if (result.success) {
                                 alertsList = result.alerts;
@@ -283,7 +293,7 @@ const EditProperty = () => {
                             const initialNotifications = alertsList.map(phone => ({
                                 id: Math.random(),
                                 phone: phone,
-                                message: `Price Drop Alert! ${formData.title} dropped to Rs. ${priceValue}.`,
+                                message: whatsappMessage,
                                 status: 'sending',
                                 errorMsg: ''
                             }));
@@ -294,7 +304,7 @@ const EditProperty = () => {
 
                             for (const notification of initialNotifications) {
                                 try {
-                                    const response = await fetch('http://localhost:3001/api/send-sms', {
+                                    const response = await fetch(`${BOT_URL}/api/send-sms`, {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
