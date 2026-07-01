@@ -32,7 +32,8 @@ const PropertyDetails = () => {
     const [whatsappStatus, setWhatsappStatus] = useState('fetching'); // fetching, initializing, scan_required, connected, disconnected, offline
     const [whatsappBotNumber, setWhatsappBotNumber] = useState(null);
     const [whatsappQr, setWhatsappQr] = useState(null);
-    const [activeAlertTab, setActiveAlertTab] = useState('qr'); // 'qr' or 'code'
+    // const [activeAlertTab, setActiveAlertTab] = useState('qr'); // 'qr' or 'code'
+    const [activeAlertTab, setActiveAlertTab] = useState('code'); // Defaulting to 'code' as 'qr' is commented out
     const [subscriptionStatus, setSubscriptionStatus] = useState('idle'); // idle, success, error
     const [codeError, setCodeError] = useState('');
     const [alertCodePhone, setAlertCodePhone] = useState('');
@@ -40,6 +41,7 @@ const PropertyDetails = () => {
     const [verificationStep, setVerificationStep] = useState(1); // 1: input phone, 2: input OTP code
     const [sendingCode, setSendingCode] = useState(false);
     const [verifyingCode, setVerifyingCode] = useState(false);
+    const [qrSubscriptionCode, setQrSubscriptionCode] = useState(null);
 
     const BOT_URL = import.meta.env.VITE_BOT_SERVER_URL || 'http://localhost:3001';
 
@@ -58,6 +60,35 @@ const PropertyDetails = () => {
         const interval = setInterval(fetchWhatsappInfo, 3000);
         return () => clearInterval(interval);
     }, [isAlertModalOpen]);
+
+    /*
+    // Request QR subscription code when connected and QR tab is active
+    useEffect(() => {
+        if (isAlertModalOpen && whatsappStatus === 'connected' && activeAlertTab === 'qr' && !qrSubscriptionCode) {
+            fetchQRSubscriptionCode();
+        }
+    }, [isAlertModalOpen, whatsappStatus, activeAlertTab, qrSubscriptionCode]);
+
+    // Poll for QR subscription verification
+    useEffect(() => {
+        if (!isAlertModalOpen || activeAlertTab !== 'qr' || !qrSubscriptionCode || subscriptionStatus === 'success') return;
+
+        const checkSubscription = async () => {
+            try {
+                const response = await fetch(`${BOT_URL}/api/check-subscription-code/${qrSubscriptionCode}`);
+                const result = await response.json();
+                if (response.ok && result.success && result.verified) {
+                    setSubscriptionStatus('success');
+                }
+            } catch (err) {
+                console.error("Error checking QR subscription status:", err);
+            }
+        };
+
+        const interval = setInterval(checkSubscription, 2000);
+        return () => clearInterval(interval);
+    }, [isAlertModalOpen, activeAlertTab, qrSubscriptionCode, subscriptionStatus]);
+    */
 
     const incrementViews = async () => {
         // Prevent double counting in React Strict Mode and stop spamming on refresh
@@ -287,6 +318,24 @@ const PropertyDetails = () => {
         }
     };
 
+    /*
+    const fetchQRSubscriptionCode = async () => {
+        try {
+            const response = await fetch(`${BOT_URL}/api/request-subscription-code`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ propertyId: id })
+            });
+            const result = await response.json();
+            if (response.ok && result.success) {
+                setQrSubscriptionCode(result.code);
+            }
+        } catch (err) {
+            console.error("Error fetching QR subscription code:", err);
+        }
+    };
+    */
+
     const handleTabChange = (tab) => {
         setActiveAlertTab(tab);
         setCodeError('');
@@ -294,16 +343,19 @@ const PropertyDetails = () => {
         setVerificationCode('');
         setVerificationStep(1);
         setSubscriptionStatus('idle');
+        setQrSubscriptionCode(null); // Reset when switching tabs
     };
 
     const handleCloseAlertModal = () => {
         setIsAlertModalOpen(false);
-        setActiveAlertTab('qr');
+        // setActiveAlertTab('qr');
+        setActiveAlertTab('code');
         setSubscriptionStatus('idle');
         setCodeError('');
         setAlertCodePhone('');
         setVerificationCode('');
         setVerificationStep(1);
+        setQrSubscriptionCode(null); // Clear QR code subscription
     };
 
     const handleSendVerificationCode = async (e) => {
@@ -840,35 +892,47 @@ const PropertyDetails = () => {
 
                                     {/* Subscriptions Tabs - Already implemented in current code */}
                                     <div className="flex bg-gray-100 p-1.5 rounded-2xl border border-gray-200/50">
-                                        {['qr', 'code', 'direct'].map((tab) => (
+                                        {[/* 'qr', */ 'code', 'direct'].map((tab) => (
                                             <button 
                                                 key={tab}
                                                 type="button"
                                                 onClick={() => handleTabChange(tab)}
                                                 className={`flex-1 text-center py-2 px-2 rounded-xl font-bold text-[11px] md:text-xs transition-all duration-300 border-0 cursor-pointer ${activeAlertTab === tab ? 'bg-white text-green-700 shadow-sm' : 'bg-transparent text-gray-500 hover:text-gray-700'}`}
                                             >
-                                                {tab === 'qr' ? '📷 Scan QR' : tab === 'code' ? '💬 Verify' : '📱 Quick'}
+                                                {/* tab === 'qr' ? '📷 Scan QR' : */ tab === 'code' ? '💬 Verify' : '📱 Quick'}
                                             </button>
                                         ))}
                                     </div>
 
                                     {/* Tabs content mapping here - using existing logic from file */}
-                                    {activeAlertTab === 'qr' && (
+                                    {/* {activeAlertTab === 'qr' && (
                                         <div className="space-y-4">
                                             <p className="text-sm text-gray-600 text-center leading-relaxed m-0">
                                                 Scan the QR with your camera. It opens WhatsApp with a pre-filled message — just tap <b>Send</b> to subscribe!
                                             </p>
                                             <div className="flex flex-col items-center justify-center bg-gray-50/80 p-5 rounded-2xl border border-dashed border-gray-200">
-                                                <div className="bg-white p-3 rounded-2xl shadow-md border border-gray-100 mb-2 transform hover:scale-105 transition-transform">
-                                                    <img 
-                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`https://wa.me/${whatsappStatus === 'connected' ? whatsappBotNumber : '94769700721'}?text=${encodeURIComponent(`Subscribe to price alerts for property ${id}`)}`)}`}
-                                                        alt="WhatsApp QR Code" 
-                                                        className="w-[160px] h-[160px] block"
-                                                    />
-                                                </div>
+                                                {qrSubscriptionCode ? (
+                                                    <>
+                                                        <div className="bg-white p-3 rounded-2xl shadow-md border border-gray-100 mb-2 transform hover:scale-105 transition-transform">
+                                                            <img 
+                                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`https://wa.me/${whatsappBotNumber || '94769700721'}?text=${qrSubscriptionCode}`)}`}
+                                                                alt="WhatsApp QR Code" 
+                                                                className="w-[160px] h-[160px] block"
+                                                            />
+                                                        </div>
+                                                        <p className="text-xs text-gray-500 mt-2 font-medium">
+                                                            Verification Code: <span className="font-mono bg-gray-200 px-2 py-0.5 rounded text-gray-800 font-bold">{qrSubscriptionCode}</span>
+                                                        </p>
+                                                    </>
+                                                ) : (
+                                                    <div className="w-[160px] h-[160px] flex flex-col items-center justify-center">
+                                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mb-2"></div>
+                                                        <p className="text-[10px] text-gray-400 font-semibold">Generating QR...</p>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
-                                    )}
+                                    )} */}
 
                                     {activeAlertTab === 'code' && (
                                         <div className="space-y-4">

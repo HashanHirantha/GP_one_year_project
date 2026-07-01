@@ -249,6 +249,36 @@ app.get('/api/whatsapp-status', (req, res) => {
     });
 });
 
+app.post('/api/test-simulate-message', async (req, res) => {
+    const { bodyText, rawPhone } = req.body;
+    if (!bodyText || !rawPhone) {
+        return res.status(400).json({ success: false, error: 'bodyText and rawPhone are required' });
+    }
+    if (/^\d{5}$/.test(bodyText)) {
+        const record = subscriptionCodes.get(bodyText);
+        if (record) {
+            const propertyId = record.propertyId;
+            record.verified = true;
+            record.verifiedPhone = rawPhone;
+            try {
+                await supabase.from('price_alerts').insert([{
+                    property_id: propertyId,
+                    phone_number: rawPhone
+                }]);
+            } catch (err) {
+                let localAlerts = [];
+                if (fs.existsSync('price_alerts.json')) {
+                    localAlerts = JSON.parse(fs.readFileSync('price_alerts.json', 'utf8'));
+                }
+                localAlerts.push({ property_id: propertyId, phone_number: rawPhone, created_at: new Date().toISOString() });
+                fs.writeFileSync('price_alerts.json', JSON.stringify(localAlerts, null, 2));
+            }
+            return res.json({ success: true, message: `Simulated subscription for code ${bodyText}` });
+        }
+    }
+    res.status(400).json({ success: false, error: 'Code not found or invalid' });
+});
+
 const verificationCodes = new Map();
 const subscriptionCodes = new Map();
 
