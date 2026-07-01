@@ -97,7 +97,7 @@ const About = () => {
     { name: "L.H Seneviratne", role: "Designer", initials: "LS", color: "bg-blue-500", email: "seneviratne@smartproperty.com", quote: "Design is not just what it looks like; it's how it makes people feel." },
     { name: "A. Nisansala", role: "Front-end Developer", initials: "AN", color: "bg-indigo-500", email: "nisansala@smartproperty.com", quote: "We build interfaces that don't just work, but delight the users at every interaction." },
     { name: "H.H Nagahawatta", role: "Front-end Developer", initials: "HN", color: "bg-purple-500", email: "nagahawatta@smartproperty.com", quote: "Code is poetry. When written well, it orchestrates beautiful experiences." },
-    { name: "P. Sachinthana", role: "Database Administrator", initials: "PS", color: "bg-pink-500", email: "sachinthana@smartproperty.com", quote: "A strong foundation ensures that the platform can scale and perform reliably." },
+    { name: "O.P.S.Perera", role: "Database Administrator", initials: "PS", color: "bg-pink-500", email: "sachinthana@smartproperty.com", quote: "A strong foundation ensures that the platform can scale and perform reliably." },
     { name: "P. Buddhima", role: "Back-end Developer", initials: "PB", color: "bg-red-500", email: "buddhima@smartproperty.com", quote: "Behind every great user experience is a robust, secure, and blazing fast backend." },
     { name: "P.D Alwis", role: "Tester", initials: "PA", color: "bg-orange-500", email: "alwis@smartproperty.com", quote: "Quality is not an act, it is a habit. We ensure every feature is flawless." },
   ];

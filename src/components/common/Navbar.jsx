@@ -198,13 +198,13 @@ const Navbar = () => {
           <div className="group-hover:scale-110 transition-transform duration-300">
             <LogoIcon className="w-12 h-12" />
           </div>
-          <span className="text-3xl font-bold tracking-tight font-sans">
+          <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight font-sans">
             Smart<span className="text-[#06cc50]">Property</span>Finder
           </span>
         </Link>
 
         {/* Centered Desktop Menu */}
-        <div className="hidden lg:flex items-center justify-center gap-8 flex-1 px-4">
+        <div className="hidden md:flex items-center justify-center gap-8 flex-1 px-4">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -390,7 +390,7 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 overflow-hidden"
           >
-            <div className="p-6 space-y-4 flex flex-col items-center">
+            <div className="p-6 space-y-4 flex flex-col items-center max-h-[calc(100vh-80px)] overflow-y-auto">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
