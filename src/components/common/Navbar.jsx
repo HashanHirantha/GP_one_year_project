@@ -498,7 +498,7 @@ const Navbar = () => {
                       WhatsApp Gateway is Active!
                     </p>
                     <p className="text-[11px] text-gray-400 max-w-xs mx-auto leading-relaxed">
-                      Subscribers will receive price drop notifications automatically and instantly on their WhatsApp numbers.
+                      Subscribers will receive price notifications automatically and instantly on their WhatsApp numbers.
                     </p>
                   </div>
                 ) : whatsappStatus === 'offline' ? (

@@ -21,7 +21,7 @@ const SmsAlertsInfo = () => {
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         className="text-4xl md:text-5xl font-bold mb-4"
                     >
-                        Smart <span className="text-white">Price Drop Alerts</span>
+                        Smart <span className="text-white">Price Alerts</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -29,7 +29,7 @@ const SmsAlertsInfo = () => {
                         transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                         className="opacity-90 text-lg font-medium"
                     >
-                        Never miss a price drop again. Get notified instantly via WhatsApp.
+                        Never miss a price change again. Get notified instantly via WhatsApp.
                     </motion.p>
                 </div>
             </div>
@@ -49,10 +49,10 @@ const SmsAlertsInfo = () => {
                                     <Bell size={16} /> New Innovation Feature
                                 </div>
                                 <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-                                    Never Miss a <span className="text-[#06cc50]">Price Drop</span> Again
+                                    Never Miss a <span className="text-[#06cc50]">Price Change</span> Again
                                 </h1>
                                 <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                                    Our Smart Alerts keep you informed instantly. Subscribe to any property with just your phone number and get a WhatsApp notification the second the price goes down.
+                                    Our Smart Alerts keep you informed instantly. Subscribe to any property with just your phone number and get a WhatsApp notification the second the price changes.
                                 </p>
                                 <Link to="/properties" className="inline-flex items-center gap-2 bg-[#06cc50] hover:bg-[#05b346] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-green-500/30 transition-transform transform hover:-translate-y-1">
                                     Try It Now <ArrowRight size={20} />
@@ -77,8 +77,8 @@ const SmsAlertsInfo = () => {
                                                 <TrendingDown size={16} className="text-green-600" />
                                             </div>
                                             <div>
-                                                <div className="font-bold text-gray-800 text-sm">Price Drop Alert!</div>
-                                                <div className="text-xs text-gray-500 mt-1 leading-tight">Luxury Villa in Colombo has dropped to Rs. 45,000,000.</div>
+                                                <div className="font-bold text-gray-800 text-sm">Price Alert!</div>
+                                                <div className="text-xs text-gray-500 mt-1 leading-tight">Luxury Villa in Colombo has changed to Rs. 45,000,000.</div>
                                                 <div className="text-[10px] text-gray-400 mt-2">Just now</div>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@ const SmsAlertsInfo = () => {
                                 <span className="text-2xl font-extrabold">2</span>
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 mb-3">Enter Your Number</h3>
-                            <p className="text-gray-600">Click "Get Price Drop Alerts" on the property page and enter your WhatsApp phone number to subscribe instantly.</p>
+                            <p className="text-gray-600">Click "Get Price Alerts" on the property page and enter your WhatsApp phone number to subscribe instantly.</p>
                         </motion.div>
 
                         <motion.div 
@@ -134,7 +134,7 @@ const SmsAlertsInfo = () => {
                                 <span className="text-2xl font-extrabold">3</span>
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 mb-3">Get Notified on WhatsApp</h3>
-                            <p className="text-gray-600">When the property price drops, you'll get an instant WhatsApp message with the great news — no app needed!</p>
+                            <p className="text-gray-600">When the property price changes (drops or increases), you'll get an instant WhatsApp message with the updates!</p>
                         </motion.div>
                     </div>
 

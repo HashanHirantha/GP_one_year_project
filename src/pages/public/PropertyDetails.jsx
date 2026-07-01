@@ -313,7 +313,7 @@ const PropertyDetails = () => {
         setSendingCode(true);
         setCodeError('');
         try {
-            const response = await fetch('http://localhost:3001/api/send-verification-code', {
+            const response = await fetch(`${BOT_URL}/api/send-verification-code`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: cleanedPhone, propertyId: id })
@@ -339,7 +339,7 @@ const PropertyDetails = () => {
         setVerifyingCode(true);
         setCodeError('');
         try {
-            const response = await fetch('http://localhost:3001/api/verify-code', {
+            const response = await fetch(`${BOT_URL}/api/verify-code`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: cleanedPhone, code: verificationCode, propertyId: id })
@@ -728,7 +728,7 @@ const PropertyDetails = () => {
                             <h3 className="text-sm font-bold text-gray-900 mb-4 border-b border-gray-100 pb-3">Quick Actions</h3>
                             <div className="space-y-3">
                                 <button onClick={() => setIsAlertModalOpen(true)} className="w-full bg-green-50 hover:bg-green-100 text-green-700 text-xs font-bold py-2.5 px-4 rounded-lg flex items-center gap-3 transition border border-green-200 shadow-sm active:scale-[0.98]">
-                                    <Bell size={14} className="text-green-600 fill-current" /> Get Price Drop Alerts
+                                    <Bell size={14} className="text-green-600 fill-current" /> Get Price Alerts
                                 </button>
                                 <button onClick={toggleFavorite} className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold py-2.5 px-4 rounded-lg flex items-center gap-3 transition">
                                     <Heart size={14} className={`${isFavorite ? 'text-red-500 fill-current' : 'text-pink-500'} transition-colors`} /> 
@@ -792,7 +792,7 @@ const PropertyDetails = () => {
                                         <Bell className="text-green-600 w-6 h-6" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-black text-gray-900 tracking-tight m-0">Price Drop Alerts</h3>
+                                        <h3 className="text-xl font-black text-gray-900 tracking-tight m-0">Price Alerts</h3>
                                         <p className="text-[11px] text-gray-500 font-bold uppercase tracking-widest m-0 mt-0.5">Via Smart WhatsApp Gateway</p>
                                     </div>
                                 </div>
@@ -817,7 +817,7 @@ const PropertyDetails = () => {
                                     </div>
                                     <h4 className="text-lg font-bold text-green-800">✅ Subscription Confirmed!</h4>
                                     <p className="text-sm text-gray-600 max-w-sm mx-auto leading-relaxed">
-                                        You have successfully subscribed to price drop alerts for <b>{property.title}</b>!
+                                        You have successfully subscribed to price alerts for <b>{property.title}</b>!
                                         {whatsappStatus === 'connected' 
                                             ? ' You will receive notifications directly on WhatsApp.'
                                             : ' You will receive WhatsApp notifications once the gateway is active.'}
@@ -861,7 +861,7 @@ const PropertyDetails = () => {
                                             <div className="flex flex-col items-center justify-center bg-gray-50/80 p-5 rounded-2xl border border-dashed border-gray-200">
                                                 <div className="bg-white p-3 rounded-2xl shadow-md border border-gray-100 mb-2 transform hover:scale-105 transition-transform">
                                                     <img 
-                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`https://wa.me/${whatsappStatus === 'connected' ? whatsappBotNumber : '94769700721'}?text=${encodeURIComponent(`Subscribe to price drop alerts for property ${id}`)}`)}`}
+                                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(`https://wa.me/${whatsappStatus === 'connected' ? whatsappBotNumber : '94769700721'}?text=${encodeURIComponent(`Subscribe to price alerts for property ${id}`)}`)}`}
                                                         alt="WhatsApp QR Code" 
                                                         className="w-[160px] h-[160px] block"
                                                     />
@@ -928,7 +928,7 @@ const PropertyDetails = () => {
                                                 }
                                                 setSendingCode(true);
                                                 try {
-                                                    const res = await fetch('http://localhost:3001/api/subscribe-alert', {
+                                                    const res = await fetch(`${BOT_URL}/api/subscribe-alert`, {
                                                         method: 'POST',
                                                         headers: { 'Content-Type': 'application/json' },
                                                         body: JSON.stringify({ propertyId: id, phoneNumber: cleanedPhone })
@@ -1070,7 +1070,7 @@ const PropertyDetails = () => {
                                                 <button type="submit" disabled={sendingCode} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg transition active:scale-95 disabled:opacity-50 border-0 cursor-pointer">
                                                     {sendingCode ? 'Subscribing...' : '🔔 Save Subscription & Notify Me Later'}
                                                 </button>
-                                                <p className="text-[10px] text-gray-400 text-center m-0">We'll notify you as soon as the price drops and the gateway is active.</p>
+                                                <p className="text-[10px] text-gray-400 text-center m-0">We'll notify you as soon as the price changes and the gateway is active.</p>
                                             </form>
                                         </div>
                                     )}
