@@ -69,10 +69,10 @@ const DashboardLayout = ({ role = 'admin', children }) => {
           </div>
         </nav>
       </aside>
-
+ 
       <main className="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
         <header className="bg-white shadow-sm px-8 py-5 flex justify-between items-center z-10 border-b border-gray-200">
-          <h2 className="text-gray-800 font-bold text-2xl capitalize text-primary">{activeItem.label}</h2>
+          <h2 className="text-[var(--primary-color)] font-bold text-2xl capitalize">{activeItem.label}</h2>
           <Link to="/profile" className="flex items-center gap-4 hover:bg-gray-50 p-2 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-gray-200">
             <div className="flex flex-col items-end mr-2">
               <span className="text-sm font-bold text-gray-800">{user?.user_metadata?.full_name || (role === 'admin' ? 'Administrator' : 'Property Seller')}</span>
